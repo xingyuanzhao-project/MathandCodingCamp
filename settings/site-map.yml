@@ -1,0 +1,81 @@
+# The manager controls the displayed hierarchy here.
+# A leaf may be:
+# - "Visible label": "a contributor page filename, a static filename, or an existing URL"
+# - Visible text with no link
+
+Day 1:
+  Morning Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Preliminaries: "day-1-preliminaries.html"
+    - Differentiation 1: "day-1-differentiation-1.html"
+    - Probability 1: "day-1-probability.html"
+  Afternoon Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Probability 2: "day-1-probability.html"
+    - Differentiation 2: "day-1-differentiation-2.html"
+    - Distributions 1: "day-1-distributions.html"
+
+Day 2:
+  Morning Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Algebra Review: "day-2-algebra.html"
+    - Functions and Relations 1: "day-2-functions-1.html"
+    - Vector and Matrices 1: "day-2-vectors-matrices-1.html"
+  Afternoon Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Vector and Matrices 2: "day-2-vectors-matrices-2.html"
+    - Distributions 2: "day-2-distributions.html"
+    - Functions and Relations 2: "day-2-functions-2.html"
+
+Day 3:
+  Morning Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Introduction to R and RStudio: "day-3-introduction-to-r.html"
+    - Basic R Syntax & Data Types: "day-3-r-syntax-data-types.html"
+    - Data Structures: "day-3-data-structures.html"
+  Afternoon Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Importing and Exporting Data: "day-3-importing-exporting-data.html"
+    - Data Manipulation: "day-3-data-manipulation.html"
+    - Data Visualization with Basic R: "day-3-base-r-visualization.html"
+
+Day 4:
+  Morning Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - R Data Visualization using ggplot2: "day-4-ggplot2.html"
+    - Advanced data manipulation with dplyr: "day-4-dplyr.html"
+    - Linear Regression: "day-4-linear-regression.html"
+  Afternoon Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Multiple Linear Regression: "day-4-multiple-linear-regression.html"
+    - Regression Diagnostics and Model Evaluation: "day-4-regression-diagnostics.html"
+    - Quarto and LaTeX: "day-4-quarto-latex.html"
+
+Day 5:
+  Morning Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Reviews and Preparation for Presentation
+  Afternoon Session:
+    - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
+    - Project Presentations
+
+Data Files for Download:
+  - Air Quality Data (CSV): "air-quality.csv"
+  - Electric Vehicle Population Data (Excel): "electric-vehicle-population.xlsx"
+  - US Life Expectancy Data (CSV): "us-life-expectancy.csv"
+
+Group Presentations:
+  - Group Sign Up: "mailto:utdeppsmcc@gmail.com?subject=Group Sign Up&body=Please indicate your group members here."
+  - Upload Group 1 Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group 1 Presentation&body=Please attach your presentation file."
+  - Upload Group 2 Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group 2 Presentation&body=Please attach your presentation file."
+  - Upload Group B Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group B Presentation&body=Please attach your presentation file."
+  - Upload Group THR33 Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group THR33 Presentation&body=Please attach your presentation file."
+  - Upload Group KSA Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group KSA Presentation&body=Please attach your presentation file."
+  - Presentation Example 1: "penguins-presentation-example.pptx"
+  - Presentation Example 2: "ufos-among-us-presentation-example.pptx"
+
+Feedback:
+  - Take our survey: "resources-survey.html"
+
+Resources:
+  - References: "resources-references.html"
