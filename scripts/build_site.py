@@ -19,9 +19,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_ROOT = ROOT / "src"
-STATIC_ROOT = SOURCE_ROOT / "static"
-PAGES_ROOT = SOURCE_ROOT / "pages"
+STATIC_ROOT = ROOT / "static"
+MODULES_ROOT = ROOT / "modules"
 MAP_PATH = ROOT / "settings" / "site-map.yml"
 PAGE_SUFFIXES = {".html", ".qmd", ".rmd"}
 DOWNLOAD_SUFFIXES = {".csv", ".xlsx", ".xls", ".pptx"}
@@ -206,7 +205,7 @@ def is_external(target: str) -> bool:
 def discover_page(name: str) -> Page:
     if Path(name).name != name:
         raise BuildError(f"Use a contributor filename, not a path: {name}")
-    matches = [candidate for candidate in PAGES_ROOT.rglob(name) if candidate.is_file()]
+    matches = [candidate for candidate in MODULES_ROOT.rglob(name) if candidate.is_file()]
     if not matches:
         raise BuildError(
             f"{MAP_PATH.relative_to(ROOT)} names {name}, but no contributor page has that name."
@@ -214,7 +213,7 @@ def discover_page(name: str) -> Page:
     if len(matches) > 1:
         paths = ", ".join(str(candidate.relative_to(ROOT)) for candidate in sorted(matches))
         raise BuildError(
-            f"{name} is ambiguous below src/pages/: {paths}. "
+            f"{name} is ambiguous below modules/: {paths}. "
             "Contributor page filenames must be unique."
         )
 
@@ -234,13 +233,13 @@ def discover_page(name: str) -> Page:
     return Page(
         name=name,
         source=source,
-        output_directory=source.parent.relative_to(PAGES_ROOT),
+        output_directory=source.parent.relative_to(MODULES_ROOT),
     )
 
 
 def discover_pages(headings: list[Heading]) -> dict[str, Page]:
-    if not PAGES_ROOT.is_dir():
-        raise BuildError(f"Missing contributor pages directory: {PAGES_ROOT.relative_to(ROOT)}")
+    if not MODULES_ROOT.is_dir():
+        raise BuildError(f"Missing modules directory: {MODULES_ROOT.relative_to(ROOT)}")
 
     pages: dict[str, Page] = {}
     for item in walk_items(headings):
@@ -255,7 +254,13 @@ def discover_pages(headings: list[Heading]) -> dict[str, Page]:
 def static_href(filename: str) -> str:
     if Path(filename).name != filename:
         raise BuildError(f"Use a static filename, not a path: {filename}")
-    matches = [candidate for candidate in STATIC_ROOT.rglob(filename) if candidate.is_file()]
+    matches = [
+        candidate
+        for source_root in (MODULES_ROOT, STATIC_ROOT)
+        if source_root.is_dir()
+        for candidate in source_root.rglob(filename)
+        if candidate.is_file()
+    ]
     if not matches:
         raise BuildError(
             f"{MAP_PATH.relative_to(ROOT)} names {filename}, but no static file has that name."
@@ -263,27 +268,19 @@ def static_href(filename: str) -> str:
     if len(matches) > 1:
         paths = ", ".join(str(candidate.relative_to(ROOT)) for candidate in sorted(matches))
         raise BuildError(
-            f"{filename} is ambiguous below src/static/: {paths}. "
+            f"{filename} is ambiguous below modules/ and static/: {paths}. "
             "Static filenames listed in the map must be unique."
         )
 
-    relative = matches[0].relative_to(STATIC_ROOT)
-    if not relative.parts or relative.parts[0] != "modules":
-        raise BuildError(
-            f"{matches[0].relative_to(ROOT)} is not available from the modules page."
-        )
-    return Path(*relative.parts[1:]).as_posix()
+    source = matches[0]
+    if source.is_relative_to(MODULES_ROOT):
+        return source.relative_to(MODULES_ROOT).as_posix()
+    return (Path("..") / source.relative_to(STATIC_ROOT)).as_posix()
 
 
 def page_href(page: Page) -> str:
-    try:
-        relative = page.output_directory.relative_to("modules")
-    except ValueError as error:
-        raise BuildError(
-            f"{page.source.relative_to(ROOT)} is listed in the manager map but is not "
-            "inside a modules/ page folder."
-        ) from error
-    return f"{relative.as_posix()}/" if relative.parts else "./"
+    relative = page.output_directory.as_posix()
+    return f"{relative}/" if relative != "." else "./"
 
 
 def resolve_item(item: Item, pages: dict[str, Page]) -> ResolvedItem:
@@ -340,6 +337,22 @@ def copy_static_site(output: Path) -> None:
     shutil.copytree(STATIC_ROOT, output, dirs_exist_ok=True)
 
 
+def copy_module_static_files(output: Path, pages: dict[str, Page]) -> None:
+    """Copy non-page module files while leaving listed page folders to their renderer."""
+    if not MODULES_ROOT.is_dir():
+        raise BuildError(f"Missing modules directory: {MODULES_ROOT.relative_to(ROOT)}")
+
+    page_directories = tuple(page.source.parent for page in pages.values())
+    for source in MODULES_ROOT.rglob("*"):
+        if not source.is_file() or any(
+            source.is_relative_to(page_directory) for page_directory in page_directories
+        ):
+            continue
+        destination = output / "modules" / source.relative_to(MODULES_ROOT)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+
+
 def copy_page_support_files(page: Page, output_directory: Path) -> None:
     output_directory.mkdir(parents=True, exist_ok=True)
     for item in page.source.parent.iterdir():
@@ -353,7 +366,7 @@ def copy_page_support_files(page: Page, output_directory: Path) -> None:
 
 
 def render_page(page: Page, output: Path) -> None:
-    output_directory = output / page.output_directory
+    output_directory = output / "modules" / page.output_directory
     if page.source.suffix.lower() == ".html":
         copy_page_support_files(page, output_directory)
         shutil.copy2(page.source, output_directory / "index.html")
@@ -510,6 +523,7 @@ def build(output: Path) -> None:
 
     clean_output(output)
     copy_static_site(output)
+    copy_module_static_files(output, pages)
     for page in pages.values():
         render_page(page, output)
     write_modules_page(output, resolved)

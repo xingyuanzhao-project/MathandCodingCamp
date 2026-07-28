@@ -11,9 +11,8 @@ Modules page: [EPPS Math Coding Bootcamp Modules](https://xingyuanzhao-project.g
 ```text
 settings/
   site-map.yml               # manager's displayed navigation hierarchy
-src/
-  static/                    # site shell, shared assets, existing redirect pages, downloads
-  pages/                     # contributor page folders
+modules/                     # page folders, downloads, presentations
+static/                      # site shell and shared site assets
 scripts/
   build_site.py              # builds the website
 _site/                       # generated website; do not edit or commit
@@ -23,10 +22,10 @@ _site/                       # generated website; do not edit or commit
 
 ## For contributors
 
-Create one self-contained page folder below `src/pages/modules/`. For example:
+Create one self-contained page folder below `modules/`. For example:
 
 ```text
-src/pages/modules/math/day-6/example/
+modules/math/day-6/example/
   example.qmd
   assets/
     chart.png
@@ -40,7 +39,7 @@ Each page folder has one entry file:
 
 Keep images, CSS, JavaScript, data, and page-specific libraries with that
 page, normally under `assets/`. Use a filename that is unique below
-`src/pages/`, because the manager map refers to the contributor file by name.
+`modules/`, because the manager map refers to the contributor file by name.
 
 ## For the manager
 
@@ -70,7 +69,7 @@ Day 7:
 The displayed label is on the left. The value on the right is either:
 
 - a contributor page file (`.html`, `.qmd`, or `.Rmd`);
-- a static file stored under `src/static/`, including downloadable files;
+- a static file stored under `modules/` or `static/`, including downloads;
 - an existing `https:` or `mailto:` URL.
 
 A plain list item is displayed as text without a link.
@@ -78,8 +77,8 @@ A plain list item is displayed as text without a link.
 The build distinguishes pages and files from the target itself, not from the
 heading containing it:
 
-- `.html`, `.qmd`, and `.Rmd` targets are discovered under `src/pages/`;
-- other filenames are discovered under `src/static/` and linked as files;
+- `.html`, `.qmd`, and `.Rmd` targets are discovered under `modules/`;
+- other filenames are discovered under `modules/` or `static/` and linked as files;
 - `https:` and `mailto:` values remain external links.
 
 ## Build
