@@ -503,7 +503,7 @@ def navigation_html(headings: list[ResolvedHeading]) -> str:
 </main>
 <footer>
     <p>&copy; Math and Coding Camp - EPPS</p>
-    <p>Made with ❤️ by <a href="https://github.com/shreyasmeher" target="_blank" rel="noopener noreferrer">Shreyas Meher</a> and Xingyuan Zhao</p>
+    <p>Made with ❤️ by <a href="https://github.com/shreyasmeher" target="_blank" rel="noopener noreferrer">Shreyas Meher</a> and <a href="https://github.com/xingyuanzhao-project" target="_blank" rel="noopener noreferrer">Xingyuan Zhao</a></p>
 </footer>
 </body>
 </html>
