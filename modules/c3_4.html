@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Brennan Stout">
+<meta name="dcterms.date" content="2025-08-05">
+
+<title>EPPS Math Coding Camp</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="c3_4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="c3_4_files/libs/quarto-html/quarto.js"></script>
+<script src="c3_4_files/libs/quarto-html/popper.min.js"></script>
+<script src="c3_4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="c3_4_files/libs/quarto-html/anchor.min.js"></script>
+<link href="c3_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="c3_4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="c3_4_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="c3_4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="c3_4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#session-1-importing-and-exporting-data" id="toc-session-1-importing-and-exporting-data" class="nav-link active" data-scroll-target="#session-1-importing-and-exporting-data">Session 1: Importing and Exporting Data</a>
+  <ul class="collapse">
+  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory">1.1 Working directory</a></li>
+  <li><a href="#loading-data-of-various-formats" id="toc-loading-data-of-various-formats" class="nav-link" data-scroll-target="#loading-data-of-various-formats">1.2 Loading data of various formats</a></li>
+  <li><a href="#reading-csv-files" id="toc-reading-csv-files" class="nav-link" data-scroll-target="#reading-csv-files">1.2.1 Reading CSV Files</a>
+  <ul class="collapse">
+  <li><a href="#example-importing-a-csv-file" id="toc-example-importing-a-csv-file" class="nav-link" data-scroll-target="#example-importing-a-csv-file">Example: Importing a CSV File</a></li>
+  <li><a href="#additional-examples" id="toc-additional-examples" class="nav-link" data-scroll-target="#additional-examples">Additional Examples:</a></li>
+  </ul></li>
+  <li><a href="#reading-excel-files" id="toc-reading-excel-files" class="nav-link" data-scroll-target="#reading-excel-files">1.2.2 Reading Excel Files</a></li>
+  <li><a href="#exploring-the-data-using-basic-statistical-functions" id="toc-exploring-the-data-using-basic-statistical-functions" class="nav-link" data-scroll-target="#exploring-the-data-using-basic-statistical-functions">1.3.1 Exploring the Data Using Basic Statistical Functions</a></li>
+  <li><a href="#exploring-the-data-using-basic-statistical-functions-1" id="toc-exploring-the-data-using-basic-statistical-functions-1" class="nav-link" data-scroll-target="#exploring-the-data-using-basic-statistical-functions-1">1.3.2 Exploring the Data Using Basic Statistical Functions</a></li>
+  <li><a href="#writing-data-to-files" id="toc-writing-data-to-files" class="nav-link" data-scroll-target="#writing-data-to-files">1.4 Writing Data to Files</a></li>
+  </ul></li>
+  <li><a href="#session-2-hands-on-exercises" id="toc-session-2-hands-on-exercises" class="nav-link" data-scroll-target="#session-2-hands-on-exercises">Session 2: Hands-on Exercises</a>
+  <ul class="collapse">
+  <li><a href="#importing-and-exploring-data" id="toc-importing-and-exploring-data" class="nav-link" data-scroll-target="#importing-and-exploring-data">2.1 Importing and Exploring Data</a></li>
+  </ul></li>
+  <li><a href="#session-3-wrapping-up-and-qa" id="toc-session-3-wrapping-up-and-qa" class="nav-link" data-scroll-target="#session-3-wrapping-up-and-qa">Session 3: Wrapping Up and Q&amp;A</a>
+  <ul class="collapse">
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">EPPS Math Coding Camp</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">Importing and Exporting Data</p>
+</div>
+
+<p><a href="index.html">Home</a></p>
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Brennan Stout </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 5, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+<img src="check_in_form.png" alt="Check in form" style="max-width:100%; height:auto; display:block; margin:12px auto;">
+<section id="session-1-importing-and-exporting-data" class="level1">
+<h1>Session 1: Importing and Exporting Data</h1>
+<section id="working-directory" class="level2">
+<h2 class="anchored" data-anchor-id="working-directory">1.1 Working directory</h2>
+<p>The working directory is the folder in which you are currently working.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1.1 Direct import If the data is in the same folder as the current working directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1.2 Setting working directory before direct import</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#setwd('D:/Summer Coding Camp/Jeong_CodingCamp_draft_code/Jeong_CodingCamp_draft_code')</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1.3 Reading by giving the absolute address</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#air_data &lt;- read.csv('D:/Summer Coding Camp/Jeong_CodingCamp_draft_code/Jeong_CodingCamp_draft_code/Air_Quality.csv')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="loading-data-of-various-formats" class="level2">
+<h2 class="anchored" data-anchor-id="loading-data-of-various-formats">1.2 Loading data of various formats</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>file type</th>
+<th>package</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>.csv</td>
+<td>readr</td>
+<td>read_csv()</td>
+</tr>
+<tr class="even">
+<td>.dta (stata)</td>
+<td>haven</td>
+<td>read_dta()</td>
+</tr>
+<tr class="odd">
+<td>.xlsx</td>
+<td>readxl</td>
+<td>read_xlsx()</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reading-csv-files" class="level2">
+<h2 class="anchored" data-anchor-id="reading-csv-files">1.2.1 Reading CSV Files</h2>
+<p>CSV (Comma-Separated Values) files are commonly used for storing tabular data. In R, you can use the <code>read.csv()</code> function to import CSV files.</p>
+<section id="example-importing-a-csv-file" class="level3">
+<h3 class="anchored" data-anchor-id="example-importing-a-csv-file">Example: Importing a CSV File</h3>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading a CSV file</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#air_data &lt;- read.csv("D:/2024Fall/DataCamp/Air_Quality.csv")</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Viewing the first few rows of the data</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Unique_ID Indicator_ID                                  Name        Measure
+1    179772          640 Boiler Emissions- Total SO2 Emissions Number per km2
+2    179785          640 Boiler Emissions- Total SO2 Emissions Number per km2
+3    178540          365               Fine particles (PM 2.5)           Mean
+4    178561          365               Fine particles (PM 2.5)           Mean
+5    823217          365               Fine particles (PM 2.5)           Mean
+6    177910          365               Fine particles (PM 2.5)           Mean
+  Measure_Info Type_Name Year              Place_Name Data.Value
+1       number     UHF42 2015        Southeast Queens        0.3
+2       number     UHF42 2015 Bensonhurst - Bay Ridge        1.2
+3       mcg/m3     UHF42 2012 Bensonhurst - Bay Ridge        8.6
+4       mcg/m3     UHF42 2012        Southeast Queens        8.0
+5       mcg/m3     UHF42 2022        Southeast Queens        6.1
+6       mcg/m3     UHF42 2012 Bensonhurst - Bay Ridge       10.0</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="explanation" class="level4">
+<h4 class="anchored" data-anchor-id="explanation">Explanation: <br></h4>
+<ul>
+<li><strong>read.csv()</strong>: Reads a CSV file into a data frame. Specify the file path and name. <br></li>
+<li><strong>File Path</strong>: The file path can be absolute or relative. Always ensure the correct path format, especially on different operating systems.</li>
+<li><strong>head()</strong>: Displays the first few rows of the data, useful for a quick preview. <br></li>
+</ul>
+</section>
+</section>
+<section id="additional-examples" class="level3">
+<h3 class="anchored" data-anchor-id="additional-examples">Additional Examples:</h3>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading a CSV file with additional options</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>), </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Previewing the data structure</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   14077 obs. of  9 variables:
+ $ Unique_ID   : int  179772 179785 178540 178561 823217 177910 177952 177973 177931 742274 ...
+ $ Indicator_ID: int  640 640 365 365 365 365 365 365 365 365 ...
+ $ Name        : chr  "Boiler Emissions- Total SO2 Emissions" "Boiler Emissions- Total SO2 Emissions" "Fine particles (PM 2.5)" "Fine particles (PM 2.5)" ...
+ $ Measure     : chr  "Number per km2" "Number per km2" "Mean" "Mean" ...
+ $ Measure_Info: chr  "number" "number" "mcg/m3" "mcg/m3" ...
+ $ Type_Name   : chr  "UHF42" "UHF42" "UHF42" "UHF42" ...
+ $ Year        : int  2015 2015 2012 2012 2022 2012 2013 2013 2012 2021 ...
+ $ Place_Name  : chr  "Southeast Queens" "Bensonhurst - Bay Ridge" "Bensonhurst - Bay Ridge" "Southeast Queens" ...
+ $ Data.Value  : num  0.3 1.2 8.6 8 6.1 10 9.8 9.8 9.6 7.2 ...</code></pre>
+</div>
+</div>
+<p><br> - <strong>Handling Missing Data</strong>: By default, <code>read.csv()</code> interprets blank cells as <code>NA</code> (Not Available). You can control this with the <code>na.strings</code> parameter. <br> - <strong>stringsAsFactors</strong>: Set to FALSE to prevent automatic conversion of character strings to factors.<br></p>
+</section>
+</section>
+<section id="reading-excel-files" class="level2">
+<h2 class="anchored" data-anchor-id="reading-excel-files">1.2.2 Reading Excel Files</h2>
+<p>Excel files can be read into R using the readxl package, which provides functions like read_excel(). <br></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installing and loading the readxl package</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("readxl")</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading an Excel file</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ev_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Electric_Vehicle_Population_Data.xlsx"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#ev_data &lt;- read_excel("D:/2024Fall/DataCamp/Electric_Vehicle_Population_Data.xlsx")</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Viewing the first few rows of the data</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ev_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 17
+  `VIN (1-10)` County    City         State Postal_Code Model_Year Make    Model
+  &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;
+1 1C4RJXN66R   Snohomish Everett      WA          98204       2024 JEEP    WRAN…
+2 KNDJX3AEXG   King      Renton       WA          98058       2016 KIA     SOUL 
+3 5YJ3E1EA3L   King      Seattle      WA          98125       2020 TESLA   MODE…
+4 1G1RC6S5XH   Kitsap    Port Orchard WA          98367       2017 CHEVRO… VOLT 
+5 5UXTA6C09P   Snohomish Monroe       WA          98272       2023 BMW     X5   
+6 1FMCU0EZXN   Yakima    Moxee        WA          98936       2022 FORD    ESCA…
+# ℹ 9 more variables: `Electric Vehicle Type` &lt;chr&gt;,
+#   `Clean Alternative Fuel Vehicle (CAFV) Eligibility` &lt;chr&gt;,
+#   Electric_Range &lt;dbl&gt;, `Base MSRP` &lt;dbl&gt;, `Legislative District` &lt;dbl&gt;,
+#   `DOL Vehicle ID` &lt;dbl&gt;, `Vehicle Location` &lt;chr&gt;, `Electric Utility` &lt;chr&gt;,
+#   `2020 Census Tract` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="explanation-1" class="level4">
+<h4 class="anchored" data-anchor-id="explanation-1">Explanation:</h4>
+<ul>
+<li><strong>library(readxl)</strong>: Loads the readxl package, necessary for reading Excel files.<br></li>
+<li><strong>read_excel()</strong>: Reads an Excel file into a data frame. Specify the file path and name.<br></li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading specific sheets from an Excel file</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ev_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Electric_Vehicle_Population_Data.xlsx"</span>, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet =</span> <span class="st">"Sheet1"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for multiple sheets</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>sheets <span class="ot">&lt;-</span> <span class="fu">excel_sheets</span>(<span class="st">"Electric_Vehicle_Population_Data.xlsx"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#sheets &lt;- excel_sheets("D:/2024Fall/DataCamp/Electric_Vehicle_Population_Data.xlsx")</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>sheets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sheet1"</code></pre>
+</div>
+</div>
+<p><br> - <strong>Reading Specific Sheets</strong>: Use the sheet parameter in read_excel() to specify which sheet to read. <br> - <strong>Handling Excel Formats</strong>: The package supports .xls and .xlsx formats.<br> - <strong>excel_sheets()</strong>: Returns a vector of sheet names in the Excel file. <br> <br></p>
+</section>
+</section>
+<section id="exploring-the-data-using-basic-statistical-functions" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-the-data-using-basic-statistical-functions">1.3.1 Exploring the Data Using Basic Statistical Functions</h2>
+<p>Once the data is loaded, basic statistical functions can help summarize and understand the data. <br></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for Tuberculosis data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Unique_ID       Indicator_ID     Name             Measure         
+ Min.   :121644   Min.   :365   Length:14077       Length:14077      
+ 1st Qu.:174276   1st Qu.:365   Class :character   Class :character  
+ Median :410845   Median :375   Mode  :character   Mode  :character  
+ Mean   :428717   Mean   :453                                        
+ 3rd Qu.:650015   3rd Qu.:643                                        
+ Max.   :828353   Max.   :661                                        
+ Measure_Info        Type_Name              Year       Place_Name       
+ Length:14077       Length:14077       Min.   :2005   Length:14077      
+ Class :character   Class :character   1st Qu.:2011   Class :character  
+ Mode  :character   Mode  :character   Median :2015   Mode  :character  
+                                       Mean   :2015                     
+                                       3rd Qu.:2019                     
+                                       Max.   :2022                     
+   Data.Value    
+ Min.   :  0.00  
+ 1st Qu.:  8.80  
+ Median : 15.10  
+ Mean   : 22.52  
+ 3rd Qu.: 28.00  
+ Max.   :424.70  </code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for Electric Vehicle data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ev_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  VIN (1-10)           County              City              State          
+ Length:194232      Length:194232      Length:194232      Length:194232     
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+  Postal_Code      Model_Year       Make              Model          
+ Min.   : 1731   Min.   :1997   Length:194232      Length:194232     
+ 1st Qu.:98052   1st Qu.:2019   Class :character   Class :character  
+ Median :98125   Median :2022   Mode  :character   Mode  :character  
+ Mean   :98176   Mean   :2021                                        
+ 3rd Qu.:98372   3rd Qu.:2023                                        
+ Max.   :99577   Max.   :2025                                        
+ NA's   :9                                                           
+ Electric Vehicle Type Clean Alternative Fuel Vehicle (CAFV) Eligibility
+ Length:194232         Length:194232                                    
+ Class :character      Class :character                                 
+ Mode  :character      Mode  :character                                 
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+ Electric_Range     Base MSRP        Legislative District DOL Vehicle ID     
+ Min.   :  0.00   Min.   :     0.0   Min.   : 1.00        Min.   :     4385  
+ 1st Qu.:  0.00   1st Qu.:     0.0   1st Qu.:17.00        1st Qu.:187225086  
+ Median :  0.00   Median :     0.0   Median :33.00        Median :233940241  
+ Mean   : 54.84   Mean   :   978.7   Mean   :29.01        Mean   :224892309  
+ 3rd Qu.: 68.00   3rd Qu.:     0.0   3rd Qu.:42.00        3rd Qu.:260115926  
+ Max.   :337.00   Max.   :845000.0   Max.   :49.00        Max.   :479254772  
+ NA's   :2        NA's   :2          NA's   :432                             
+ Vehicle Location   Electric Utility   2020 Census Tract  
+ Length:194232      Length:194232      Min.   :1.001e+09  
+ Class :character   Class :character   1st Qu.:5.303e+10  
+ Mode  :character   Mode  :character   Median :5.303e+10  
+                                       Mean   :5.298e+10  
+                                       3rd Qu.:5.305e+10  
+                                       Max.   :5.602e+10  
+                                       NA's   :9          </code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows the details of data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># View(air_data)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># show first or last n rows</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(air_data, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Unique_ID Indicator_ID                                  Name        Measure
+1    179772          640 Boiler Emissions- Total SO2 Emissions Number per km2
+2    179785          640 Boiler Emissions- Total SO2 Emissions Number per km2
+3    178540          365               Fine particles (PM 2.5)           Mean
+4    178561          365               Fine particles (PM 2.5)           Mean
+5    823217          365               Fine particles (PM 2.5)           Mean
+  Measure_Info Type_Name Year              Place_Name Data.Value
+1       number     UHF42 2015        Southeast Queens        0.3
+2       number     UHF42 2015 Bensonhurst - Bay Ridge        1.2
+3       mcg/m3     UHF42 2012 Bensonhurst - Bay Ridge        8.6
+4       mcg/m3     UHF42 2012        Southeast Queens        8.0
+5       mcg/m3     UHF42 2022        Southeast Queens        6.1</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(air_data, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Unique_ID Indicator_ID                          Name       Measure
+14068    154601          643 Annual vehicle miles traveled Million miles
+14069    154618          643 Annual vehicle miles traveled Million miles
+14070    154604          643 Annual vehicle miles traveled Million miles
+14071    816732          643 Annual vehicle miles traveled Million miles
+14072    816731          643 Annual vehicle miles traveled Million miles
+14073    816914          643 Annual vehicle miles traveled Million miles
+14074    816913          643 Annual vehicle miles traveled Million miles
+14075    816872          643 Annual vehicle miles traveled Million miles
+14076    816832          643 Annual vehicle miles traveled Million miles
+14077    151658          643 Annual vehicle miles traveled Million miles
+         Measure_Info Type_Name Year                        Place_Name
+14068 per square mile        CD 2005     Flatlands and Canarsie (CD18)
+14069 per square mile        CD 2005 Tottenville and Great Kills (CD3)
+14070 per square mile        CD 2005             Jackson Heights (CD3)
+14071 per square mile        CD 2010     Flatlands and Canarsie (CD18)
+14072 per square mile        CD 2019     Flatlands and Canarsie (CD18)
+14073 per square mile        CD 2019 Tottenville and Great Kills (CD3)
+14074 per square mile        CD 2010 Tottenville and Great Kills (CD3)
+14075 per square mile     UHF42 2010              Canarsie - Flatlands
+14076 per square mile     UHF42 2010                  Southwest Queens
+14077 per square mile     UHF42 2005                           Jamaica
+      Data.Value
+14068       39.8
+14069       13.0
+14070       64.2
+14071       38.5
+14072       44.4
+14073       12.9
+14074       14.7
+14075       43.4
+14076       65.8
+14077       41.0</code></pre>
+</div>
+</div>
+<p><br> - <strong>summary()</strong>: Provides a summary of each column in the data, including minimum, maximum, mean, and quartiles for numeric data. <br></p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for Tuberculosis data</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Unique_ID       Indicator_ID     Name             Measure         
+ Min.   :121644   Min.   :365   Length:14077       Length:14077      
+ 1st Qu.:174276   1st Qu.:365   Class :character   Class :character  
+ Median :410845   Median :375   Mode  :character   Mode  :character  
+ Mean   :428717   Mean   :453                                        
+ 3rd Qu.:650015   3rd Qu.:643                                        
+ Max.   :828353   Max.   :661                                        
+ Measure_Info        Type_Name              Year       Place_Name       
+ Length:14077       Length:14077       Min.   :2005   Length:14077      
+ Class :character   Class :character   1st Qu.:2011   Class :character  
+ Mode  :character   Mode  :character   Median :2015   Mode  :character  
+                                       Mean   :2015                     
+                                       3rd Qu.:2019                     
+                                       Max.   :2022                     
+   Data.Value    
+ Min.   :  0.00  
+ 1st Qu.:  8.80  
+ Median : 15.10  
+ Mean   : 22.52  
+ 3rd Qu.: 28.00  
+ Max.   :424.70  </code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for missing values</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>missing_values <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(air_data))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Data type conversion if needed</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>air_data<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(air_data<span class="sc">$</span>Year)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Unique_ID       Indicator_ID     Name             Measure         
+ Min.   :121644   Min.   :365   Length:14077       Length:14077      
+ 1st Qu.:174276   1st Qu.:365   Class :character   Class :character  
+ Median :410845   Median :375   Mode  :character   Mode  :character  
+ Mean   :428717   Mean   :453                                        
+ 3rd Qu.:650015   3rd Qu.:643                                        
+ Max.   :828353   Max.   :661                                        
+                                                                     
+ Measure_Info        Type_Name              Year       Place_Name       
+ Length:14077       Length:14077       2019   :1515   Length:14077      
+ Class :character   Class :character   2011   :1399   Class :character  
+ Mode  :character   Mode  :character   2014   :1281   Mode  :character  
+                                       2017   :1185                     
+                                       2010   :1167                     
+                                       2013   : 849                     
+                                       (Other):6681                     
+   Data.Value    
+ Min.   :  0.00  
+ 1st Qu.:  8.80  
+ Median : 15.10  
+ Mean   : 22.52  
+ 3rd Qu.: 28.00  
+ Max.   :424.70  
+                 </code></pre>
+</div>
+</div>
+<p><br> - <strong>Summary Statistics</strong>: Provide insights into the central tendency, spread, and shape of the data distribution. <br> - <strong>Checking Data Quality</strong>: Identify missing values, outliers, and incorrect data types. <br> - <strong>is.na()</strong>: Identifies NA values in the data.<br> - <strong>as.factor()</strong>: Converts a variable to factor if necessary. <br> <br></p>
+</section>
+<section id="exploring-the-data-using-basic-statistical-functions-1" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-the-data-using-basic-statistical-functions-1">1.3.2 Exploring the Data Using Basic Statistical Functions</h2>
+<p>names() or colnames(): both show the names of columns of a data frame</p>
+<p>dim(): returns the dimensions of data frame (i.e.&nbsp;number of rows and number of columns)</p>
+<p>nrow(): number of rows</p>
+<p>ncol(): number of columns</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Unique_ID"    "Indicator_ID" "Name"         "Measure"      "Measure_Info"
+[6] "Type_Name"    "Year"         "Place_Name"   "Data.Value"  </code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14077     9</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14077</code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(air_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+</div>
+</section>
+<section id="writing-data-to-files" class="level2">
+<h2 class="anchored" data-anchor-id="writing-data-to-files">1.4 Writing Data to Files</h2>
+<p>R allows you to export data frames to various formats, such as CSV or Excel. The write.csv() function is commonly used to save data as a CSV file. <br></p>
+<section id="writing-csv-files" class="level4">
+<h4 class="anchored" data-anchor-id="writing-csv-files">Writing csv files</h4>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing data to a CSV file</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(air_data, <span class="st">"Processed_Air_Quality.csv"</span>, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br> - <strong>write.csv()</strong>: Writes a data frame to a CSV file. Set row.names = FALSE to avoid including row numbers. <br></p>
+</section>
+<section id="writing-excel-files" class="level4">
+<h4 class="anchored" data-anchor-id="writing-excel-files">Writing Excel files</h4>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installing and loading writexl package</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("writexl")</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing data to an Excel file</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(ev_data, <span class="st">"Processed_Electric_Vehicle_Data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br> - <strong>write_xlsx()</strong>: Exports a data frame to an Excel file. <br></p>
+</section>
+</section>
+</section>
+<section id="session-2-hands-on-exercises" class="level1">
+<h1>Session 2: Hands-on Exercises</h1>
+<p><br></p>
+<section id="importing-and-exploring-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-and-exploring-data">2.1 Importing and Exploring Data</h2>
+<section id="q1" class="level4">
+<h4 class="anchored" data-anchor-id="q1">Q1</h4>
+<ol type="1">
+<li>Import the Air_Quality data and view the column names. <br></li>
+<li>Calculate the mean of a numeric column of your choice. <br></li>
+<li>Identify the number of unique values in a categorical column. <br> <br></li>
+</ol>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>column_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(air_data)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>mean_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(air_data<span class="sc">$</span>Data.Value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>unique_values <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(air_data<span class="sc">$</span>Data.Value))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+</section>
+<section id="q2" class="level4">
+<h4 class="anchored" data-anchor-id="q2">Q2</h4>
+<ol type="1">
+<li>Import the Air_Quality data and check the number of rows and columns. <br></li>
+<li>Calculate the median of a numeric column. <br></li>
+<li>Count the number of missing values in the Electric Vehicle data. <br></li>
+</ol>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>num_rows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(air_data)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>num_cols <span class="ot">&lt;-</span> <span class="fu">ncol</span>(air_data)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>median_value <span class="ot">&lt;-</span> <span class="fu">median</span>(air_data<span class="sc">$</span>Data.Value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>missing_ev_data <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(ev_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+</section>
+<section id="q3-writing-data-to-files" class="level4">
+<h4 class="anchored" data-anchor-id="q3-writing-data-to-files">Q3 Writing Data to Files</h4>
+<ol type="1">
+<li>Export the Electric Vehicle data to a new CSV file. <br></li>
+<li>Modify a column (e.g., replace missing values) and save the modified data.<br></li>
+</ol>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Export to CSV</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(ev_data, <span class="st">"Processed_Electric_Vehicle_Data.csv"</span>, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify and save data</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>ev_data<span class="sc">$</span>Postal_Code[<span class="fu">is.na</span>(ev_data<span class="sc">$</span>Postal_Code)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(ev_data, <span class="st">"Modified_Electric_Vehicle_Data.csv"</span>, </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+</section>
+</section>
+</section>
+<section id="session-3-wrapping-up-and-qa" class="level1">
+<h1>Session 3: Wrapping Up and Q&amp;A</h1>
+<p>This session covered importing data from CSV and Excel files, exploring the data using basic statistical functions, and exporting data to different formats. Mastering these skills is crucial for data analysis workflows. <br></p>
+<p>Continue practicing with different datasets and explore the various functionalities of R for data import/export. <br></p>
+<p><strong>Q&amp;A</strong>: Feel free to ask questions or share your experiences with data import/export in R. Let’s discuss any interesting findings or challenges you’ve encountered. <br></p>
+<section id="reference" class="level3">
+<h3 class="anchored" data-anchor-id="reference">Reference</h3>
+<ul>
+<li><a href="https://datageneration.io/dataprogrammingwithr/intro">data programming with R</a></li>
+<li>Chicago Harris School Coding Camp</li>
+<li><a href="https://data.gov/">The U.S. government’s open data portal</a></li>
+</ul>
+<!-- -->
+
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb35" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "EPPS Math Coding Camp"</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Importing and Exporting Data"</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Brennan Stout"</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "August 5, 2025"</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: show</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight-style: github</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(echo = TRUE)</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session 1: Importing and Exporting Data</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.1 Working directory</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>The working directory is the folder in which you are currently working.</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1.1 Direct import If the data is in the same folder as the current working directory</span></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>)</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1.2 Setting working directory before direct import</span></span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a><span class="co">#setwd('D:/Summer Coding Camp/Jeong_CodingCamp_draft_code/Jeong_CodingCamp_draft_code')</span></span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>)</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1.3 Reading by giving the absolute address</span></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="co">#air_data &lt;- read.csv('D:/Summer Coding Camp/Jeong_CodingCamp_draft_code/Jeong_CodingCamp_draft_code/Air_Quality.csv')</span></span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.2 Loading data of various formats</span></span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a>|file type|package|function|</span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a>|-|-|-|</span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a>|.csv|readr|read_csv()|</span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a>|.dta (stata)|haven|read_dta()|</span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a>|.xlsx|readxl|read_xlsx()|</span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.2.1 Reading CSV Files</span></span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>CSV (Comma-Separated Values) files are commonly used for storing tabular data. In R, you can use the <span class="in">`read.csv()`</span> function to import CSV files.</span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example: Importing a CSV File</span></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading a CSV file</span></span>
+<span id="cb35-61"><a href="#cb35-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-62"><a href="#cb35-62" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>)</span>
+<span id="cb35-63"><a href="#cb35-63" aria-hidden="true" tabindex="-1"></a><span class="co">#air_data &lt;- read.csv("D:/2024Fall/DataCamp/Air_Quality.csv")</span></span>
+<span id="cb35-64"><a href="#cb35-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Viewing the first few rows of the data</span></span>
+<span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(air_data)</span>
+<span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-72"><a href="#cb35-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-73"><a href="#cb35-73" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Explanation: &lt;br&gt;</span></span>
+<span id="cb35-74"><a href="#cb35-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**read.csv()**: Reads a CSV file into a data frame. Specify the file path and name. &lt;br&gt;</span>
+<span id="cb35-75"><a href="#cb35-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**File Path**: The file path can be absolute or relative. Always ensure the correct path format, especially on different operating systems.</span>
+<span id="cb35-76"><a href="#cb35-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**head()**: Displays the first few rows of the data, useful for a quick preview. &lt;br&gt;</span>
+<span id="cb35-77"><a href="#cb35-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-78"><a href="#cb35-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### Additional Examples:</span></span>
+<span id="cb35-79"><a href="#cb35-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-82"><a href="#cb35-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-83"><a href="#cb35-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading a CSV file with additional options</span></span>
+<span id="cb35-84"><a href="#cb35-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-85"><a href="#cb35-85" aria-hidden="true" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Air_Quality.csv"</span>, </span>
+<span id="cb35-86"><a href="#cb35-86" aria-hidden="true" tabindex="-1"></a>                    <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>), </span>
+<span id="cb35-87"><a href="#cb35-87" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-88"><a href="#cb35-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-89"><a href="#cb35-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-90"><a href="#cb35-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-91"><a href="#cb35-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Previewing the data structure</span></span>
+<span id="cb35-92"><a href="#cb35-92" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(air_data)</span>
+<span id="cb35-93"><a href="#cb35-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-94"><a href="#cb35-94" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-95"><a href="#cb35-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Handling Missing Data**: By default, <span class="in">`read.csv()`</span> interprets blank cells as <span class="in">`NA`</span> (Not Available). You can control this with the <span class="in">`na.strings`</span> parameter. &lt;br&gt;</span>
+<span id="cb35-96"><a href="#cb35-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**stringsAsFactors**: Set to FALSE to prevent automatic conversion of character strings to factors.&lt;br&gt;</span>
+<span id="cb35-97"><a href="#cb35-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-98"><a href="#cb35-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.2.2 Reading Excel Files</span></span>
+<span id="cb35-99"><a href="#cb35-99" aria-hidden="true" tabindex="-1"></a>Excel files can be read into R using the readxl package, which provides functions like read_excel(). &lt;br&gt;</span>
+<span id="cb35-100"><a href="#cb35-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-101"><a href="#cb35-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-104"><a href="#cb35-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-105"><a href="#cb35-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Installing and loading the readxl package</span></span>
+<span id="cb35-106"><a href="#cb35-106" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("readxl")</span></span>
+<span id="cb35-107"><a href="#cb35-107" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb35-108"><a href="#cb35-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-109"><a href="#cb35-109" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading an Excel file</span></span>
+<span id="cb35-110"><a href="#cb35-110" aria-hidden="true" tabindex="-1"></a>ev_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Electric_Vehicle_Population_Data.xlsx"</span>)</span>
+<span id="cb35-111"><a href="#cb35-111" aria-hidden="true" tabindex="-1"></a><span class="co">#ev_data &lt;- read_excel("D:/2024Fall/DataCamp/Electric_Vehicle_Population_Data.xlsx")</span></span>
+<span id="cb35-112"><a href="#cb35-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-113"><a href="#cb35-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-114"><a href="#cb35-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-115"><a href="#cb35-115" aria-hidden="true" tabindex="-1"></a><span class="co"># Viewing the first few rows of the data</span></span>
+<span id="cb35-116"><a href="#cb35-116" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ev_data)</span>
+<span id="cb35-117"><a href="#cb35-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-118"><a href="#cb35-118" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-119"><a href="#cb35-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-120"><a href="#cb35-120" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Explanation:</span></span>
+<span id="cb35-121"><a href="#cb35-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**library(readxl)**: Loads the readxl package, necessary for reading Excel files.&lt;br&gt;</span>
+<span id="cb35-122"><a href="#cb35-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**read_excel()**: Reads an Excel file into a data frame. Specify the file path and name.&lt;br&gt;</span>
+<span id="cb35-123"><a href="#cb35-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-124"><a href="#cb35-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-127"><a href="#cb35-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-128"><a href="#cb35-128" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading specific sheets from an Excel file</span></span>
+<span id="cb35-129"><a href="#cb35-129" aria-hidden="true" tabindex="-1"></a>ev_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Electric_Vehicle_Population_Data.xlsx"</span>, </span>
+<span id="cb35-130"><a href="#cb35-130" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet =</span> <span class="st">"Sheet1"</span>)</span>
+<span id="cb35-131"><a href="#cb35-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-132"><a href="#cb35-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-133"><a href="#cb35-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-134"><a href="#cb35-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for multiple sheets</span></span>
+<span id="cb35-135"><a href="#cb35-135" aria-hidden="true" tabindex="-1"></a>sheets <span class="ot">&lt;-</span> <span class="fu">excel_sheets</span>(<span class="st">"Electric_Vehicle_Population_Data.xlsx"</span>)</span>
+<span id="cb35-136"><a href="#cb35-136" aria-hidden="true" tabindex="-1"></a><span class="co">#sheets &lt;- excel_sheets("D:/2024Fall/DataCamp/Electric_Vehicle_Population_Data.xlsx")</span></span>
+<span id="cb35-137"><a href="#cb35-137" aria-hidden="true" tabindex="-1"></a>sheets</span>
+<span id="cb35-138"><a href="#cb35-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-139"><a href="#cb35-139" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-140"><a href="#cb35-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reading Specific Sheets**: Use the sheet parameter in read_excel() to specify which sheet to read. &lt;br&gt;</span>
+<span id="cb35-141"><a href="#cb35-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Handling Excel Formats**: The package supports .xls and .xlsx formats.&lt;br&gt;</span>
+<span id="cb35-142"><a href="#cb35-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**excel_sheets()**: Returns a vector of sheet names in the Excel file. &lt;br&gt;</span>
+<span id="cb35-143"><a href="#cb35-143" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-144"><a href="#cb35-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-145"><a href="#cb35-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.3.1 Exploring the Data Using Basic Statistical Functions</span></span>
+<span id="cb35-146"><a href="#cb35-146" aria-hidden="true" tabindex="-1"></a>Once the data is loaded, basic statistical functions can help summarize and understand the data.</span>
+<span id="cb35-147"><a href="#cb35-147" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-148"><a href="#cb35-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-151"><a href="#cb35-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-152"><a href="#cb35-152" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for Tuberculosis data</span></span>
+<span id="cb35-153"><a href="#cb35-153" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(air_data)</span>
+<span id="cb35-154"><a href="#cb35-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-155"><a href="#cb35-155" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for Electric Vehicle data</span></span>
+<span id="cb35-156"><a href="#cb35-156" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ev_data)</span>
+<span id="cb35-157"><a href="#cb35-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-158"><a href="#cb35-158" aria-hidden="true" tabindex="-1"></a><span class="co"># Shows the details of data</span></span>
+<span id="cb35-159"><a href="#cb35-159" aria-hidden="true" tabindex="-1"></a><span class="co"># View(air_data)</span></span>
+<span id="cb35-160"><a href="#cb35-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-161"><a href="#cb35-161" aria-hidden="true" tabindex="-1"></a><span class="co"># show first or last n rows</span></span>
+<span id="cb35-162"><a href="#cb35-162" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(air_data, <span class="dv">5</span>)</span>
+<span id="cb35-163"><a href="#cb35-163" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(air_data, <span class="dv">10</span>)</span>
+<span id="cb35-164"><a href="#cb35-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-165"><a href="#cb35-165" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-166"><a href="#cb35-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**summary()**: Provides a summary of each column in the data, including minimum, maximum, mean, and quartiles for numeric data.</span>
+<span id="cb35-167"><a href="#cb35-167" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-168"><a href="#cb35-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-171"><a href="#cb35-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-172"><a href="#cb35-172" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for Tuberculosis data</span></span>
+<span id="cb35-173"><a href="#cb35-173" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(air_data)</span>
+<span id="cb35-174"><a href="#cb35-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-175"><a href="#cb35-175" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for missing values</span></span>
+<span id="cb35-176"><a href="#cb35-176" aria-hidden="true" tabindex="-1"></a>missing_values <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(air_data))</span>
+<span id="cb35-177"><a href="#cb35-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-178"><a href="#cb35-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Data type conversion if needed</span></span>
+<span id="cb35-179"><a href="#cb35-179" aria-hidden="true" tabindex="-1"></a>air_data<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(air_data<span class="sc">$</span>Year)</span>
+<span id="cb35-180"><a href="#cb35-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-181"><a href="#cb35-181" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(air_data)</span>
+<span id="cb35-182"><a href="#cb35-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-183"><a href="#cb35-183" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-184"><a href="#cb35-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Summary Statistics**: Provide insights into the central tendency, spread, and shape of the data distribution. &lt;br&gt;</span>
+<span id="cb35-185"><a href="#cb35-185" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Checking Data Quality**: Identify missing values, outliers, and incorrect data types. &lt;br&gt;</span>
+<span id="cb35-186"><a href="#cb35-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**is.na()**: Identifies NA values in the data.&lt;br&gt;</span>
+<span id="cb35-187"><a href="#cb35-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**as.factor()**: Converts a variable to factor if necessary. &lt;br&gt;</span>
+<span id="cb35-188"><a href="#cb35-188" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-189"><a href="#cb35-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-190"><a href="#cb35-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.3.2 Exploring the Data Using Basic Statistical Functions</span></span>
+<span id="cb35-191"><a href="#cb35-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-192"><a href="#cb35-192" aria-hidden="true" tabindex="-1"></a>names() or colnames(): both show the names of columns of a data frame</span>
+<span id="cb35-193"><a href="#cb35-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-194"><a href="#cb35-194" aria-hidden="true" tabindex="-1"></a>dim(): returns the dimensions of data frame (i.e. number of rows and number of columns)</span>
+<span id="cb35-195"><a href="#cb35-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-196"><a href="#cb35-196" aria-hidden="true" tabindex="-1"></a>nrow(): number of rows</span>
+<span id="cb35-197"><a href="#cb35-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-198"><a href="#cb35-198" aria-hidden="true" tabindex="-1"></a>ncol(): number of columns</span>
+<span id="cb35-199"><a href="#cb35-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-202"><a href="#cb35-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-203"><a href="#cb35-203" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(air_data)</span>
+<span id="cb35-204"><a href="#cb35-204" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(air_data)</span>
+<span id="cb35-205"><a href="#cb35-205" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(air_data)</span>
+<span id="cb35-206"><a href="#cb35-206" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(air_data)</span>
+<span id="cb35-207"><a href="#cb35-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-208"><a href="#cb35-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-209"><a href="#cb35-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-210"><a href="#cb35-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.4 Writing Data to Files</span></span>
+<span id="cb35-211"><a href="#cb35-211" aria-hidden="true" tabindex="-1"></a>R allows you to export data frames to various formats, such as CSV or Excel. The write.csv() function is commonly used to save data as a CSV file.</span>
+<span id="cb35-212"><a href="#cb35-212" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-213"><a href="#cb35-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-214"><a href="#cb35-214" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Writing csv files</span></span>
+<span id="cb35-217"><a href="#cb35-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-218"><a href="#cb35-218" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing data to a CSV file</span></span>
+<span id="cb35-219"><a href="#cb35-219" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(air_data, <span class="st">"Processed_Air_Quality.csv"</span>, </span>
+<span id="cb35-220"><a href="#cb35-220" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-221"><a href="#cb35-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-222"><a href="#cb35-222" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-223"><a href="#cb35-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**write.csv()**: Writes a data frame to a CSV file. Set row.names = FALSE to avoid including row numbers.</span>
+<span id="cb35-224"><a href="#cb35-224" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-225"><a href="#cb35-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-226"><a href="#cb35-226" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Writing Excel files</span></span>
+<span id="cb35-229"><a href="#cb35-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-230"><a href="#cb35-230" aria-hidden="true" tabindex="-1"></a><span class="co"># Installing and loading writexl package</span></span>
+<span id="cb35-231"><a href="#cb35-231" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("writexl")</span></span>
+<span id="cb35-232"><a href="#cb35-232" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb35-233"><a href="#cb35-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-234"><a href="#cb35-234" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing data to an Excel file</span></span>
+<span id="cb35-235"><a href="#cb35-235" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(ev_data, <span class="st">"Processed_Electric_Vehicle_Data.xlsx"</span>)</span>
+<span id="cb35-236"><a href="#cb35-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-237"><a href="#cb35-237" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-238"><a href="#cb35-238" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**write_xlsx()**: Exports a data frame to an Excel file.</span>
+<span id="cb35-239"><a href="#cb35-239" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-240"><a href="#cb35-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-241"><a href="#cb35-241" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session 2: Hands-on Exercises</span></span>
+<span id="cb35-242"><a href="#cb35-242" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-243"><a href="#cb35-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-244"><a href="#cb35-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.1 Importing and Exploring Data</span></span>
+<span id="cb35-245"><a href="#cb35-245" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Q1</span></span>
+<span id="cb35-246"><a href="#cb35-246" aria-hidden="true" tabindex="-1"></a>1) Import the Air_Quality data and view the column names. &lt;br&gt;</span>
+<span id="cb35-247"><a href="#cb35-247" aria-hidden="true" tabindex="-1"></a>2) Calculate the mean of a numeric column of your choice. &lt;br&gt;</span>
+<span id="cb35-248"><a href="#cb35-248" aria-hidden="true" tabindex="-1"></a>3) Identify the number of unique values in a categorical column. &lt;br&gt;</span>
+<span id="cb35-249"><a href="#cb35-249" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-250"><a href="#cb35-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-253"><a href="#cb35-253" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-254"><a href="#cb35-254" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
+<span id="cb35-255"><a href="#cb35-255" aria-hidden="true" tabindex="-1"></a>column_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(air_data)</span>
+<span id="cb35-256"><a href="#cb35-256" aria-hidden="true" tabindex="-1"></a>mean_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(air_data<span class="sc">$</span>Data.Value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-257"><a href="#cb35-257" aria-hidden="true" tabindex="-1"></a>unique_values <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(air_data<span class="sc">$</span>Data.Value))</span>
+<span id="cb35-258"><a href="#cb35-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-259"><a href="#cb35-259" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-260"><a href="#cb35-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-261"><a href="#cb35-261" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Q2</span></span>
+<span id="cb35-262"><a href="#cb35-262" aria-hidden="true" tabindex="-1"></a>1) Import the Air_Quality data and check the number of rows and columns. &lt;br&gt;</span>
+<span id="cb35-263"><a href="#cb35-263" aria-hidden="true" tabindex="-1"></a>2) Calculate the median of a numeric column. &lt;br&gt;</span>
+<span id="cb35-264"><a href="#cb35-264" aria-hidden="true" tabindex="-1"></a>3) Count the number of missing values in the Electric Vehicle data. &lt;br&gt;</span>
+<span id="cb35-265"><a href="#cb35-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-268"><a href="#cb35-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-269"><a href="#cb35-269" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
+<span id="cb35-270"><a href="#cb35-270" aria-hidden="true" tabindex="-1"></a>num_rows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(air_data)</span>
+<span id="cb35-271"><a href="#cb35-271" aria-hidden="true" tabindex="-1"></a>num_cols <span class="ot">&lt;-</span> <span class="fu">ncol</span>(air_data)</span>
+<span id="cb35-272"><a href="#cb35-272" aria-hidden="true" tabindex="-1"></a>median_value <span class="ot">&lt;-</span> <span class="fu">median</span>(air_data<span class="sc">$</span>Data.Value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-273"><a href="#cb35-273" aria-hidden="true" tabindex="-1"></a>missing_ev_data <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(ev_data))</span>
+<span id="cb35-274"><a href="#cb35-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-275"><a href="#cb35-275" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-276"><a href="#cb35-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-277"><a href="#cb35-277" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Q3 Writing Data to Files</span></span>
+<span id="cb35-278"><a href="#cb35-278" aria-hidden="true" tabindex="-1"></a>1) Export the Electric Vehicle data to a new CSV file. &lt;br&gt;</span>
+<span id="cb35-279"><a href="#cb35-279" aria-hidden="true" tabindex="-1"></a>2) Modify a column (e.g., replace missing values) and save the modified data.&lt;br&gt;</span>
+<span id="cb35-280"><a href="#cb35-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-283"><a href="#cb35-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-284"><a href="#cb35-284" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code here</span></span>
+<span id="cb35-285"><a href="#cb35-285" aria-hidden="true" tabindex="-1"></a><span class="co"># Export to CSV</span></span>
+<span id="cb35-286"><a href="#cb35-286" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(ev_data, <span class="st">"Processed_Electric_Vehicle_Data.csv"</span>, </span>
+<span id="cb35-287"><a href="#cb35-287" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-288"><a href="#cb35-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-289"><a href="#cb35-289" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify and save data</span></span>
+<span id="cb35-290"><a href="#cb35-290" aria-hidden="true" tabindex="-1"></a>ev_data<span class="sc">$</span>Postal_Code[<span class="fu">is.na</span>(ev_data<span class="sc">$</span>Postal_Code)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb35-291"><a href="#cb35-291" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(ev_data, <span class="st">"Modified_Electric_Vehicle_Data.csv"</span>, </span>
+<span id="cb35-292"><a href="#cb35-292" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb35-293"><a href="#cb35-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-294"><a href="#cb35-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-295"><a href="#cb35-295" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-296"><a href="#cb35-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-297"><a href="#cb35-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-298"><a href="#cb35-298" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session 3: Wrapping Up and Q&amp;A</span></span>
+<span id="cb35-299"><a href="#cb35-299" aria-hidden="true" tabindex="-1"></a>This session covered importing data from CSV and Excel files, exploring the data using basic statistical functions, and exporting data to different formats. Mastering these skills is crucial for data analysis workflows.</span>
+<span id="cb35-300"><a href="#cb35-300" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-301"><a href="#cb35-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-302"><a href="#cb35-302" aria-hidden="true" tabindex="-1"></a>Continue practicing with different datasets and explore the various functionalities of R for data import/export.</span>
+<span id="cb35-303"><a href="#cb35-303" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-304"><a href="#cb35-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-305"><a href="#cb35-305" aria-hidden="true" tabindex="-1"></a>**Q&amp;A**: Feel free to ask questions or share your experiences with data import/export in R. Let's discuss any interesting findings or challenges you've encountered.</span>
+<span id="cb35-306"><a href="#cb35-306" aria-hidden="true" tabindex="-1"></a>&lt;br&gt;</span>
+<span id="cb35-307"><a href="#cb35-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-308"><a href="#cb35-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-309"><a href="#cb35-309" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reference</span></span>
+<span id="cb35-310"><a href="#cb35-310" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">data programming with R</span><span class="co">](https://datageneration.io/dataprogrammingwithr/intro)</span></span>
+<span id="cb35-311"><a href="#cb35-311" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Chicago Harris School Coding Camp</span>
+<span id="cb35-312"><a href="#cb35-312" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">The U.S. government's open data portal</span><span class="co">](https://data.gov/)</span></span>
+<span id="cb35-313"><a href="#cb35-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-314"><a href="#cb35-314" aria-hidden="true" tabindex="-1"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

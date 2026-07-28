@@ -1,0 +1,173 @@
+:root {
+    --utd-orange: #e87500;
+    --utd-green: #154734;
+    --utd-silver: #5fe0b7;
+    --utd-light-gray: #f4f4f4;
+    --utd-dark-gray: #333333;
+}
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--utd-dark-gray);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--utd-light-gray);
+}
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: var(--utd-green);
+    padding: 20px;
+    border-radius: 5px;
+}
+.logo {
+    max-width: 300px;
+    display: block;
+    margin: 0 auto 20px;
+}
+h1 {
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+main {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+h2 {
+    color: var(--utd-green);
+    border-bottom: 2px solid var(--utd-orange);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    margin-bottom: 15px;
+}
+nav ul li a {
+    text-decoration: none;
+    color: var(--utd-green);
+    transition: color 0.3s, background-color 0.3s;
+    padding: 8px 12px;
+    border-radius: 3px;
+    display: block;
+}
+nav ul li a:hover {
+    color: #ffffff;
+    background-color: var(--utd-orange);
+}
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--utd-dark-gray);
+    background-color: var(--utd-silver);
+    padding: 15px;
+    border-radius: 5px;
+}
+footer p {
+    margin: 5px 0;
+}
+footer a {
+    color: var(--utd-green);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+footer a:hover {
+    color: var(--utd-orange);
+    text-decoration: underline;
+}
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    main {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .logo {
+        max-width: 250px;
+    }
+}
+.main-site-link {
+    display: inline-block;
+    background-color: var(--utd-orange);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 15px;
+}
+
+.main-site-link:hover {
+    background-color: #ff8c1a;
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .main-site-link {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+}
+
+.survey-link {
+    display: inline-block;
+    background-color: var(--utd-orange);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 20px 0;
+    transition: background-color 0.3s;
+}
+
+.survey-link:hover {
+    background-color: var(--utd-green);
+}
+
+.qr-code {
+    max-width: 200px;
+    margin: 20px 0;
+}
+
+.download-link {
+    display: inline-block;
+    background-color: var(--utd-orange);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    margin: 5px 0;
+    transition: background-color 0.3s;
+}
+
+.download-link:hover {
+    background-color: var(--utd-green);
+}
+
+.upload-link {
+    display: inline-block;
+    background-color: var(--utd-green);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    margin: 5px 0;
+    transition: background-color 0.3s;
+}
+
+.upload-link:hover {
+    background-color: var(--utd-orange);
+}
