@@ -1,0 +1,262 @@
+---
+title: "EPPS Math and Coding Camp"
+subtitle: "AI as a research method"
+author: "Instructor: Xingyuan Zhao"
+format:
+  revealjs:
+    theme: [serif, assets/custom.scss]
+    slide-number: true
+    logo: assets/eppslogo.png
+    css: assets/logo.css
+    scrollable: true
+---
+
+## How this differ from AI as an assistant?
+
+::: fragment
+**Assistant:**
+
+- AI helps your research pipeline, but not in them
+:::
+
+::: fragment
+**Method:**
+
+- AI *IS* in your research pipeline. It can be methodology, or the target being studied, or something else.
+:::
+
+## Applications
+
+### Natural language processing (NLP) tasks
+
+::: fragment
+- Sentiment analysis
+:::
+
+::: fragment
+- Topic modeling
+:::
+
+::: fragment
+- Named entity recognition
+:::
+
+::: fragment
+- Relation extraction
+:::
+
+::: fragment
+- Argument extraction
+:::
+
+::: fragment
+- Semantic similarity
+:::
+
+::: fragment
+**Example:**
+:::
+
+---
+
+### Data standardization
+
+::: fragment
+- Standardize inconsistent formats, cases, codes, units, and delimiters
+:::
+
+::: fragment
+- Detect and repair typos, invalid values, outliers, and inconsistent encodings
+:::
+
+::: fragment
+- Impute missing values using related variables or documented external context
+:::
+
+::: fragment
+**Example:**
+:::
+
+::: fragment
+Given a noisy scraped HTML -> AI models -> Standardized excepts
+:::
+
+---
+
+### Data integration
+
+::: fragment
+- Entity Matching: Link records that refer to the same real-world entity across datasets
+:::
+
+::: fragment
+- Schema Matching: Identify semantic correspondences between elements across heterogeneous schemas from different sources
+:::
+
+::: fragment
+**Example:**
+:::
+
+---
+
+### Data enrichment
+
+::: fragment
+- Data Annotation: Assign semantic or structural labels to tables, columns, and cells
+:::
+
+::: fragment
+- Data Profiling: Derive structured metadata from semantic datasets
+:::
+
+::: fragment
+**Example:**
+:::
+
+---
+
+### Create a pipeline
+
+::: fragment
+You can stack multiple tasks together to create a pipeline.
+:::
+
+::: fragment
+**Example:**
+:::
+
+---
+
+### Danger zone
+
+::: fragment
+- LLM-as-judge
+:::
+
+::: fragment
+- Silicone sample
+:::
+
+---
+
+#### LLM-as-judge
+
+::: fragment
+**Why they can be dangerous?**
+:::
+
+::: fragment
+- Position and order bias
+:::
+
+::: fragment
+- Verbosity bias
+:::
+
+::: fragment
+- Self-enhancement bias
+:::
+
+::: fragment
+- Authority bias
+:::
+
+::: fragment
+- Bandwagon-effect bias
+:::
+
+::: fragment
+- Sycophancy
+:::
+
+---
+
+**Caveats if you have to use it:**
+
+::: fragment
+- Define a task-specific rubric and external ground truth before judging; do not let the LLM define quality by itself.
+:::
+
+::: fragment
+- Separate answer generation from evaluation; do not use the same model as both generator and judge.
+:::
+
+::: fragment
+- Randomize and counterbalance answer order, repeat judgments across permutations, and report instability rather than accepting one verdict.
+:::
+
+::: fragment
+- Run task-bias specific robustness audits before deployment: perturb length, identity, citation, and framing while holding substantive content fixed.
+:::
+
+::: fragment
+- Validate a sample against independent human ground truth and escalate consequential or uncertain cases to human review.
+:::
+
+---
+
+#### Silicone sample
+
+::: fragment
+**Why they can be dangerous?**
+:::
+
+::: fragment
+- Biased training data: Outputs can underrepresent within-group diversity, flatten variation, and obscure cultural and demographic differences. 
+:::
+
+::: fragment
+- Biased training data: They reflect what goes into the training data, and the selected pool of humans creating “public writing,” rather than the whole population or what humans do.
+:::
+
+::: fragment
+- Guardrail/safety: Anti-harm refusals can be detrimental to simulations.
+:::
+
+::: fragment
+- Sycophancy can shift simulations toward user-pleasing, unrealistically agreeable, or prosocial outputs.
+:::
+
+::: fragment
+- Proprietary training data: Researchers cannot diagnose which component of pretraining data drives replication success or failure; results may not be reproducible.
+:::
+
+---
+
+**Caveats if you have to use it:**
+
+::: fragment
+- Robustness permutations audits, such as temperature variation, prompt translation round-trip, context rewording.
+:::
+
+::: fragment
+- Use fine-tuned domain specific models, rather than general purpose models.
+:::
+
+::: fragment
+- Use prompt engineering, context-rich prompting or researcher defined pipelines to represent latent features or isolate pollutions.
+:::
+
+## Validation
+
+::: fragment
+AI <- Human -> Ground truth
+:::
+
+::: fragment
+AI outputs are not considered as the ground truth. It is human's responsibility to validate them.
+:::
+
+## How to do it?
+
+::: fragment
+- Using chatbot Graphical User Interface (GUI)
+:::
+
+::: fragment
+- Using API
+:::
+
+::: fragment
+- Deploy local model
+:::

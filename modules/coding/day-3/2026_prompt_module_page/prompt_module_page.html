@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPPS Math Coding Camp — Day 3: Prompt Engineering Warm-Up</title>
+<style>
+  :root{
+    --text:#1a1a1a;
+    --muted:#5f6368;
+    --link:#1a73e8;
+    --rule:#e2e2e2;
+    --code-bg:#f4f4f5;
+    --important-bg:#fdecec;
+    --important-border:#d33b3b;
+    --heading:#111;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    background:#fff;
+    line-height:1.6;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:48px 24px 80px;
+  }
+  .breadcrumb{
+    font-size:14px;
+  }
+  .breadcrumb a{color:var(--link); text-decoration:none;}
+  .breadcrumb a:hover{text-decoration:underline;}
+  h1{
+    font-size:34px;
+    font-weight:700;
+    margin:18px 0 4px;
+    color:var(--heading);
+  }
+  .subtitle{
+    font-size:19px;
+    color:var(--muted);
+    margin:0 0 24px;
+    font-weight:400;
+  }
+  .meta{
+    display:flex;
+    gap:48px;
+    padding:18px 0;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    margin-bottom:36px;
+  }
+  .meta div .label{
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:2px;
+  }
+  .meta div .value{
+    font-size:15px;
+    color:var(--text);
+  }
+  h2{
+    font-size:24px;
+    font-weight:700;
+    margin:44px 0 6px;
+    color:var(--heading);
+  }
+  h2 + hr{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:0 0 18px;
+  }
+  h3{
+    font-size:19px;
+    font-weight:700;
+    margin:28px 0 8px;
+    color:var(--heading);
+  }
+  p{margin:0 0 16px; font-size:16px;}
+  ul, ol{margin:0 0 16px; padding-left:22px; font-size:16px;}
+  li{margin-bottom:6px;}
+  code{
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    background:var(--code-bg);
+    padding:2px 5px;
+    border-radius:4px;
+    font-size:14px;
+  }
+  .important{
+    background:var(--important-bg);
+    border-left:4px solid var(--important-border);
+    padding:14px 18px;
+    margin:18px 0;
+    border-radius:2px;
+  }
+  .important .tag{
+    color:var(--important-border);
+    font-weight:700;
+    font-size:14px;
+    margin-bottom:4px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin:14px 0 22px;
+  }
+  .compare .col{
+    border-radius:6px;
+    padding:14px 16px;
+  }
+  .compare .bad{background:#fdecec; border:1px solid #f3c9c9;}
+  .compare .good{background:#eaf7ee; border:1px solid #c7e8d0;}
+  .compare .label{
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin-bottom:8px;
+  }
+  .compare .bad .label{color:#b3261e;}
+  .compare .good .label{color:#1e7a37;}
+  .compare p{font-size:14.5px; margin:0;}
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:14px 0 22px;
+  }
+  .miniblock{
+    background:var(--code-bg);
+    border-radius:6px;
+    padding:12px 16px;
+    font-size:14.5px;
+  }
+  .miniblock b{
+    display:block;
+    color:var(--heading);
+    font-size:13px;
+    margin-bottom:4px;
+  }
+  details{
+    background:#eaf7ee;
+    border:1px solid #c7e8d0;
+    border-radius:6px;
+    padding:12px 16px;
+    margin:0 0 12px;
+  }
+  details summary{
+    cursor:pointer;
+    font-weight:700;
+    font-size:14px;
+    color:#1e7a37;
+  }
+  details .compare{margin-top:12px; margin-bottom:0;}
+  footer{
+    margin-top:60px;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:13px;
+    color:var(--muted);
+  }
+  @media(max-width:640px){
+    .compare, .grid2{grid-template-columns:1fr;}
+    .meta{gap:24px; flex-wrap:wrap;}
+    h1{font-size:27px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="breadcrumb"><a href="#">Home</a></div>
+  <h1>Day 3: Prompt Engineering Warm-Up</h1>
+  <p class="subtitle">A short, hands-on introduction to prompting AI well — before you open RStudio</p>
+
+  <div class="meta">
+    <div>
+      <div class="label">Author</div>
+      <div class="value">JP Adjadeh</div>
+    </div>
+    <div>
+      <div class="label">Published</div>
+      <div class="value">July 30, 2026</div>
+    </div>
+  </div>
+
+  <h2>1. Introduction</h2><hr>
+  <p>You'll be prompting AI constantly today — for R code, for debugging help, for explanations of error messages. This short warm-up covers the one skill that determines whether that goes well: writing prompts that actually give the model what it needs. <strong>AI is a fast collaborator, not a source of truth</strong> — every section below builds toward a habit of verification that you should carry into RStudio right after this.</p>
+
+  <h2>2. Human in the Loop: Why You Always Verify</h2><hr>
+  <p>AI models are fluent, not necessarily correct. A model can produce a confident, well-formatted answer that is factually wrong — a plausible-looking but incorrect statistic, code that runs without error but does the wrong thing. Nothing about how polished the output looks tells you whether it's accurate.</p>
+  <p>This is the idea of <strong>human in the loop</strong>: the model generates, but a person checks. That responsibility stays with you today, whether you're refining a prompt or asking AI to write a line of R.</p>
+
+  <div class="important">
+    <div class="tag">⚠ The One Rule</div>
+    Never run or trust AI output you have not personally checked. If you can't verify it, don't rely on it yet.
+  </div>
+
+  <ul>
+    <li><strong>Verify numbers by hand</strong> — recompute a statistic or spot-check a few rows rather than trusting a summary at face value</li>
+    <li><strong>Verify code by tracing it</strong> — read what each line does; code that runs without an error is not the same as code that's correct</li>
+  </ul>
+
+  <h2>3. What Makes a Good Prompt</h2><hr>
+  <p>Compare these two prompts. Both were given to the same model.</p>
+
+  <div class="compare">
+    <div class="col bad">
+      <div class="label">Weak prompt</div>
+      <p>"I need to understand American democracy for a paper I'm writing."</p>
+    </div>
+    <div class="col good">
+      <div class="label">Strong prompt</div>
+      <p>"You are a PhD student studying comparative political institutions. Explain, in plain terms, how democratic accountability works in the United States, focusing on the checks between the executive and legislative branches. Bullet points, under 150 words, written for an undergraduate audience."</p>
+    </div>
+  </div>
+
+  <p>The weak prompt <em>sounds</em> like it has context — "a paper I'm writing" — but tells the model nothing about the argument, the angle, or what "understand" should actually produce. The strong prompt succeeds because it supplies five things the model cannot guess on its own:</p>
+
+  <h3>R–T–C–F–E</h3>
+  <ul>
+    <li><strong>Role</strong> — who should the model act as? ("You are a PhD student researching...")</li>
+    <li><strong>Task</strong> — one specific, concrete ask, not an open-ended request</li>
+    <li><strong>Context</strong> — the background the model has no way of knowing: your field, your topic, your stage of research</li>
+    <li><strong>Format</strong> — the shape of the output: bullets, a table, a word limit, a tone</li>
+    <li><strong>Examples</strong> — a model output to imitate, when relevant</li>
+  </ul>
+
+  <h3>Same Problem, Your Field</h3>
+  <p>Each of these has the same gaps as the example above — "my data," "my research," "my paper" are gestured at but never actually described:</p>
+
+  <div class="grid2">
+    <div class="miniblock"><b>GIS</b>"I have some GIS data on land use — what should I do with it?"</div>
+    <div class="miniblock"><b>Criminology</b>"I'm looking at crime data for my research — what does the data say?"</div>
+    <div class="miniblock"><b>Economics</b>"I found this economic trend in my data — what does it mean?"</div>
+    <div class="miniblock"><b>Political Science</b>"I need some background on political institutions for my paper."</div>
+  </div>
+
+  <div class="important">
+    <div class="tag">⚠ Exercise 1</div>
+    Find the card above closest to your discipline. Run the weak version first and see what you get. Then rebuild it using R–T–C–F–E, swapping in your own real topic, and run it again. Note which single addition changed the output the most.
+  </div>
+
+  <p>Check your rebuild against a model answer for each discipline:</p>
+
+  <details>
+    <summary>GIS — reveal the rebuilt version</summary>
+    <div class="compare">
+      <div class="col bad"><div class="label">Before</div><p>"I have some GIS data on land use — what should I do with it?"</p></div>
+      <div class="col good"><div class="label">After</div><p>"You are a PhD student using GIS to study land-use change. I have parcel-level land-use data for a mid-sized U.S. county from 2010–2020. Suggest three exploratory analyses that could reveal patterns of urban sprawl, and briefly explain what each would show. Bullet points, under 200 words."</p></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Criminology — reveal the rebuilt version</summary>
+    <div class="compare">
+      <div class="col bad"><div class="label">Before</div><p>"I'm looking at crime data for my research — what does the data say?"</p></div>
+      <div class="col good"><div class="label">After</div><p>"You are a PhD student in criminology analyzing city-level crime data. My dataset has monthly reported crime counts by offense type for one city from 2015–2023. Suggest three visualizations that would help spot seasonal or long-term trends, and explain what each would reveal. Bullet points, under 200 words."</p></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Economics — reveal the rebuilt version</summary>
+    <div class="compare">
+      <div class="col bad"><div class="label">Before</div><p>"I found this economic trend in my data — what does it mean?"</p></div>
+      <div class="col good"><div class="label">After</div><p>"You are a PhD student in economics studying a trend in my dataset. My data shows quarterly unemployment and inflation rates for one country over the last 20 years, both rising together. Explain what that pattern would suggest about the underlying economy, and note two limitations of drawing conclusions from this data alone. Bullet points, under 200 words."</p></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Political Science — reveal the rebuilt version</summary>
+    <div class="compare">
+      <div class="col bad"><div class="label">Before</div><p>"I need some background on political institutions for my paper."</p></div>
+      <div class="col good"><div class="label">After</div><p>"You are a PhD student in political science. I'm writing a paper comparing how presidential and parliamentary systems handle legislative gridlock. Summarize the key structural differences relevant to gridlock, formatted as a short comparison table."</p></div>
+    </div>
+  </details>
+
+  <h3>Common Failure Modes</h3>
+  <ul>
+    <li>Vague verbs — "help me with," "look at this"</li>
+    <li>No role — the model defaults to a generic assistant voice</li>
+    <li>No constraints — leads to long, unfocused answers</li>
+    <li>Assuming the model knows your dataset, field conventions, or prior context</li>
+    <li>"One-shotting" — trying to get a complex task perfect in a single try, instead of refining it turn by turn</li>
+  </ul>
+
+  <div class="important">
+    <div class="tag">⚠ Up Next</div>
+    Every prompt you write to AI for R code today — cleaning data, debugging, building a chart — follows the same five pieces. Vague prompt in, vague code out. Continue to <strong>Introduction to R and RStudio</strong>.
+  </div>
+
+  <footer>
+    EPPS Math Coding Camp · Day 3 · Prompt Engineering Warm-Up
+  </footer>
+
+</div>
+</body>
+</html>

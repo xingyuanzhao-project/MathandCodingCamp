@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPPS Math Coding Camp — Data Manipulation, Part 1</title>
+<style>
+  :root{
+    --text:#1a1a1a;
+    --muted:#5f6368;
+    --link:#1a73e8;
+    --rule:#e2e2e2;
+    --code-bg:#f4f4f5;
+    --important-bg:#fdecec;
+    --important-border:#d33b3b;
+    --note-bg:#eaf2fd;
+    --note-border:#1a73e8;
+    --mission-bg:#eef1f6;
+    --mission-border:#1E2A4A;
+    --heading:#111;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    background:#fff;
+    line-height:1.6;
+  }
+  .page{max-width:820px; margin:0 auto; padding:48px 24px 80px;}
+  .breadcrumb{font-size:14px;}
+  a{color:var(--link); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  h1{font-size:32px; font-weight:700; margin:18px 0 4px; color:var(--heading);}
+  .subtitle{font-size:18px; color:var(--muted); margin:0 0 24px; font-weight:400;}
+  .meta{
+    display:flex; gap:48px; padding:18px 0;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:36px;
+  }
+  .meta div .label{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;}
+  .meta div .value{font-size:15px; color:var(--text);}
+  h2{font-size:24px; font-weight:700; margin:44px 0 6px; color:var(--heading);}
+  h2 + hr{border:none; border-top:1px solid var(--rule); margin:0 0 18px;}
+  h3{font-size:19px; font-weight:700; margin:32px 0 8px; color:var(--heading);}
+  h4{font-size:15px; font-weight:700; margin:22px 0 6px; color:var(--heading);}
+  p{margin:0 0 16px; font-size:16px;}
+  ul, ol{margin:0 0 16px; padding-left:22px; font-size:16px;}
+  li{margin-bottom:6px;}
+  code{
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    background:var(--code-bg); padding:2px 5px; border-radius:4px; font-size:14px;
+  }
+  pre{background:var(--code-bg); padding:16px 60px 16px 18px; border-radius:6px; overflow-x:auto; margin:0 0 20px; position:relative;}
+  pre code{background:none; padding:0; font-size:14px; line-height:1.55;}
+  .code-label{font-size:13px; color:var(--muted); font-weight:600; margin:18px 0 6px;}
+  .copybtn{
+    position:absolute; top:8px; right:8px;
+    font-family:-apple-system,sans-serif; font-size:11px; font-weight:600;
+    background:#fff; border:1px solid #d5d5d0; border-radius:6px;
+    padding:4px 10px; cursor:pointer; color:#444;
+  }
+  .copybtn:hover{background:#f0f0ec;}
+  .copybtn.copied{background:#3F7A5C; color:#fff; border-color:#3F7A5C;}
+
+  .important{
+    background:var(--important-bg); border-left:4px solid var(--important-border);
+    padding:14px 18px; margin:18px 0; border-radius:2px;
+  }
+  .important .tag{
+    color:var(--important-border); font-weight:700; font-size:14px; margin-bottom:4px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .note{
+    background:var(--note-bg); border-left:4px solid var(--note-border);
+    padding:14px 18px; margin:18px 0; border-radius:2px;
+  }
+  .note .tag{
+    color:var(--note-border); font-weight:700; font-size:14px; margin-bottom:4px;
+    display:flex; align-items:center; gap:6px;
+  }
+
+  .mission{
+    background:var(--mission-bg); border-left:4px solid var(--mission-border);
+    padding:16px 20px; margin:18px 0; border-radius:2px;
+  }
+  .mission .tag{
+    color:var(--mission-border); font-weight:700; font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .mission-blank{
+    font-family:"SFMono-Regular",Consolas,Menlo,monospace;
+    background:#fff; border:1px dashed #9aa3bc; border-radius:4px;
+    padding:14px 16px; font-size:14px; line-height:1.7; color:#3c4557;
+    white-space:pre-wrap;
+  }
+  .fill{
+    display:inline-block; min-width:110px; border-bottom:1.5px solid #b3502f;
+    color:#b3502f; font-style:italic;
+  }
+
+  .fileinfo{
+    display:flex; gap:14px; flex-wrap:wrap; background:var(--code-bg);
+    border-radius:6px; padding:12px 16px; margin:0 0 20px; font-size:13.5px;
+  }
+  .fileinfo div{color:var(--muted);}
+  .fileinfo b{color:var(--heading);}
+
+  details{
+    background:#f4f4f5; border:1px solid var(--rule); border-radius:6px;
+    padding:12px 16px; margin:0 0 20px;
+  }
+  details summary{cursor:pointer; font-weight:700; font-size:14px; color:var(--heading);}
+  details pre{margin-top:12px; margin-bottom:0;}
+
+  footer{margin-top:60px; padding-top:20px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted);}
+
+  @media(max-width:640px){
+    .meta{gap:24px; flex-wrap:wrap;}
+    h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="breadcrumb"><a href="#">Home</a></div>
+  <h1>Data Manipulation, Part 1</h1>
+  <p class="subtitle">Indexing, subsetting, transforming, and cleaning data frames in base R, using AI-assisted prompting</p>
+
+  <div class="meta">
+    <div>
+      <div class="label">Author</div>
+      <div class="value">JP Adjadeh</div>
+    </div>
+    <div>
+      <div class="label">Published</div>
+      <div class="value">July 30, 2026</div>
+    </div>
+  </div>
+
+  <h2>1. Introduction</h2><hr>
+  <p>The previous module established what a data frame, vector, factor, and list are, and introduced <code>class()</code> as the tool for confirming which one you are working with. This module builds directly on that foundation: rather than identifying structure, the focus now shifts to manipulating it — selecting specific rows and columns, filtering by condition, transforming values, and handling missing data.</p>
+  <p>The same discipline continues to apply. Each task below is completed by prompting an AI model for code, using the same role, task, context, and format elements established earlier — and every result is checked before it is trusted, not accepted simply because it ran.</p>
+  <p>This module uses base R only. A separate module introduces <code>dplyr</code>, which offers a different syntax for many of the same operations.</p>
+
+  <h2>2. Indexing and Subsetting</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> life_exp</div>
+    <div><b>Already imported as:</b> <code>life_exp</code></div>
+  </div>
+  <p>A data frame can be indexed using the pattern <code>data[row, column]</code>. Leaving either position blank selects all rows or all columns. R uses 1-based indexing — the first row or column is position 1, not 0.</p>
+
+  <div class="note">
+    <div class="tag">ⓘ Note — Single vs. Double Brackets</div>
+    <code>life_exp[1, 1]</code> and <code>life_exp[[1, 1]]</code> return the same value but not the same type. A single bracket keeps the result inside a data frame; a double bracket extracts the raw value on its own. This distinction becomes relevant when a later step expects a plain value rather than a one-cell data frame. Run both and compare with <code>class()</code> before continuing.
+  </div>
+
+  <div class="code-label">Code</div>
+  <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-bracket">class(life_exp[1, 1])
+class(life_exp[[1, 1]])</code></pre>
+
+  <h4>Segment 1: Selecting rows and columns</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[return only the Year and
+Average_Life_Expectancy columns for the first 10 rows]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 1</div>
+    Run your prompt. Then, without asking AI, write a second line of indexing code that returns the same result using column names instead of column numbers. Confirm both approaches produce identical output.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-l1">life_exp[1:10, c("Year", "Average_Life_Expectancy")]
+life_exp[1:10, c(1, 3)]</code></pre>
+  </details>
+
+  <h4>Segment 2: Extracting a single value</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[extract the Average_Life_Expectancy
+value from row 50 as a plain number rather than a one-cell data
+frame], then confirm its class.</span></div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 2</div>
+    Run your prompt. Then run <code>life_exp[50, "Average_Life_Expectancy"]</code> using a single bracket instead, and check its class as well. State which of the two approaches returned a plain value automatically, and which required the double bracket to do so.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-l2">life_exp[[50, "Average_Life_Expectancy"]]
+class(life_exp[[50, "Average_Life_Expectancy"]])
+
+life_exp[50, "Average_Life_Expectancy"]
+class(life_exp[50, "Average_Life_Expectancy"])</code></pre>
+  </details>
+
+  <h2>3. Subsetting with Conditions</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> air</div>
+    <div><b>Already imported as:</b> <code>air</code></div>
+  </div>
+  <p>Rows can be filtered using a logical condition in place of a row number. R evaluates the condition for every row and keeps only the ones where it is <code>TRUE</code>. Multiple conditions can be combined with <code>&amp;</code> (and) and <code>|</code> (or).</p>
+
+  <h4>Segment 1: A single condition</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the air data frame, write
+R code to <span class="fill">[return only the rows where Year is 2015]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 3</div>
+    Run your prompt. Record how many rows meet the condition.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-cond1">air_2015 <- air[air$Year == 2015, ]
+nrow(air_2015)</code></pre>
+  </details>
+
+  <h4>Segment 2: Combining conditions</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the air data frame, write
+R code to <span class="fill">[return the Place_Name and Data.Value
+columns for rows where Type_Name is "UHF42" and Data.Value is
+greater than 10]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 4</div>
+    Run your prompt. Identify which operator the code uses to require both conditions to hold at once, rather than either one.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-cond2">air[air$Type_Name == "UHF42" & air$Data.Value > 10,
+    c("Place_Name", "Data.Value")]</code></pre>
+  </details>
+
+  <h4>Segment 3: A three-part condition</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the air data frame, write
+R code to <span class="fill">[return the Name and Data.Value columns
+for rows where Type_Name is "UHF42", and Year is either 2015 or
+2020]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 5</div>
+    Run your prompt. Identify which part of the condition is joined with <code>&amp;</code> and which part is joined with <code>|</code>, and explain why parentheses are needed around the year condition.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-cond3">air[air$Type_Name == "UHF42" & (air$Year == 2015 | air$Year == 2020),
+    c("Name", "Data.Value")]</code></pre>
+  </details>
+
+  <h2>4. Transforming Data</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> ev</div>
+    <div><b>Already imported as:</b> <code>ev</code></div>
+  </div>
+  <p>Transformation covers three common operations: renaming a column, creating a new column from existing ones, and converting a column to a different data type.</p>
+
+  <h4>Segment 1: Renaming a column</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the ev data frame, write
+R code to <span class="fill">[rename the Base MSRP column to Price]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 6</div>
+    Run your prompt. Use <code>names(ev)</code> to confirm the column was renamed and that no other column names changed.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-rename">names(ev)[names(ev) == "Base MSRP"] <- "Price"
+names(ev)</code></pre>
+  </details>
+
+  <h4>Segment 2: Creating a new variable</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the ev data frame, write
+R code to <span class="fill">[create a new column called Vehicle_Age,
+calculated as 2026 minus Model_Year]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 7</div>
+    Run your prompt. Independently verify the calculation for one row by locating its Model_Year and computing the age by hand.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-newvar">ev$Vehicle_Age <- 2026 - ev$Model_Year
+head(ev[, c("Model_Year", "Vehicle_Age")])</code></pre>
+  </details>
+
+  <h4>Segment 3: Changing a data type</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the ev data frame, write
+R code to <span class="fill">[convert the Make column to a factor and
+show me its class before and after]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 8</div>
+    Run your prompt. This mirrors a conversion from the previous module — name which data structure this operation involves.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-type">class(ev$Make)
+ev$Make <- as.factor(ev$Make)
+class(ev$Make)</code></pre>
+  </details>
+
+  <h4>Segment 4: Normalizing a numeric column</h4>
+  <div class="note">
+    <div class="tag">ⓘ Note — Min-Max Normalization</div>
+    A common way to rescale a numeric column to a 0–1 range is: <code>normalized value = (value − minimum) / (maximum − minimum)</code>. The smallest value in the column becomes 0, the largest becomes 1, and everything else falls proportionally in between.
+  </div>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the ev data frame, write
+R code to <span class="fill">[create a new column called
+normalized_range, rescaling Electric_Range to a 0–1 range using
+min-max normalization]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 9</div>
+    Run your prompt. Confirm that the minimum value in normalized_range is 0 and the maximum is 1.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-norm">ev$normalized_range <- (ev$Electric_Range - min(ev$Electric_Range, na.rm = TRUE)) /
+  (max(ev$Electric_Range, na.rm = TRUE) - min(ev$Electric_Range, na.rm = TRUE))
+
+min(ev$normalized_range, na.rm = TRUE)
+max(ev$normalized_range, na.rm = TRUE)</code></pre>
+  </details>
+
+  <h2>5. Missing Values</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> ev</div>
+    <div><b>Already imported as:</b> <code>ev</code></div>
+  </div>
+  <p>Real datasets rarely arrive complete. Before deciding what to do about missing values, it is necessary to know where they are and how many there are.</p>
+
+  <h4>Segment 1: Counting missing values</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the ev data frame, write
+R code to <span class="fill">[report the total number of missing
+values, and the number of missing values in each column
+separately]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 10</div>
+    Run your prompt. Identify which column has the most missing values.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-na1">sum(is.na(ev))
+colSums(is.na(ev))</code></pre>
+  </details>
+
+  <h4>Segment 2: Inspecting and removing missing values</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the ev data frame, write
+R code to <span class="fill">[show me the rows where the County column
+is missing, then remove those rows and confirm the new row
+count]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 11</div>
+    Before running your prompt, answer this: is it appropriate to remove every row with a missing County value for this dataset, or only rows where County is missing for a reason that matters to your analysis? There is no single correct answer — the point is that this is a judgment call AI cannot make for you.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-na2">ev[is.na(ev$County), ]
+ev_clean <- ev[!is.na(ev$County), ]
+nrow(ev_clean)</code></pre>
+  </details>
+
+  <h4>Segment 3: Comparing results with and without missing data</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the ev data frame, write
+R code to <span class="fill">[compute the average Electric_Range twice
+— once using all rows, and once after removing rows where
+Electric_Range is missing — and show both results together]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 12</div>
+    Run your prompt. State whether removing the missing values changed the average, and explain why the <code>na.rm = TRUE</code> argument used earlier in this module produces the same effect without a separate removal step.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dm-na3">mean(ev$Electric_Range, na.rm = FALSE)
+mean(ev$Electric_Range, na.rm = TRUE)</code></pre>
+  </details>
+
+  <div class="note">
+    <div class="tag">ⓘ Note</div>
+    AI can generate the code to remove missing values in seconds. It cannot tell you whether removing them is the right call for your specific analysis — that decision depends on why the data is missing and what the downstream analysis needs, both of which require judgment the model does not have access to.
+  </div>
+
+  <h2>Conclusion</h2><hr>
+  <p>This module covered four core manipulation tasks in base R: indexing and subsetting a data frame by position and by name, filtering rows with single and combined logical conditions, transforming a data frame through renaming, new variable creation, and type conversion, and identifying and handling missing values. Each task was completed by prompting an AI model for code and verifying the result — recomputing a value by hand, checking a row count, or comparing an approach against an independent method.</p>
+  <p>A separate module continues this work using <code>dplyr</code>, which offers an alternative, verb-based syntax for many of the same operations.</p>
+
+  <footer>
+    EPPS Math Coding Camp · Data Manipulation, Part 1
+  </footer>
+
+</div>
+
+<script>
+  function copyCode(btn){
+    const code = btn.nextElementSibling;
+    const text = code.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1400);
+    });
+  }
+</script>
+</body>
+</html>

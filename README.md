@@ -26,20 +26,21 @@ Create one self-contained page folder below `modules/`. For example:
 
 ```text
 modules/math/day-6/example/
-  example.qmd
+  example.html
   assets/
     chart.png
 ```
 
-Each page folder has one entry file:
-
-- `A.html` is copied into the generated website;
-- `B.qmd` is rendered by Quarto;
-- `C.Rmd` is rendered by Quarto.
+Render your page to a single `.html` file yourself (with Quarto or
+otherwise) and commit that file. The build only copies pre-rendered HTML;
+it does not run Quarto and will not render a `.qmd` or `.Rmd` source.
 
 Keep images, CSS, JavaScript, data, and page-specific libraries with that
-page, normally under `assets/`. Use a filename that is unique below
-`modules/`, because the manager map refers to the contributor file by name.
+page, normally under `assets/`. The build copies everything else in your
+page's folder alongside the `.html` file, so a self-contained `assets/`
+folder travels with it automatically. The manager map refers to your page
+by its full path from the repository root, so the filename itself no
+longer needs to be unique across `modules/`.
 
 ## For the manager
 
@@ -51,12 +52,12 @@ feedback, and resources; it can grow with new headings or nested headings.
 Items use one of these forms:
 
 ```yaml
-Day 6:
+Day 6: modules/math/day-6
   Night Session:
-    - Example lesson: "example.qmd"
+    - Example lesson: "modules/math/day-6/example/example.html"
 
 Data Files for Download:
-  - Example data: "example.csv"
+  - Example data: "modules/downloads/example.csv"
 
 Feedback:
   - Existing form: "https://example.org/form"
@@ -68,18 +69,30 @@ Day 7:
 
 The displayed label is on the left. The value on the right is either:
 
-- a contributor page file (`.html`, `.qmd`, or `.Rmd`);
-- a static file stored under `modules/` or `static/`, including downloads;
+- a page or static file's exact path, relative to the repository root
+  (for example `modules/math/day-6/example/example.html`);
 - an existing `https:` or `mailto:` URL.
 
-A plain list item is displayed as text without a link.
+A plain list item with no colon is displayed as text without a link.
 
-The build distinguishes pages and files from the target itself, not from the
-heading containing it:
+Every local path is resolved exactly as written: `build_site.py` fails the
+build if the named path does not exist. There is no filename search and no
+fallback, so a typo is caught immediately instead of silently producing a
+dead link.
 
-- `.html`, `.qmd`, and `.Rmd` targets are discovered under `modules/`;
-- other filenames are discovered under `modules/` or `static/` and linked as files;
-- `https:` and `mailto:` values remain external links.
+A heading may optionally carry a path prefix after its colon, the way
+`Day 6:` does above. When present, every item nested under that heading —
+including through further nested headings — must resolve to a path under
+that prefix, or the build fails. The prefix is a validation constraint
+only; it is never shown to visitors, who still see just the label before
+the colon. Headings with no folder of their own, such as `Night Session`,
+simply omit the prefix and stay display-only.
+
+Page targets must end in `.html` and live under `modules/`; the build does
+not render `.qmd` or `.Rmd`, so a contributor's page must already be
+rendered to HTML (see "For contributors" above). Other local targets, such
+as downloads, can live under `modules/` or `static/` and are linked as
+plain files instead of pages.
 
 ## Build
 
@@ -89,7 +102,9 @@ Run:
 python3 scripts/build_site.py
 ```
 
-Python 3 is required. Pages using QMD or RMD also require
-[Quarto](https://quarto.org/). The command writes the generated website to
-`_site/`. Pushing to `main` runs the same build in GitHub Actions and publishes
-that output to GitHub Pages.
+Only Python 3's standard library is required; the script does not call
+Quarto itself. ([Quarto](https://quarto.org/) is what contributors use
+locally to produce the `.html` they commit — see "For contributors" above.)
+The command writes the generated website to `_site/`. Pushing to `main`
+runs the same build in GitHub Actions and publishes that output to GitHub
+Pages.

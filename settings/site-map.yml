@@ -1,55 +1,67 @@
 # The manager controls the displayed hierarchy here.
 # A leaf may be:
-# - "Visible label": "a contributor page filename, a static filename, or an existing URL"
+# - "Visible label": "an explicit path to a file, from the repository root"
 # - Visible text with no link
+#
+# Local paths (pages and static downloads) are explicit and relative to the
+# repository root, e.g. "modules/math/day-1/preliminaries/day-1-preliminaries.html".
+# scripts/build_site.py resolves that exact path and fails the build if it
+# does not exist. There is no filename search and no fallback.
+#
+# A heading ("Day 1:", etc.) may carry a path prefix after its colon, e.g.
+# "Day 1: modules/math/day-1". When present, every leaf nested under that
+# heading must resolve to a path under that folder, or the build fails. The
+# label before the colon is still exactly what a visitor sees; the prefix is
+# never displayed. Headings with no natural folder of their own (for example
+# "Morning Session") simply omit the prefix and stay display-only.
 
-Day 1:
+Day 1: modules/math/day-1
   Morning Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Preliminaries: "day-1-preliminaries.html"
-    - Differentiation 1: "day-1-differentiation-1.html"
-    - Probability 1: "day-1-probability.html"
+    - Preliminaries: "modules/math/day-1/preliminaries/day-1-preliminaries.html"
+    - Differentiation 1: "modules/math/day-1/differentiation-1/day-1-differentiation-1.html"
+    - Probability 1: "modules/math/day-1/probability/day-1-probability.html"
   Afternoon Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Probability 2: "day-1-probability.html"
-    - Differentiation 2: "day-1-differentiation-2.html"
-    - Distributions 1: "day-1-distributions.html"
+    - Probability 2: "modules/math/day-1/probability/day-1-probability.html"
+    - Differentiation 2: "modules/math/day-1/differentiation-2/day-1-differentiation-2.html"
+    - Distributions 1: "modules/math/day-1/distributions/day-1-distributions.html"
 
-Day 2:
+Day 2: modules/math/day-2
   Morning Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Algebra Review: "day-2-algebra.html"
-    - Functions and Relations 1: "day-2-functions-1.html"
-    - Vector and Matrices 1: "day-2-vectors-matrices-1.html"
+    - Algebra Review: "modules/math/day-2/algebra/day-2-algebra.html"
+    - Functions and Relations 1: "modules/math/day-2/functions-1/day-2-functions-1.html"
+    - Vector and Matrices 1: "modules/math/day-2/vectors-matrices-1/day-2-vectors-matrices-1.html"
   Afternoon Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Vector and Matrices 2: "day-2-vectors-matrices-2.html"
-    - Distributions 2: "day-2-distributions.html"
-    - Functions and Relations 2: "day-2-functions-2.html"
+    - Vector and Matrices 2: "modules/math/day-2/vectors-matrices-2/day-2-vectors-matrices-2.html"
+    - Distributions 2: "modules/math/day-2/distributions/day-2-distributions.html"
+    - Functions and Relations 2: "modules/math/day-2/functions-2/day-2-functions-2.html"
 
-Day 3:
+Day 3: modules/coding/day-3
   Morning Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Introduction to R and RStudio: "day-3-introduction-to-r.html"
-    - Basic R Syntax & Data Types: "day-3-r-syntax-data-types.html"
-    - Data Structures: "day-3-data-structures.html"
+    - Prompt Engineering: "modules/coding/day-3/2026_prompt_module_page/prompt_module_page.html"
+    - R, RStudio & Data Structures: "modules/coding/day-3/2026_r_data_structures_module/r_data_structures_module.html"
   Afternoon Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Importing and Exporting Data: "day-3-importing-exporting-data.html"
-    - Data Manipulation: "day-3-data-manipulation.html"
-    - Data Visualization with Basic R: "day-3-base-r-visualization.html"
+    - Data Manipulation: "modules/coding/day-3/2026_data_manipulation_module/data_manipulation_module.html"
+    - Data Visualization: "modules/coding/day-3/2026_data_visualization_module/data_visualization_module.html"
 
-Day 4:
+Day 4: modules/coding/day-4
   Morning Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - R Data Visualization using ggplot2: "day-4-ggplot2.html"
-    - Advanced data manipulation with dplyr: "day-4-dplyr.html"
-    - Linear Regression: "day-4-linear-regression.html"
+    - AI Usage Principles in Research: "modules/coding/day-4/2026_ai-usage-principles/ai-usage-principles.html"
+    - AI as Assistant: "modules/coding/day-4/2026_ai-as-assistant/ai-as-assistant.html"
+    - AI as a research method: "modules/coding/day-4/2026_ai-as-method/ai-as-method.html"
+
   Afternoon Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Multiple Linear Regression: "day-4-multiple-linear-regression.html"
-    - Regression Diagnostics and Model Evaluation: "day-4-regression-diagnostics.html"
-    - Quarto and LaTeX: "day-4-quarto-latex.html"
+    - Linear Regression: "modules/coding/day-4/linear-regression/day-4-linear-regression.html"
+    - Multiple Linear Regression: "modules/coding/day-4/multiple-linear-regression/day-4-multiple-linear-regression.html"
+    - Regression Diagnostics and Model Evaluation: "modules/coding/day-4/regression-diagnostics/day-4-regression-diagnostics.html"
+    - Quarto and LaTeX: "modules/coding/day-4/quarto-latex/day-4-quarto-latex.html"
 
 Day 5:
   Morning Session:
@@ -60,9 +72,9 @@ Day 5:
     - Project Presentations
 
 Data Files for Download:
-  - Air Quality Data (CSV): "air-quality.csv"
-  - Electric Vehicle Population Data (Excel): "electric-vehicle-population.xlsx"
-  - US Life Expectancy Data (CSV): "us-life-expectancy.csv"
+  - Air Quality Data (CSV): "modules/downloads/air-quality.csv"
+  - Electric Vehicle Population Data (Excel): "modules/downloads/electric-vehicle-population.xlsx"
+  - US Life Expectancy Data (CSV): "modules/downloads/us-life-expectancy.csv"
 
 Group Presentations:
   - Group Sign Up: "mailto:utdeppsmcc@gmail.com?subject=Group Sign Up&body=Please indicate your group members here."
@@ -71,11 +83,11 @@ Group Presentations:
   - Upload Group B Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group B Presentation&body=Please attach your presentation file."
   - Upload Group THR33 Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group THR33 Presentation&body=Please attach your presentation file."
   - Upload Group KSA Presentation: "mailto:utdeppsmcc@gmail.com?subject=Group KSA Presentation&body=Please attach your presentation file."
-  - Presentation Example 1: "penguins-presentation-example.pptx"
-  - Presentation Example 2: "ufos-among-us-presentation-example.pptx"
+  - Presentation Example 1: "modules/presentations/penguins-presentation-example.pptx"
+  - Presentation Example 2: "modules/presentations/ufos-among-us-presentation-example.pptx"
 
 Feedback:
-  - Take our survey: "resources-survey.html"
+  - Take our survey: "modules/resources/survey/resources-survey.html"
 
 Resources:
-  - References: "resources-references.html"
+  - References: "modules/resources/references/resources-references.html"

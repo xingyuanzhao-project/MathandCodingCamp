@@ -1,0 +1,113 @@
+---
+title: "EPPS Math and Coding Camp"
+subtitle: "AI Usage Principles"
+author: "Instructor: Xingyuan Zhao"
+format:
+  revealjs:
+    theme: [serif, assets/custom.scss]
+    slide-number: true
+    logo: assets/eppslogo.png
+    css: assets/logo.css
+    scrollable: true
+---
+
+## Learning objectives:
+
+## Final destination:
+
+## Takeaway:
+
+## Policy Compliance first
+
+### Permitted Use
+
+::: fragment
+When the faculty member permits generative AI use, students are expected to use generative AI ethically and responsibly. Students should document and attribute the use of generative AI as appropriate to the academic style (APA, MLA, Chicago, etc.) or a professional style specified by the faculty member. Students must follow written guidelines from faculty on citation styles. Students must validate or verify the output from generative AI.
+:::
+
+---
+
+### Partial Use
+
+::: fragment
+When generative AI use is allowed for some but not all academic work, students are expected to follow written guidelines provided by the faculty member. Students should document and attribute the use of generative AI as appropriate to the academic style (APA, MLA, Chicago, etc.). Faculty should detail usage guidelines in assignment prompts. These guidelines detail the ways generative AI can be used in academic work.
+:::
+
+---
+
+### Prohibited Use
+
+::: fragment
+When the faculty member prohibits use of specific generative AI tools, use is unauthorized and thus is a violation of UTDSP5003. Students should present their work without the use of generative AI, including but not limited to use for ideating, outlining, writing, or studying, and creating text, tables, code, analysis, video, or images. Given the integration of generative AI tools into commonly used tools, students should receive written guidance from faculty on which applications of generative AI are not permitted.
+:::
+
+## Comet AI
+
+## Beyond prompt engineering
+
+::: fragment
+- Providing examples.
+:::
+
+::: fragment
+- Providing context.
+:::
+
+::: fragment
+- Providing workflow.
+:::
+
+## AI vs Human
+
+```{dot}
+//| fig-width: 6
+//| fig-height: 3
+//| fig-align: center
+digraph triangle {
+    layout=neato;
+    overlap=false;
+    node [shape=ellipse, style=filled, fillcolor="#EAF2FF", fontname=Helvetica];
+    edge [dir=both];
+
+    Human [pos="0,2!"];
+    AI    [pos="-2,0!"];
+    "Ground Truth" [pos="2,0!"];
+
+    Human -> AI;
+    Human -> "Ground Truth";
+}
+```
+
+## Validation
+
+::: fragment
+- AI output is **not the gold standard** — a human must still establish it.
+:::
+
+::: fragment
+- AI is **not zero-trust** either — know its strengths and limits, as you would any method in social science research.
+:::
+
+::: fragment
+- Trust in AI is therefore **calibrated**, not all-or-nothing.
+:::
+
+::: fragment
+- Validation is the **human's responsibility**, not the AI's.
+:::
+
+::: fragment
+- You need to have basic knowledge of the answers of your own questions.
+:::
+
+## Type of tasks
+
+What can AI do for you, as in research?
+
+::: fragment
+- AI as research assistants
+:::
+
+::: fragment
+- AI as *a part of* research methodology
+:::

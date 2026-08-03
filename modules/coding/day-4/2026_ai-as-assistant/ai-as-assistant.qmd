@@ -1,0 +1,473 @@
+---
+title: "EPPS Math and Coding Camp"
+subtitle: "AI as Assistant"
+author: "Instructor: Xingyuan Zhao"
+format:
+  revealjs:
+    theme: [serif, assets/custom.scss]
+    slide-number: true
+    logo: assets/eppslogo.png
+    css: assets/logo.css
+    scrollable: true
+---
+
+## A typical research workflow
+
+::: fragment
+- Research question
+:::
+
+::: fragment
+- Literature review
+:::
+
+::: fragment
+- Theoretical framework
+:::
+
+::: fragment
+- Data collection
+:::
+
+::: fragment
+- Methodology
+:::
+
+::: fragment
+- Analysis 
+:::
+
+::: fragment
+- Interpretation
+:::
+
+::: fragment
+- Conclusion and discussion
+...
+:::
+
+## What AI can do for you?
+
+::: fragment
+- Safe zone
+:::
+
+::: fragment
+- Danger zone, requires further human validation
+:::
+
+::: fragment
+- No go zone, might violate academic integrity
+:::
+
+---
+
+### Safe zone
+
+::: fragment
+- Brain storming
+:::
+
+::: fragment
+- Writing and fixing errors in non-production codes
+:::
+
+::: fragment
+- Generating plots and tables
+:::
+
+::: fragment
+Example: let AI download tables for you
+:::
+
+---
+
+### Danger zone, requires further human validation
+
+#### Writing and fixing errors in production codes
+
+::: fragment
+**Why this can be dangerous?**
+:::
+
+::: fragment
+- Pattern matching
+:::
+
+::: fragment
+- Scope creep
+:::
+
+::: fragment
+- Task substitution
+:::
+
+::: fragment
+- Ignoring interface
+:::
+
+::: fragment
+- Over-engineering: creating unnecessary abstraction, long method chaining, etc.
+:::
+
+::: fragment
+- Under-engineering: symptom patching, routing, short-cutting
+:::
+
+::: fragment
+- Obscure naming
+:::
+
+---
+
+**What it does well**
+
+::: fragment
+- Pattern completion
+:::
+
+::: fragment
+- Translation between natural language and code
+:::
+
+::: fragment
+- Local code transformation
+:::
+
+::: fragment
+- Generating alternatives and first drafts
+:::
+
+::: fragment
+- Feedback-driven iteration
+:::
+
+---
+
+**What it is bad at**
+
+::: fragment
+- Establishing what is true
+:::
+
+::: fragment
+- Inferring unstated requirements
+:::
+
+::: fragment
+- Reasoning across an entire system
+:::
+
+::: fragment
+- Making trade-offs between competing objectives
+:::
+
+::: fragment
+- Verifying its own work reliably
+:::
+
+::: fragment
+- Maintaining intent across long, multi-step tasks
+:::
+
+::: fragment
+**Example of Usage:**
+:::
+
+::: fragment
+Which AI output is problematic?
+:::
+
+---
+
+#### Collet and manage Literatures
+
+::: fragment
+**Root Issue:** 
+*Frontier* AI models are trained on vast majority of the human knowledge, not specific to **your** domain.
+:::
+
+::: fragment
+**Literature collection vs literature review**
+:::
+
+::: fragment
+- Literature collection is a retrieval task for AI
+- Literature review is a contextual understanding and synthesis task for AI
+:::
+
+::: fragment
+- Contextual understanding: AI are trained on general knowledge, not prioritized for your domain
+- Synthesis: AI may not know what to leave out and what to include
+:::
+
+::: fragment
+You are the domain expert, you need to know these.
+:::
+
+---
+
+**Why this can be dangerous?**
+
+::: fragment
+- Citation hallucination
+:::
+
+::: fragment
+- Coverage expansion or shrinkage
+:::
+
+::: fragment
+- Position bias, bias towards popular results and ignoring niche results
+:::
+
+::: fragment
+- Recency bias
+:::
+
+---
+
+**What it does well**
+
+::: fragment
+- Query expansion
+:::
+
+::: fragment
+- Candidate discovery
+:::
+
+::: fragment
+- Metadata extraction and normalization
+:::
+
+::: fragment
+- Deduplication, tagging, and file organization
+:::
+
+::: fragment
+- Search-update monitoring
+:::
+
+---
+
+**What it is bad at**
+
+::: fragment
+- Guaranteeing complete coverage
+:::
+
+::: fragment
+- Deciding relevance, quality, or eligibility
+:::
+
+::: fragment
+- Distinguishing terminology and concepts that might be niche in your domain
+:::
+
+::: fragment
+- Extracting what are important for your research
+:::
+
+---
+
+#### Assisting *some* research methods and measurement
+
+::: fragment
+Example of Usage:
+:::
+
+::: fragment
+**Root Issue:** 
+AI has *growing* capabilities for solving mathematical, logical, and statistical problems, but might not be there yet.
+:::
+
+::: fragment
+Show plot of Mathematics Aptitude Test of Heuristics (MATH)
+:::
+
+---
+
+**Why this can be dangerous?**
+
+::: fragment
+- Method mis-specification
+:::
+
+::: fragment
+- Assumption blindness
+:::
+
+::: fragment
+- Bias amplification
+:::
+
+---
+
+**What it does well**
+
+::: fragment
+- Generate survey questions and options
+:::
+
+::: fragment
+- Generate vignettes and scenarios
+:::
+
+::: fragment
+- Help creating codebooks
+:::
+
+::: fragment
+- Explain formula and equations
+:::
+
+::: fragment
+- Method and analysis option generation
+:::
+
+::: fragment
+- Descriptive analysis
+:::
+
+::: fragment
+- Simple data analysis and visualization
+:::
+
+---
+
+**What it might be still bad at (may improve over time)**
+
+::: fragment
+- Choosing the final study design, estimand, and model
+:::
+
+::: fragment
+- Diagnosing and deciding the model assumptions with underlying domain knowledge
+:::
+
+::: fragment
+- Independently implement a complex causal inference analyses
+:::
+
+::: fragment
+**Example of Usage:**
+:::
+
+---
+
+#### Interpreting results
+
+::: fragment
+What AI read in your results?
+:::
+
+::: fragment
+- Tables
+:::
+
+::: fragment
+- Text
+:::
+
+::: fragment
+- Figures
+:::
+
+::: fragment
+**Root Issue:** Not all models are good at reading plots. 
+:::
+
+---
+
+**Why this can be dangerous?**
+
+::: fragment
+- Picking a model that cannot handle plots reliably
+:::
+
+::: fragment
+- Vibe check
+:::
+
+::: fragment
+- Statistical dichotomization
+:::
+
+::: fragment
+- Overgeneralization
+:::
+
+::: fragment
+- Hedging
+:::
+
+---
+
+**What it does well**
+
+::: fragment
+- Explain a clean table of means, percentages, or regression estimates
+:::
+
+::: fragment
+- Describe an obvious pattern in a simple bar, line, or scatter plot
+:::
+
+**What it is bad at**
+
+::: fragment
+- Explain what a reported effect size, confidence interval, or test statistic represents
+:::
+
+---
+
+**What it is bad at:**
+
+::: fragment
+- Distinguishing groups or cohorts by color or pattern
+:::
+
+::: fragment
+- Resolving conflicts between a table, figure, and written result
+:::
+
+::: fragment
+- Deciding whether a result generalizes beyond the study sample
+:::
+
+::: fragment
+- Apply the interpretation in the domain context, rather than just restating the numbers
+:::
+
+::: fragment
+**Example of Usage:**
+:::
+
+---
+
+### No go zone
+
+::: fragment
+- Write papers
+:::
+
+::: fragment
+- Creating data (not the same as data collection or data generation)
+:::
+
+::: fragment
+- Replacing human participants (without declaring and justifying the "silicone sample")
+:::
+
+::: fragment
+- Upload protected data or other materials to publicly available AI tools
+:::
+
+::: fragment
+- Concealing AI assisted works
+:::
+
+::: fragment
+- Letting AI certify its own claims
+:::

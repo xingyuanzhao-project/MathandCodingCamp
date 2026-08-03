@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPPS Math Coding Camp — Data Visualization, Part 1</title>
+<style>
+  :root{
+    --text:#1a1a1a;
+    --muted:#5f6368;
+    --link:#1a73e8;
+    --rule:#e2e2e2;
+    --code-bg:#f4f4f5;
+    --important-bg:#fdecec;
+    --important-border:#d33b3b;
+    --note-bg:#eaf2fd;
+    --note-border:#1a73e8;
+    --mission-bg:#eef1f6;
+    --mission-border:#1E2A4A;
+    --heading:#111;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    background:#fff;
+    line-height:1.6;
+  }
+  .page{max-width:820px; margin:0 auto; padding:48px 24px 80px;}
+  .breadcrumb{font-size:14px;}
+  a{color:var(--link); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  h1{font-size:32px; font-weight:700; margin:18px 0 4px; color:var(--heading);}
+  .subtitle{font-size:18px; color:var(--muted); margin:0 0 24px; font-weight:400;}
+  .meta{
+    display:flex; gap:48px; padding:18px 0;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:36px;
+  }
+  .meta div .label{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:2px;}
+  .meta div .value{font-size:15px; color:var(--text);}
+  h2{font-size:24px; font-weight:700; margin:44px 0 6px; color:var(--heading);}
+  h2 + hr{border:none; border-top:1px solid var(--rule); margin:0 0 18px;}
+  h3{font-size:19px; font-weight:700; margin:32px 0 8px; color:var(--heading);}
+  h4{font-size:15px; font-weight:700; margin:22px 0 6px; color:var(--heading);}
+  p{margin:0 0 16px; font-size:16px;}
+  ul, ol{margin:0 0 16px; padding-left:22px; font-size:16px;}
+  li{margin-bottom:6px;}
+  code{
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+    background:var(--code-bg); padding:2px 5px; border-radius:4px; font-size:14px;
+  }
+  pre{background:var(--code-bg); padding:16px 60px 16px 18px; border-radius:6px; overflow-x:auto; margin:0 0 20px; position:relative;}
+  pre code{background:none; padding:0; font-size:14px; line-height:1.55;}
+  .code-label{font-size:13px; color:var(--muted); font-weight:600; margin:18px 0 6px;}
+  .copybtn{
+    position:absolute; top:8px; right:8px;
+    font-family:-apple-system,sans-serif; font-size:11px; font-weight:600;
+    background:#fff; border:1px solid #d5d5d0; border-radius:6px;
+    padding:4px 10px; cursor:pointer; color:#444;
+  }
+  .copybtn:hover{background:#f0f0ec;}
+  .copybtn.copied{background:#3F7A5C; color:#fff; border-color:#3F7A5C;}
+
+  .important{
+    background:var(--important-bg); border-left:4px solid var(--important-border);
+    padding:14px 18px; margin:18px 0; border-radius:2px;
+  }
+  .important .tag{
+    color:var(--important-border); font-weight:700; font-size:14px; margin-bottom:4px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .note{
+    background:var(--note-bg); border-left:4px solid var(--note-border);
+    padding:14px 18px; margin:18px 0; border-radius:2px;
+  }
+  .note .tag{
+    color:var(--note-border); font-weight:700; font-size:14px; margin-bottom:4px;
+    display:flex; align-items:center; gap:6px;
+  }
+
+  .mission{
+    background:var(--mission-bg); border-left:4px solid var(--mission-border);
+    padding:16px 20px; margin:18px 0; border-radius:2px;
+  }
+  .mission .tag{
+    color:var(--mission-border); font-weight:700; font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .mission-blank{
+    font-family:"SFMono-Regular",Consolas,Menlo,monospace;
+    background:#fff; border:1px dashed #9aa3bc; border-radius:4px;
+    padding:14px 16px; font-size:14px; line-height:1.7; color:#3c4557;
+    white-space:pre-wrap;
+  }
+  .fill{
+    display:inline-block; min-width:110px; border-bottom:1.5px solid #b3502f;
+    color:#b3502f; font-style:italic;
+  }
+
+  .fileinfo{
+    display:flex; gap:14px; flex-wrap:wrap; background:var(--code-bg);
+    border-radius:6px; padding:12px 16px; margin:0 0 20px; font-size:13.5px;
+  }
+  .fileinfo div{color:var(--muted);}
+  .fileinfo b{color:var(--heading);}
+
+  details{
+    background:#f4f4f5; border:1px solid var(--rule); border-radius:6px;
+    padding:12px 16px; margin:0 0 20px;
+  }
+  details summary{cursor:pointer; font-weight:700; font-size:14px; color:var(--heading);}
+  details pre{margin-top:12px; margin-bottom:0;}
+
+  footer{margin-top:60px; padding-top:20px; border-top:1px solid var(--rule); font-size:13px; color:var(--muted);}
+
+  @media(max-width:640px){
+    .meta{gap:24px; flex-wrap:wrap;}
+    h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="breadcrumb"><a href="#">Home</a></div>
+  <h1>Data Visualization, Part 1</h1>
+  <p class="subtitle">Histograms, boxplots, and scatter/line plots in base R, and layered graphics with ggplot2, using AI-assisted prompting</p>
+
+  <div class="meta">
+    <div>
+      <div class="label">Author</div>
+      <div class="value">JP Adjadeh</div>
+    </div>
+    <div>
+      <div class="label">Published</div>
+      <div class="value">July 30, 2026</div>
+    </div>
+  </div>
+
+  <h2>1. Introduction</h2><hr>
+  <p>The previous modules covered data structures and data manipulation — identifying what you are working with, then indexing, filtering, and cleaning it. This module turns to a different kind of task: turning a data frame into a picture. Visualization uses different functions and a different logic than manipulation, but the same discipline applies. Every plot below is produced by prompting an AI model for code — using the same role, task, context, and format elements from earlier modules — and every result is checked before it is trusted, not accepted simply because it rendered.</p>
+  <p>This module works with two different plotting engines. Sections 2 through 4 use <strong>base R</strong>, where a plot is produced by a single function call with many arguments. Section 5 introduces <strong>ggplot2</strong>, which builds a plot as a stack of layers added with <code>+</code>. The two engines can produce similar-looking output, but they are structured differently enough that a prompt written for one will not simply drop into the other — part of the point of this module is noticing that difference.</p>
+
+  <h2>2. Basic Histograms</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> life_exp</div>
+    <div><b>Already imported as:</b> <code>life_exp</code></div>
+  </div>
+  <p>A histogram shows the distribution of a single numeric column — how its values are spread out, and where they cluster. In base R, <code>hist()</code> takes a numeric vector and does the rest.</p>
+
+  <h4>Segment 1: A basic histogram</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[create a histogram of the
+Average_Life_Expectancy column, with a title and an x-axis
+label]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 1</div>
+    Run your prompt. Then, without asking AI, add <code>col = "lightblue"</code> and <code>border = "grey"</code> to the call yourself and re-run it. Confirm the bars changed color.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-hist1">hist(life_exp$Average_Life_Expectancy,
+     main = "Histogram of Average Life Expectancy",
+     xlab = "Average Life Expectancy",
+     col = "lightblue",
+     border = "grey")</code></pre>
+  </details>
+
+  <h4>Segment 2: Adding mean and median reference lines</h4>
+  <div class="note">
+    <div class="tag">ⓘ Note — na.rm</div>
+    If <code>Average_Life_Expectancy</code> has any missing values, <code>mean()</code> and <code>median()</code> will return <code>NA</code> unless you pass <code>na.rm = TRUE</code>. This is the same argument used in the data manipulation module — it does not remove missing values from the data frame, only from that one calculation.
+  </div>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[calculate the mean and median of
+Average_Life_Expectancy, then add both as vertical lines on the
+histogram in different colors, with a legend identifying which
+line is which]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 2</div>
+    Run your prompt. Print <code>mean(life_exp$Average_Life_Expectancy, na.rm = TRUE)</code> and <code>median(...)</code> directly, and confirm the two numbers match where the two lines fall on the plot.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-hist2">mean_le <- mean(life_exp$Average_Life_Expectancy, na.rm = TRUE)
+median_le <- median(life_exp$Average_Life_Expectancy, na.rm = TRUE)
+
+hist(life_exp$Average_Life_Expectancy,
+     main = "Histogram of Average Life Expectancy with Mean and Median",
+     xlab = "Average Life Expectancy",
+     col = "lightblue", border = "black")
+abline(v = mean_le, col = "blue", lwd = 2)
+abline(v = median_le, col = "red", lwd = 2)
+legend("topleft", legend = c("Mean", "Median"), col = c("blue", "red"), lwd = 2)</code></pre>
+  </details>
+
+  <h2>3. Boxplots by Category</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> life_exp</div>
+    <div><b>Already imported as:</b> <code>life_exp</code></div>
+  </div>
+  <p>A boxplot summarizes a numeric column's distribution — its median, quartiles, and any outliers — and is most useful when comparing that distribution across the levels of a categorical column, using the formula syntax <code>numeric ~ category</code>.</p>
+
+  <h4>Segment 1: Comparing distributions</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[create a boxplot comparing
+Average_Life_Expectancy across the Gender column]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 3</div>
+    Run your prompt. Look at the plot and state which gender has the higher median. Then confirm your answer numerically with <code>tapply(life_exp$Average_Life_Expectancy, life_exp$Gender, median, na.rm = TRUE)</code>. If <code>tapply()</code> is unfamiliar, ask AI to explain what it is doing before you run it — do not just paste it.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-box1">boxplot(Average_Life_Expectancy ~ Gender, data = life_exp,
+        main = "Boxplot of Life Expectancy by Gender",
+        xlab = "Gender", ylab = "Average Life Expectancy")</code></pre>
+  </details>
+
+  <h4>Segment 2: Adding color and reading outliers</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[recreate the boxplot above with a
+different color for each box]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 4</div>
+    Run your prompt. A boxplot marks outliers as individual points beyond the whiskers. State whether either group in your plot shows one, and explain in your own words what makes a point count as an outlier in a boxplot rather than a normal value.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-box2">boxplot(Average_Life_Expectancy ~ Gender, data = life_exp,
+        main = "Boxplot of Life Expectancy by Gender",
+        xlab = "Gender", ylab = "Average Life Expectancy",
+        col = c("lightblue", "lightgreen"))</code></pre>
+  </details>
+
+  <h2>4. Scatter and Line Plots</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> life_exp</div>
+    <div><b>Already imported as:</b> <code>life_exp</code></div>
+  </div>
+  <p>Scatter plots and line plots both use <code>plot()</code>, differentiated by the <code>type</code> argument. Both are well suited to a numeric column tracked over time, such as Year.</p>
+
+  <h4>Segment 1: A basic scatter plot</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[create a scatter plot with Year on
+the x-axis and Average_Life_Expectancy on the y-axis, using solid
+filled points]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 5</div>
+    Run your prompt. Then, without asking AI, change the <code>pch</code> value to a different number and re-run it. Describe what changed about the points visually.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-scatter1">plot(life_exp$Year, life_exp$Average_Life_Expectancy,
+     xlab = "Year", ylab = "Average Life Expectancy",
+     main = "Scatter Plot of Life Expectancy Over Time",
+     pch = 19)</code></pre>
+  </details>
+
+  <h4>Segment 2: Coloring points by a category</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[recreate the scatter plot above,
+coloring each point blue if Gender is "Male" and red
+otherwise]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 6</div>
+    Run your prompt. Identify which function assigns the color conditionally, and state what would happen to points from a third category if the Gender column had one — would they show as blue, red, or something else? Explain why.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-scatter2">plot(life_exp$Year, life_exp$Average_Life_Expectancy,
+     xlab = "Year", ylab = "Average Life Expectancy",
+     main = "Scatter Plot of Life Expectancy Over Time by Gender",
+     pch = 19, col = ifelse(life_exp$Gender == "Male", "blue", "red"))</code></pre>
+  </details>
+
+  <h4>Segment 3: Two line plots, a legend, and an annotation</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the life_exp data frame,
+write R code to <span class="fill">[create separate data frames for
+Male and Female rows, then plot Average_Life_Expectancy over Year
+as two lines on the same plot in different colors, sharing the
+same axis limits, with a legend identifying each line, a vertical
+dotted line at the year 1918, and a text label reading "End of
+World War I" near that line]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 7</div>
+    Run your prompt. Find the <code>xlim</code> and <code>ylim</code> arguments in the code and explain, in your own words, what would go wrong visually if they were removed and the male and female subsets covered different year ranges.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-line1">male_data <- subset(life_exp, Gender == "Male")
+female_data <- subset(life_exp, Gender == "Female")
+
+plot(male_data$Year, male_data$Average_Life_Expectancy,
+     type = "l", col = "blue", lwd = 2,
+     xlab = "Year", ylab = "Average Life Expectancy (years)",
+     main = "Life Expectancy by Gender Over Time",
+     lty = 1,
+     xlim = c(min(life_exp$Year), max(life_exp$Year)),
+     ylim = c(min(life_exp$Average_Life_Expectancy, na.rm = TRUE),
+              max(life_exp$Average_Life_Expectancy, na.rm = TRUE)))
+lines(female_data$Year, female_data$Average_Life_Expectancy, col = "red", lwd = 2, lty = 2)
+
+legend("bottomright", legend = c("Male", "Female"), col = c("blue", "red"), lwd = 2, lty = c(1, 2))
+text(1918, 75, "End of World War I", col = "black")
+abline(v = 1918, col = "black", lwd = 1, lty = 3)</code></pre>
+  </details>
+
+  <div class="note">
+    <div class="tag">ⓘ Note</div>
+    AI can generate a working <code>plot()</code> call in one pass. It will not tell you whether a line chart, scatter plot, or boxplot is the right choice for what you are trying to show — that decision depends on the shape of your data and the question you are asking, both of which are yours to judge.
+  </div>
+
+  <h2>5. Layered Graphics with ggplot2</h2><hr>
+  <div class="fileinfo">
+    <div><b>Dataset:</b> insurance</div>
+    <div><b>Already imported as:</b> <code>insurance</code></div>
+  </div>
+  <p><code>ggplot2</code> follows the Grammar of Graphics: instead of one function with many arguments, a plot is built by stacking layers with <code>+</code> — a base canvas, a geometry (points, lines, bars), and optional layers for scales, facets, labels, and themes. The same visual ideas from Sections 2–4 reappear here, but expressed as layers rather than arguments.</p>
+
+  <h4>Segment 1: A blank canvas, then points</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the insurance data frame
+and the ggplot2 package, write R code to <span class="fill">[create a
+scatterplot of age on the x-axis and expenses on the y-axis, using
+cornflowerblue points with size 2 and moderate transparency]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 8</div>
+    Run your prompt. Then run <code>ggplot(data = insurance, aes(x = age, y = expenses))</code> on its own, with no geom layer added. Describe what appears, and explain in your own words why nothing is plotted without a geom.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-gg1">library(ggplot2)
+
+ggplot(data = insurance, aes(x = age, y = expenses)) +
+  geom_point(color = "cornflowerblue", alpha = .5, size = 2)</code></pre>
+  </details>
+
+  <h4>Segment 2: Adding a trend line</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the insurance data frame,
+write R code to <span class="fill">[add a linear trend line to the
+scatterplot above]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 9</div>
+    Before running your prompt, predict whether the trend line will slope upward or downward. Run it and confirm. Then state what <code>method = "lm"</code> tells R to fit.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-gg2">ggplot(data = insurance, aes(x = age, y = expenses)) +
+  geom_point(color = "cornflowerblue", alpha = .5, size = 2) +
+  geom_smooth(method = "lm")</code></pre>
+  </details>
+
+  <h4>Segment 3: Grouping by a categorical column</h4>
+  <div class="note">
+    <div class="tag">ⓘ Note — Global vs. Local Mapping</div>
+    An <code>aes()</code> mapping placed inside <code>ggplot()</code> applies to every layer that follows. Placed inside a specific <code>geom_</code> instead, it applies only to that layer. This matters below: mapping <code>color = smoker</code> at the top level colors both the points and the trend line; mapping it only inside <code>geom_point()</code> would color the points alone.
+  </div>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the insurance data frame,
+write R code to <span class="fill">[recreate the plot above, coloring
+both the points and the trend line by the smoker column, and
+removing the shaded confidence band around the trend line]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 10</div>
+    Run your prompt. Identify the single argument inside <code>aes()</code> responsible for both the point color and the legend that appears automatically. Then set <code>se = TRUE</code> and describe what the shaded band around each line represents.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-gg3">ggplot(data = insurance, aes(x = age, y = expenses, color = smoker)) +
+  geom_point(alpha = .5, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1.5)</code></pre>
+  </details>
+
+  <h4>Segment 4: Faceting and adding labels</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the insurance data frame,
+write R code to <span class="fill">[create a new column called obese
+that is "obese" when bmi is 30 or higher and "not obese"
+otherwise, then split the plot above into two side-by-side panels
+based on that column, and add a title, subtitle, x-axis label, and
+y-axis label]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 11</div>
+    Run your prompt. Identify which function splits the plot into panels and which function adds the title and axis labels. Then state, in one sentence, one pattern you can see in the faceted plot that was harder to notice in the single combined plot from Segment 3.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-gg4">insurance$obese <- ifelse(insurance$bmi >= 30, "obese", "not obese")
+
+ggplot(data = insurance, aes(x = age, y = expenses, color = smoker)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~obese) +
+  labs(title = "Relationship between age and medical expenses",
+       subtitle = "By smoking and obesity status",
+       x = "Age (years)",
+       y = "Annual expenses",
+       color = "Smoker?")</code></pre>
+  </details>
+
+  <h4>Segment 5: Applying a theme</h4>
+  <div class="mission">
+    <div class="tag">Mission Card — complete the prompt, then run it</div>
+    <div class="mission-blank">You are a <span class="fill">[role]</span>. Using the plot from the
+previous segment, write R code to <span class="fill">[apply a clean,
+minimal theme with no gray background or default grid
+styling]</span>.</div>
+  </div>
+  <div class="important">
+    <div class="tag">⚠ Exercise 12</div>
+    Run your prompt. Compare the plot before and after the theme is applied, and name one specific visual element that changed — for example, the background color, the gridlines, or the panel borders.
+  </div>
+  <details>
+    <summary>Guide code</summary>
+    <pre><button class="copybtn" onclick="copyCode(this)">Copy</button><code id="code-dv-gg5">insurance$obese <- ifelse(insurance$bmi >= 30, "obese", "not obese")
+
+ggplot(data = insurance, aes(x = age, y = expenses, color = smoker)) +
+  geom_point(alpha = .5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~obese) +
+  labs(title = "Relationship between age and medical expenses",
+       subtitle = "By smoking and obesity status",
+       x = "Age (years)",
+       y = "Annual expenses",
+       color = "Smoker?") +
+  theme_minimal()</code></pre>
+  </details>
+
+  <div class="note">
+    <div class="tag">ⓘ Note</div>
+    AI can generate a working <code>ggplot2</code> call quickly, and it is easy to keep adding layers — a color mapping, a facet, a theme — without stopping to check whether each one is adding clarity or just complexity. Before accepting a plot, ask whether a reader unfamiliar with the data could state its main point in one sentence. If not, the plot needs fewer layers, not more code.
+  </div>
+
+  <h2>Conclusion</h2><hr>
+  <p>This module covered visualization in two engines. In base R, <code>hist()</code>, <code>boxplot()</code>, and <code>plot()</code> each produce a specific chart type through arguments passed to a single function call, with <code>abline()</code>, <code>legend()</code>, and <code>text()</code> layering on reference lines, legends, and annotations. In <code>ggplot2</code>, the same ideas are expressed as layers added with <code>+</code> — a base mapping, one or more geoms, and optional layers for grouping, scales, faceting, labels, and themes. Each plot was produced by prompting an AI model for code and verifying the result — predicting an outcome before running it, confirming a visual read against a computed value, or explaining what a specific argument does before relying on it.</p>
+  <p>A separate module extends this ggplot2 grammar with interactive and animated graphics.</p>
+
+  <footer>
+    EPPS Math Coding Camp · Data Visualization, Part 1
+  </footer>
+
+</div>
+
+<script>
+  function copyCode(btn){
+    const code = btn.nextElementSibling;
+    const text = code.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1400);
+    });
+  }
+</script>
+</body>
+</html>

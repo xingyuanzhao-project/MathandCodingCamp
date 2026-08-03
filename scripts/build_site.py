@@ -4,6 +4,17 @@
 settings/site-map.yml is intentionally small. It contains headings, nested
 headings, and leaf items. A leaf can point to a contributor page file, a
 static downloadable file, an existing URL, or no target at all.
+
+Every local leaf target is an explicit path, relative to the repository
+root (for example "modules/math/day-1/preliminaries/day-1-preliminaries.html").
+There is no filename search: the build fails loudly if the named path does
+not exist, instead of guessing at a match.
+
+A heading (`Day 1:`, etc.) may optionally carry a path prefix after its
+colon (for example `Day 1: modules/math/day-1`). When present, every leaf
+nested under that heading must resolve to a path under that prefix, so the
+heading is an enforced constraint, not just display text. The label itself
+is still exactly what a visitor sees; the prefix is never rendered.
 """
 
 from __future__ import annotations
@@ -11,9 +22,7 @@ from __future__ import annotations
 import argparse
 import html
 import shutil
-import subprocess
 import sys
-import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -22,7 +31,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STATIC_ROOT = ROOT / "static"
 MODULES_ROOT = ROOT / "modules"
 MAP_PATH = ROOT / "settings" / "site-map.yml"
-PAGE_SUFFIXES = {".html", ".qmd", ".rmd"}
+PAGE_SUFFIXES = {".html"}
 DOWNLOAD_SUFFIXES = {".csv", ".xlsx", ".xls", ".pptx"}
 
 
@@ -46,6 +55,7 @@ class Item:
 @dataclass
 class Heading:
     label: str
+    path_prefix: str | None = None
     headings: list["Heading"] | None = None
     items: list[Item] | None = None
 
@@ -151,13 +161,14 @@ def parse_headings(
             break
 
         pair = split_pair(line.text)
-        if pair is None or pair[1]:
+        if pair is None:
             raise BuildError(
                 f"Headings must end with ':' at {MAP_PATH.name}:{line.line_number}"
             )
         label = unquote(pair[0])
         if not label:
             raise BuildError(f"Empty heading at {MAP_PATH.name}:{line.line_number}")
+        path_prefix = unquote(pair[1]) if pair[1] else None
 
         index += 1
         if index >= len(lines) or lines[index].indent <= indent:
@@ -168,10 +179,12 @@ def parse_headings(
         child_indent = lines[index].indent
         if lines[index].text.startswith("- "):
             items, index = parse_items(lines, index, child_indent)
-            headings.append(Heading(label=label, items=items))
+            headings.append(Heading(label=label, path_prefix=path_prefix, items=items))
         else:
             children, index = parse_headings(lines, index, child_indent)
-            headings.append(Heading(label=label, headings=children))
+            headings.append(
+                Heading(label=label, path_prefix=path_prefix, headings=children)
+            )
 
     return headings, index
 
@@ -202,36 +215,65 @@ def is_external(target: str) -> bool:
     return target.startswith(("https://", "http://", "mailto:"))
 
 
-def discover_page(name: str) -> Page:
-    if Path(name).name != name:
-        raise BuildError(f"Use a contributor filename, not a path: {name}")
-    matches = [candidate for candidate in MODULES_ROOT.rglob(name) if candidate.is_file()]
-    if not matches:
-        raise BuildError(
-            f"{MAP_PATH.relative_to(ROOT)} names {name}, but no contributor page has that name."
-        )
-    if len(matches) > 1:
-        paths = ", ".join(str(candidate.relative_to(ROOT)) for candidate in sorted(matches))
-        raise BuildError(
-            f"{name} is ambiguous below modules/: {paths}. "
-            "Contributor page filenames must be unique."
-        )
+def validate_path_prefixes(
+    headings: list[Heading], active_prefixes: tuple[str, ...] = ()
+) -> None:
+    """Fail loudly if a leaf's path does not fall under an ancestor heading's prefix.
 
-    source = matches[0]
-    entry_files = [
-        candidate
-        for candidate in source.parent.iterdir()
-        if candidate.is_file() and candidate.suffix.lower() in PAGE_SUFFIXES
-    ]
-    if entry_files != [source]:
-        found = ", ".join(candidate.name for candidate in sorted(entry_files))
+    A heading's path_prefix is an enforced constraint, not a search hint: every
+    local target nested under it must resolve under that folder, or the build
+    stops here instead of silently accepting a mismatched path.
+    """
+    for heading in headings:
+        prefixes = active_prefixes + ((heading.path_prefix,) if heading.path_prefix else ())
+        if heading.items is not None:
+            for item in heading.items:
+                if item.target is None or is_external(item.target):
+                    continue
+                target_path = Path(item.target)
+                for prefix in prefixes:
+                    if not target_path.is_relative_to(Path(prefix)):
+                        raise BuildError(
+                            f"{MAP_PATH.relative_to(ROOT)}: {item.label!r} targets "
+                            f"{item.target!r}, but heading {heading.label!r} requires "
+                            f"paths under {prefix}/."
+                        )
+        elif heading.headings is not None:
+            validate_path_prefixes(heading.headings, prefixes)
+
+
+def resolve_local_path(target: str) -> Path:
+    """Resolve a site-map target that is an explicit path from the repository root.
+
+    This performs no search and no fallback: the path is joined directly onto
+    the repository root and must exist, or the build fails with the exact
+    target that was requested.
+    """
+    if Path(target).is_absolute():
         raise BuildError(
-            f"{source.parent.relative_to(ROOT)} must contain exactly one page entry "
-            f"(.html, .qmd, or .Rmd); found: {found or 'none'}."
+            f"{MAP_PATH.relative_to(ROOT)} names {target!r}; paths must be relative to "
+            "the repository root, not absolute."
+        )
+    candidate = (ROOT / target).resolve()
+    if not candidate.is_relative_to(ROOT):
+        raise BuildError(f"{MAP_PATH.relative_to(ROOT)} path escapes the repository: {target}")
+    if not candidate.is_file():
+        raise BuildError(f"{MAP_PATH.relative_to(ROOT)} names {target!r}, but that file does not exist.")
+    return candidate
+
+
+def discover_page(target: str) -> Page:
+    if Path(target).suffix.lower() not in PAGE_SUFFIXES:
+        raise BuildError(f"{MAP_PATH.relative_to(ROOT)} page target must end in .html: {target}")
+
+    source = resolve_local_path(target)
+    if not source.is_relative_to(MODULES_ROOT):
+        raise BuildError(
+            f"{MAP_PATH.relative_to(ROOT)} page target must live under modules/: {target}"
         )
 
     return Page(
-        name=name,
+        name=target,
         source=source,
         output_directory=source.parent.relative_to(MODULES_ROOT),
     )
@@ -251,31 +293,15 @@ def discover_pages(headings: list[Heading]) -> dict[str, Page]:
     return pages
 
 
-def static_href(filename: str) -> str:
-    if Path(filename).name != filename:
-        raise BuildError(f"Use a static filename, not a path: {filename}")
-    matches = [
-        candidate
-        for source_root in (MODULES_ROOT, STATIC_ROOT)
-        if source_root.is_dir()
-        for candidate in source_root.rglob(filename)
-        if candidate.is_file()
-    ]
-    if not matches:
-        raise BuildError(
-            f"{MAP_PATH.relative_to(ROOT)} names {filename}, but no static file has that name."
-        )
-    if len(matches) > 1:
-        paths = ", ".join(str(candidate.relative_to(ROOT)) for candidate in sorted(matches))
-        raise BuildError(
-            f"{filename} is ambiguous below modules/ and static/: {paths}. "
-            "Static filenames listed in the map must be unique."
-        )
-
-    source = matches[0]
+def static_href(target: str) -> str:
+    source = resolve_local_path(target)
     if source.is_relative_to(MODULES_ROOT):
         return source.relative_to(MODULES_ROOT).as_posix()
-    return (Path("..") / source.relative_to(STATIC_ROOT)).as_posix()
+    if STATIC_ROOT.is_dir() and source.is_relative_to(STATIC_ROOT):
+        return (Path("..") / source.relative_to(STATIC_ROOT)).as_posix()
+    raise BuildError(
+        f"{MAP_PATH.relative_to(ROOT)} static target must live under modules/ or static/: {target}"
+    )
 
 
 def page_href(page: Page) -> str:
@@ -366,48 +392,14 @@ def copy_page_support_files(page: Page, output_directory: Path) -> None:
 
 
 def render_page(page: Page, output: Path) -> None:
+    """Publish a contributor's already-rendered HTML page.
+
+    Contributors upload finished HTML; this only copies it (and whatever
+    sits alongside it, such as an assets/ folder) into the built site.
+    """
     output_directory = output / "modules" / page.output_directory
-    if page.source.suffix.lower() == ".html":
-        copy_page_support_files(page, output_directory)
-        shutil.copy2(page.source, output_directory / "index.html")
-        return
-
-    with tempfile.TemporaryDirectory(prefix="math-camp-page-") as temporary:
-        staging_directory = Path(temporary) / "page"
-        shutil.copytree(page.source.parent, staging_directory)
-        staged_source = staging_directory / page.source.name
-        command = [
-            "quarto",
-            "render",
-            staged_source.name,
-            "--to",
-            "html",
-            "--output",
-            "index.html",
-        ]
-        try:
-            subprocess.run(command, check=True, cwd=staging_directory)
-        except FileNotFoundError as error:
-            raise BuildError("Quarto is required to render .qmd and .Rmd files.") from error
-        except subprocess.CalledProcessError as error:
-            raise BuildError(f"Could not render {page.source}.") from error
-
-        output_directory.mkdir(parents=True, exist_ok=True)
-        source_artifacts = {
-            staged_source,
-            staging_directory / f"{staged_source.stem}.knit.md",
-        }
-        for item in staging_directory.iterdir():
-            if item in source_artifacts:
-                continue
-            destination = output_directory / item.name
-            if item.is_dir():
-                shutil.copytree(item, destination, dirs_exist_ok=True)
-            else:
-                shutil.copy2(item, destination)
-
-    if not (output_directory / "index.html").is_file():
-        raise BuildError(f"Quarto completed without creating {output_directory / 'index.html'}.")
+    copy_page_support_files(page, output_directory)
+    shutil.copy2(page.source, output_directory / "index.html")
 
 
 def render_leaf(item: ResolvedItem) -> str:
@@ -518,6 +510,7 @@ def write_modules_page(output: Path, headings: list[ResolvedHeading]) -> None:
 
 def build(output: Path) -> None:
     headings = parse_site_map(MAP_PATH)
+    validate_path_prefixes(headings)
     pages = discover_pages(headings)
     resolved = resolve_headings(headings, pages)
 
