@@ -1,0 +1,559 @@
+---
+title: "EPPS Math and Coding Camp"
+subtitle: "Numbers Sets and Topology"
+author: "Instructor: Jonathan Kaufman"
+format: 
+  revealjs:
+    theme: [serif]
+    center: false
+    slide-number: true
+    logo: eppslogo.png
+    css: logo.css
+    scrollable: true
+---
+
+![](check_in_form.png){fig-align="center" out-width="100%"}
+
+------------------------------------------------------------------------
+
+## SETS
+
+::: fragment
+-   a set is just a collection of elements,
+:::
+
+::: fragment
+-   groups whose members have something in common that is important to the person who has grouped them together.
+:::
+
+::: fragment
+Example:<br> (0, 1, 2, ...,where ... signifies that this progression goes on indefinitely) belong to the set of natural numbers.
+:::
+
+::: fragment
+-   The set of all natural numbers is denoted [N]{.outline}, and any variable $n$ that is a natural number must come from this set.
+:::
+
+::: fragment
+-   If we add negative numbers to the set of natural numbers, i.e., ..., -3, -2, -1, then we get the set of all integers, denoted [Z]{.outline}.
+:::
+
+::: fragment
+-   All numbers that can be expressed as a ratio of two integers are called rational numbers, and the set of these is denoted [Q]{.outline}.
+:::
+
+::: fragment
+-   The set of all rational and irrational numbers together is known as the real numbers and is denoted [R]{.outline}.
+:::
+
+------------------------------------------------------------------------
+
+```{=html}
+<style>
+.outline {
+  -webkit-text-stroke: 1px black;
+  color: transparent;
+  font-weight: bold;
+}
+</style>
+```
+::: fragment
+| Notation                               | Meaning                                |
+|----------------------------------------|----------------------------------------|
+| [N]{.outline}                          | Natural numbers                        |
+| [Z]{.outline}                          | Integers                               |
+| [Q]{.outline}                          | Rational numbers                       |
+| [R]{.outline}                          | Real (rational and irrational) numbers |
+| [C]{.outline}                          | Complex numbers                        |
+| Subscript: [N]{.outline}<sub>+</sub>   | Positive (negative) values of the set  |
+| Superscript: [N]{.outline}<sup>d</sup> | Dimensionality (number of dimensions)  |
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   [Z]{.outline}<sub>+</sub>, the set of all positive integers, which is a subset of all integers.
+:::
+
+::: fragment
+-   Continuous variables are those whose values cannot each be assigned a single integer.
+:::
+
+::: fragment
+-   We typically assume that continuous variables are drawn from a subset of the real numbers, though this is not necessary.
+:::
+
+::: fragment
+Example:<br> The set of solutions to the equation $x^2 - 5x + 6 = 0$ is $\{2, 3\}$, a discrete set.
+:::
+
+::: fragment
+-   We term a sample space a set that contains all of the values that a variable can take in the context of statistical inference.
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   More generally, the superscript indicates the dimensionality of the space.
+:::
+
+::: fragment
+-   We will frequently use the $d$-dimensional space [R]{.outline}<sup>d</sup> in this book. When $d=3$, this is called Euclidean space
+:::
+
+::: fragment
+-   Ordered pair, written $(a,b)$. Unlike elements of [R]{.outline}<sup>3</sup>, in which each of $x, y$, and $z$ is a real number, each member of an ordered pair may be quite different
+:::
+
+::: fragment
+-   Ordered pairs are often formed via Cartesian products.
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   A **countable set** is one whose elements can be counted, i.e., each one can be associated with a natural number (or an integer).
+:::
+
+::: fragment
+-   An **uncountable set** does not have this property.
+:::
+
+::: fragment
+-   A **bounded set** has finite size while an **unbounded set** does not.
+:::
+
+::: fragment
+-   We say a set has a lower bound if there is a number, $u$, such that every element in the set is no smaller than it, and an upper bound if there is a number, $v$, such that every element in the set is no bigger than it.
+:::
+
+::: fragment
+-   The greatest lower bound is the largest such lower bound, and the least upper bound is the smallest such upper bound.
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   $x \in A$ states that "$x$ is an element of the set $A$" or "$x$ is in $A$."
+:::
+
+::: fragment
+-   $x \in \{1, 2, 3\} \text{ or } x \in [0, 1]$ means $x$ can take the value $1, 2,$ or $3$, or $x$ can be any real number from $0$ to $1$, inclusive.
+:::
+
+::: fragment
+-   $y \in \{0, 1\}$ means that $y$ either can take a value of $0$ or a value of $1$.
+:::
+
+::: fragment
+-   We use the symbol $\notin$ as in $x \notin A$. This means that, for the examples in the previous paragraph, $x$ does not take the values 1, 2, or 3 or is not between 0 and 1.
+:::
+
+::: fragment
+-   Continuous sets use square brackets or parentheses depending on whether they are closed or open, e.g.$[0,1]$ or $(0,1)$
+:::
+
+::: fragment
+-   The expression $A \subset B$ (read '$A$ is a proper subset of $B$') implies that set $B$ contains all the elements in $A$, plus at least one more. More formally if all $x$ that are elements in $A$ are also elements in $B$.
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   A **universal set** contains all elements.
+:::
+
+::: fragment
+-   **Ordered set**: The order of elements matters.
+    -   Example: `{a, b, c}` ≠ `{b, a, c}`
+:::
+
+::: fragment
+-   **Unordered set**: The order does **not** matter.
+    -   Example: `{a, b, c}` = `{c, b, a}`
+:::
+
+------------------------------------------------------------------------
+
+## 4.3 OPEN, CLOSED, COMPACT, AND CONVEX SETS
+
+```{=html}
+<style>
+.outline {
+  -webkit-text-stroke: 1px black;
+  color: transparent;
+  font-weight: bold;
+}
+</style>
+```
+::: fragment
+-   An **open set** is one in which there is some distance (which may be arbitrarily small) that you may move in any direction within the set and stay in the set.
+:::
+
+
+------------------------------------------------------------------------
+
+::: fragment
+-   A **closed set** is one that contains all its limit points.
+:::
+
+::: fragment
+-   A set that is not closed, in contrast, can have the point the sequence approaches --- the set's **limit point** --- outside the set, even if all prior points in the sequence are in the set.
+:::
+
+::: fragment
+-   The set contains all its limit points and can itself be contained within some finite boundary---is called **compact**.
+:::
+
+
+------------------------------------------------------------------------
+
+::: fragment
+-   A subset of [R]{.outline}<sup>n</sup> for which every pair of points in the set is joined by a straight line that is also in the set is called a **convex set**. Formally, a set is convex if for all points $x$ and $y$ in it and all $\lambda \in [0,1]$, the point $(1-\lambda)x+\lambda y$ is also in the set.
+:::
+
+::: fragment
+-   The **convex hull** of a set $A$ is the set $A$ plus all the points needed to make A convex.
+:::
+
+
+------------------------------------------------------------------------
+
+::: fragment
+**Operators**:
+:::
+
+::: fragment
+$$+, -, \times, /, x^n, \sqrt[n]{x}, \sum, \prod, !$$
+:::
+
+::: fragment
+-   product operator:
+:::
+
+::: fragment
+$$
+\prod_{i=k}^{l} x_i = x_k \times \ldots \times x_l
+$$
+:::
+
+::: fragment
+-   Summation operator:
+:::
+
+::: fragment
+$$
+\sum_{i=k}^{l} x_i = x_k + \ldots + x_l
+$$
+:::
+
+::: fragment
+-   Relations: $<, \leq,=,\geq, >, \neq$
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   **Exponential and Roots**:
+:::
+
+::: fragment
+-   $x^n$: Exponentiation
+:::
+
+::: fragment
+-   $\sqrt[n]{x}$: nth Root
+:::
+
+::: fragment
+-   $n!$: Factorial
+:::
+
+::: fragment
+-   $5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   **Properties of Operators**:
+:::
+
+::: fragment
+-   If an Operator $\circ$ is **associative ** then $(a\circ b) \circ c = a\circ (b \circ c)$.
+:::
+
+::: fragment
+-   If the operator is **commutative** then $a\circ b=b \circ a$.
+:::
+
+::: fragment
+-   If the operator is **distributive** then $a\circ (b*c)=(a\circ b) * (a\circ c)$.
+:::
+
+::: fragment
+-   An **identity** is an element $(e)$ inside a set, where the use of this element on any other element $(x)$ with respect to an operation yields the same element $(x)$ so  $x\circ e=x$.
+:::
+
+::: fragment
+-   a set contains its **inverse** if for every element of the set there exists another element $(z)$ where $x\circ z = e$. for example with respect to addition $x, -x$ are inverses. <br>
+:::
+
+::: fragment
+-   The existence of the multiplicative inverse is a property of the real numbers (and the rational numbers), but not the integers.
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   **Operators on Sets**:
+:::
+
+::: fragment
+-   **Difference**:
+-   $$x \in (A \setminus B) \iff x \in A \ \text{and} \ x \notin B$$
+:::
+
+::: fragment
+-   **Complement**:
+-   $$x \in A^c$$ 
+-   contains elements not in A
+:::
+
+::: fragment
+-   **Intersection**:
+-   $$x \in A \cap B \iff (x \in A )\ and\ ( x \in B )$$
+-   elements common to both A and B
+:::
+
+::: fragment
+-   **Union**:
+-   $$x \in A \cup B \iff (x \in A )\ or\ ( x \in B )$$ 
+-   elements in either A or B
+:::
+
+::: fragment
+-   **Mutually Exclusive Sets**:
+-   $$x \in A \cap B = \emptyset$$ 
+-   If elements in A than not in B and vice versa
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   **Partition**: A collection of subsets whose union forms the set.
+:::
+
+::: fragment
+Example:\
+$$   A = \{\text{Bush, Kerry, Nader}\}$$\
+Possible partitions:\
+$$\{\{Bush\}, \{Kerry\}, \{Nader\}\}$$\
+$$ \{\{Bush, Kerry\}, \{Nader\}\}$$ or any similar combinations
+:::
+
+------------------------------------------------------------------------
+
+::: fragment
+-   The Cartesian product is the set of cardinality four consisting of all possible ordered pairs:<br>
+:::
+
+::: fragment
+$$A=\{\text{Female, Male}\} \\
+B=\{\text{Income over \$50k, Income under \$50k}\}$$<br>
+:::
+
+::: fragment
+$$A \times B =\\
+\{(\text{Female, Income over \$50k}), \\
+(\text{Female, Income udner \$50k}), \\
+(\text{Male, Income over \$50k}), \\
+(\text{Male, Income under \$50k})\}$$
+:::
+
+------------------------------------------------------------------------
+
+## 1.4 RELATIONS
+
+::: fragment
+-   A **binary relation** can be represented as an ordered pair.
+:::
+
+::: fragment
+So, if $a \in A$ is greater than $b \in A$, we can write the relation as $(a, b)$
+:::
+
+::: fragment
+-   If a function transforms an element of $A$ into an element of $B$, we call $A$ the **domain** and $B$ the **range**.
+:::
+
+------------------------------------------------------------------------
+
+**Summary of Symbols and Notation**
+
+::: fragment
+| Symbol                | Meaning                                    |
+|-----------------------|--------------------------------------------|
+| $+$                   | Addition                                   |
+| $-$                   | Subtraction                                |
+| $*$ or $x$ or $\cdot$ | Multiplication                             |
+| $/$ or $\div$         | Division                                   |
+| $\pm$                 | Plus or minus                              |
+| $x^n$                 | Exponentiation ("to the nth power")        |
+| $\sqrt[n]{x}$         | Radical or nth root                        |
+| $!$                   | Factorial                                  |
+| $\infty$              | Infinity                                   |
+| $\sum_{i=k}^l x_i$    | Sum of $x_i$ from index $i=k$ to $i=l$     |
+| $\prod_{i=k}^l x_i$   | Product of $x_i$ from index $i=k$ to $i=l$ |
+| $\ldots$              | Continued progression                      |
+:::
+
+------------------------------------------------------------------------
+
+| Symbol                    | Meaning                                |
+|---------------------------|----------------------------------------|
+| $\frac{d}{dx}$            | Total derivative with respect to $x$   |
+| $\frac{\delta}{\delta x}$ | Partial derivative with respect to $x$ |
+| $\int dx$                 | Integral over $x$                      |
+| $\cup$                    | Set union                              |
+| $\cap$                    | Set intersection                       |
+| $\times$                  | Cartesian product of sets              |
+| $\setminus$               | Set difference                         |
+| $A^c$                     | Complement of set $A$                  |
+| $\emptyset$               | Empty (or null) set                    |
+| $\in$                     | Set membership                         |
+| $\notin$                  | Not member of set                      |
+| $\vert$ or $:$ or $\ni$   | Such that                              |
+| $\subset$                 | Proper subset                          |
+| $\subseteq$               | Subset                                 |
+
+------------------------------------------------------------------------
+
+| Symbol               | Meaning                     |
+|----------------------|-----------------------------|
+| $<$                  | Less than                   |
+| $\leq$               | Less than or equal to       |
+| $=$                  | Equal to                    |
+| $>$                  | Greater than                |
+| $\geq$               | Greater than or equal to    |
+| $\neq$               | Not equal to                |
+| $\equiv$             | Equivalent to or Defined as |
+| $f(x)$ or $f(\cdot)$ | Function                    |
+
+------------------------------------------------------------------------
+
+| Symbol            | Meaning                            |
+|-------------------|------------------------------------|
+| $\{$ $\}$         | Delimiter for discrete set         |
+| $($ $)$           | Delimiter for open set             |
+| $[$ $]$           | Delimiter for closed set           |
+| $\forall$         | For all (or for every or for each) |
+| $\exists$         | There exists                       |
+| $\Rightarrow$     | Implies                            |
+| $\Leftrightarrow$ | If and only if                     |
+| $\neg$ or $\sim$  | Negation (not $C$)                 |
+
+------------------------------------------------------------------------
+
+**Greek Letters**
+
+::: fragment
+| Upper-case | Lower-case | English | Upper-case | Lower-case | English |
+|------------|------------|---------|------------|------------|---------|
+| $A$        | $\alpha$   | alpha   | $N$        | $\nu$      | nu      |
+| $B$        | $\beta$    | beta    | $\Xi$      | $\xi$      | xi      |
+| $\Gamma$   | $\gamma$   | gamma   | $O$        | $o$        | omicron |
+| $\Delta$   | $\delta$   | delta   | $\Pi$      | $\pi$      | pi      |
+| $E$        | $\epsilon$ | epsilon | $P$        | $\rho$     | rho     |
+| $Z$        | $\zeta$    | zeta    | $\Sigma$   | $\sigma$   | sigma   |
+| $H$        | $\eta$     | eta     | $T$        | $\tau$     | tau     |
+| $\Theta$   | $\theta$   | theta   | $\Upsilon$ | $\upsilon$ | upsilon |
+| $I$        | $\iota$    | iota    | $\Phi$     | $\phi$     | phi     |
+| $K$        | $\kappa$   | kappa   | $X$        | $\chi$     | chi     |
+| $\Lambda$  | $\lambda$  | lambda  | $\Psi$     | $\psi$     | psi     |
+| $M$        | $\mu$      | mu      | $\Omega$   | $\omega$   | omega   |
+:::
+
+------------------------------------------------------------------------
+
+## Problems
+
+### Problem 1
+
+Given the sets $S_1 = \{2, 4, 6\}$, $S_2 = \{7, 2, 6\}$, $S_3 = \{4, 2, 6\}$, and $S_4 = \{2, 4\}$, which of the following statements are true?
+
+a.  $S_1 = S_3$
+
+b.  $S_1 = \mathbb{R}$ (set of real numbers)
+
+c.  $8 \in S_2$
+
+d.  $3 \notin S_2$
+
+e.  $4 \notin S_3$
+
+f.  $S_4 \subset \mathbb{R}$
+
+g.  $S_1 \supset S_4$
+
+h.  $\emptyset \subset S_2$
+
+i.  $S_3 \supset \{1, 2\}$
+
+------------------------------------------------------------------------
+
+### Problem 2
+
+Referring to the four sets given in Problem 1, find:
+
+a.  $S_1 \cup S_2$
+
+b.  $S_1 \cup S_3$
+
+c.  $S_2 \cap S_3$
+
+d.  $S_2 \cap S_4$
+
+e.  $S_4 \cap S_2 \cap S_1$
+
+f.  $S_3 \cup S_1 \cup S_4$
+
+------------------------------------------------------------------------
+
+### Problem 3
+
+Which of the following statements are valid?
+
+a.  $A \cup A = A$
+
+b.  $A \cap A = A$
+
+c.  $A \cup \emptyset = A$
+
+d.  $A \cup U = U$
+
+e.  $A \cap \emptyset = \emptyset$
+
+f.  $A \cap U = A$
+
+g.  The complement of $A$ is $A$
+
+------------------------------------------------------------------------
+
+### Problem 4
+
+Write an element of the Cartesian product $[0, 1) \times (1, 2)$.
+
+### Problem 5
+
+Given $S_1 = \{3, 6, 9\}$, $S_2 = \{a, b\}$, and $S_3 = \{m, n\}$, find the Cartesian products:
+
+a.  $S_1 \times S_2$
+
+b.  $S_1 \times S_2 \times S_3$
+
+------------------------------------------------------------------------
+
+**Any Questions?**
+
+[Home](index.html)
