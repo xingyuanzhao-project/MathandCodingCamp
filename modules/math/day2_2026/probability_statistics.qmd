@@ -1,0 +1,1560 @@
+---
+title: "EPPS Math and Coding Camp"
+subtitle: "Probability and Statistics"
+author: "Instructor: Haien Peng"
+format:
+  revealjs:
+    theme: [serif, custom.scss]
+    slide-number: true
+    logo: eppslogo.png
+    css: logo.css
+    scrollable: true
+    transition: fade
+html-math-method:
+  method: mathjax
+  url: mathjax2/MathJax.js?config=TeX-AMS_HTML-full
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+set.seed(2026)
+par(family = "serif")
+```
+
+## Statistics connects an unseen population to observed data
+
+$$
+\text{Population}
+\longrightarrow
+\text{Random sample}
+\longrightarrow
+\text{Estimator}
+\longrightarrow
+\text{Uncertainty}
+\longrightarrow
+\text{Inference}
+$$
+
+::: fragment
+Probability describes what data could be generated.
+:::
+
+::: fragment
+Statistics uses generated data to learn about the process.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 1-17, 128-140.
+:::
+
+------------------------------------------------------------------------
+
+## Our path today
+
+::: fragment
+1. Probability: how uncertainty is represented.
+:::
+
+::: fragment
+2. Random variables: how outcomes become numerical objects.
+:::
+
+::: fragment
+3. Sampling: why estimates vary across samples.
+:::
+
+::: fragment
+4. LLN and CLT: why large samples help.
+:::
+
+::: fragment
+5. Estimation and inference: what we can conclude from data.
+:::
+
+------------------------------------------------------------------------
+
+## Learning objectives
+
+By the end of this session, you should be able to:
+
+::: fragment
+- distinguish a population parameter from a sample statistic;
+:::
+
+::: fragment
+- compute and interpret probability, expectation, variance, and covariance;
+:::
+
+::: fragment
+- explain conditional expectation, the LLN, and the CLT;
+:::
+
+::: fragment
+- distinguish standard deviation from standard error;
+:::
+
+::: fragment
+- interpret a confidence interval, test statistic, and p-value correctly.
+:::
+
+------------------------------------------------------------------------
+
+## Warm-up: which statements are correct?
+
+::: fragment
+1. A parameter changes every time we draw a new sample.
+:::
+
+::: fragment
+2. A 5% p-value means the null hypothesis has a 5% probability of being true.
+:::
+
+::: fragment
+3. A larger sample always eliminates bias.
+:::
+
+::: fragment
+4. If $X$ and $Y$ are uncorrelated, they must be independent.
+:::
+
+::: fragment
+**Preview:** all four statements are generally false.
+:::
+
+# 1. Probability
+
+## Outcomes, events, and sample spaces
+
+::: fragment
+- An **outcome** is one possible realization.
+:::
+
+::: fragment
+- The **sample space** $\Omega$ contains all possible outcomes.
+:::
+
+::: fragment
+- An **event** $A$ is a subset of $\Omega$.
+:::
+
+::: fragment
+For a binary employment outcome,
+
+$$
+\Omega=\{0,1\},
+\qquad
+A=\{\text{employed}\}=\{1\}.
+$$
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 1-4.
+:::
+
+------------------------------------------------------------------------
+
+## Probability obeys three basic rules
+
+For events in $\Omega$:
+
+::: fragment
+1. $P(A)\geq0$.
+:::
+
+::: fragment
+2. $P(\Omega)=1$.
+:::
+
+::: fragment
+3. If $A_1,A_2,\ldots$ are mutually exclusive,
+
+$$
+P\left(\bigcup_j A_j\right)=\sum_jP(A_j).
+$$
+:::
+
+::: fragment
+These axioms generate the other probability rules we use.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 3-5.
+:::
+
+------------------------------------------------------------------------
+
+## “Or” requires subtracting the overlap
+
+For any two events,
+
+$$
+P(A\cup B)
+=P(A)+P(B)-P(A\cap B).
+$$
+
+::: fragment
+Why subtract?
+:::
+
+::: fragment
+The intersection $A\cap B$ was counted once inside $P(A)$ and once inside $P(B)$.
+:::
+
+::: fragment
+If $A$ and $B$ are mutually exclusive, then $P(A\cap B)=0$.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 4-6.
+:::
+
+------------------------------------------------------------------------
+
+## Conditional probability changes the reference population
+
+For $P(B)>0$,
+
+$$
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}.
+$$
+
+::: fragment
+The denominator says: restrict attention to cases where $B$ occurred.
+:::
+
+::: fragment
+The numerator says: among those cases, count where $A$ also occurred.
+:::
+
+::: fragment
+In general,
+
+$$
+P(A\mid B)\neq P(B\mid A).
+$$
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 6-7.
+:::
+
+------------------------------------------------------------------------
+
+## Independence and mutual exclusivity are different ideas
+
+Events $A$ and $B$ are independent if
+
+$$
+P(A\cap B)=P(A)P(B).
+$$
+
+Equivalently, when probabilities are positive,
+
+$$
+P(A\mid B)=P(A).
+$$
+
+::: fragment
+- **Independent:** learning $B$ does not change the probability of $A$.
+:::
+
+::: fragment
+- **Mutually exclusive:** $A$ and $B$ cannot occur together.
+:::
+
+::: fragment
+Nontrivial mutually exclusive events are therefore not independent.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 5-9.
+:::
+
+------------------------------------------------------------------------
+
+## The law of total probability decomposes an event
+
+If $B_1,\ldots,B_K$ form a partition of $\Omega$, then
+
+$$
+P(A)=\sum_{k=1}^K P(A\mid B_k)P(B_k).
+$$
+
+::: fragment
+For a treatment indicator $D\in\{0,1\}$,
+
+$$
+P(Y=1)
+=P(Y=1\mid D=1)P(D=1)
++P(Y=1\mid D=0)P(D=0).
+$$
+:::
+
+::: fragment
+Overall probability is a weighted average of group-specific probabilities.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 9-10.
+:::
+
+------------------------------------------------------------------------
+
+## Bayes' rule reverses the conditioning direction
+
+$$
+P(B\mid A)
+=
+\frac{P(A\mid B)P(B)}{P(A)}.
+$$
+
+Using the total probability rule,
+
+$$
+P(B\mid A)
+=
+\frac{P(A\mid B)P(B)}
+{P(A\mid B)P(B)+P(A\mid B^c)P(B^c)}.
+$$
+
+::: fragment
+Bayes' rule updates a prior probability after observing evidence.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 9-11.
+:::
+
+------------------------------------------------------------------------
+
+## Example: selection into a training program
+
+Suppose:
+
+$$
+P(D=1)=0.20,
+$$
+
+$$
+P(\text{high motivation}\mid D=1)=0.70,
+$$
+
+$$
+P(\text{high motivation}\mid D=0)=0.25.
+$$
+
+::: fragment
+What is
+
+$$
+P(D=1\mid \text{high motivation})?
+$$
+:::
+
+::: fragment
+First compute the probability of high motivation using the total probability rule.
+:::
+
+------------------------------------------------------------------------
+
+## Bayes' rule gives the updated probability
+
+$$
+P(H)=0.70(0.20)+0.25(0.80)=0.34.
+$$
+
+Therefore,
+
+$$
+P(D=1\mid H)
+=
+\frac{0.70(0.20)}{0.34}
+\approx0.412.
+$$
+
+::: fragment
+Observing high motivation raises the probability of training participation from 20% to about 41%.
+:::
+
+::: fragment
+This is also a warning: program participation may be statistically related to unobserved motivation.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 9-11; numerical example is instructor-developed.
+:::
+
+------------------------------------------------------------------------
+
+## Quick check: conditional probability
+
+In a population, 10% receive a policy treatment. Among treated units, 60% have outcome $Y=1$; among untreated units, 20% have $Y=1$.
+
+::: fragment
+1. Find $P(Y=1)$.
+:::
+
+::: fragment
+2. Find $P(D=1\mid Y=1)$.
+:::
+
+::: fragment
+**Answer:**
+
+$$
+P(Y=1)=0.6(0.1)+0.2(0.9)=0.24,
+$$
+
+$$
+P(D=1\mid Y=1)=0.06/0.24=0.25.
+$$
+:::
+
+# 2. Random variables and distributions
+
+## A random variable maps outcomes into numbers
+
+A random variable is a function
+
+$$
+X:\Omega\rightarrow\mathbb R.
+$$
+
+::: fragment
+- Discrete example: number of job offers.
+:::
+
+::: fragment
+- Continuous example: wage or income.
+:::
+
+::: fragment
+- Binary example: employment status.
+:::
+
+::: fragment
+The randomness comes from the outcome; the mapping itself is fixed.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 22-24, 28-34.
+:::
+
+------------------------------------------------------------------------
+
+## PMF, PDF, and CDF answer different questions
+
+::: fragment
+- Discrete probability mass function:
+
+$$p(x)=P(X=x).$$
+:::
+
+::: fragment
+- Continuous probability density function:
+
+$$P(a<X\le b)=\int_a^b f(x)\,dx.$$
+:::
+
+::: fragment
+- Cumulative distribution function:
+
+$$F(x)=P(X\le x).$$
+:::
+
+::: fragment
+A density value is not itself a probability; probability is area under the density.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 22-39.
+:::
+
+------------------------------------------------------------------------
+
+## Expectation is a probability-weighted average
+
+For a discrete random variable,
+
+$$
+E[X]=\sum_x xP(X=x).
+$$
+
+For a continuous random variable,
+
+$$
+E[X]=\int x f(x)\,dx.
+$$
+
+::: fragment
+Expectation is a feature of the distribution, not necessarily a value that will ever be observed.
+:::
+
+::: fragment
+Linearity:
+
+$$
+E[a+bX+cY]=a+bE[X]+cE[Y].
+$$
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 25-27, 37-42.
+:::
+
+------------------------------------------------------------------------
+
+## Variance measures dispersion around the mean
+
+Let $\mu=E[X]$. Then
+
+$$
+\operatorname{Var}(X)
+=E[(X-\mu)^2]
+=E[X^2]-\mu^2.
+$$
+
+::: fragment
+The standard deviation is
+
+$$
+\operatorname{SD}(X)=\sqrt{\operatorname{Var}(X)}.
+$$
+:::
+
+::: fragment
+Standard deviation uses the same units as $X$; variance uses squared units.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 40-42.
+:::
+
+------------------------------------------------------------------------
+
+## Three distributions appear repeatedly
+
+::: fragment
+**Bernoulli:** $X\in\{0,1\}$ and $P(X=1)=p$.
+
+$$E[X]=p,\qquad \operatorname{Var}(X)=p(1-p).$$
+:::
+
+::: fragment
+**Binomial:** number of successes in $n$ independent Bernoulli trials.
+:::
+
+::: fragment
+**Normal:** continuous, symmetric, and described by mean $\mu$ and variance $\sigma^2$.
+:::
+
+::: fragment
+Student $t$, $\chi^2$, and $F$ distributions enter classical inference.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 56-64, 113-126.
+:::
+
+------------------------------------------------------------------------
+
+## R connects the formulas to distributional shapes
+
+```{r}
+#| label: fig-distributions
+#| fig-width: 9
+#| fig-height: 4.8
+#| out-width: "90%"
+old <- par(mfrow = c(1, 2), mar = c(4, 4, 3, 1))
+k <- 0:12
+plot(k, dbinom(k, size = 12, prob = 0.35), type = "h", lwd = 5,
+     col = "#154360", xlab = "Number of successes",
+     ylab = "Probability", main = "Binomial(12, 0.35)")
+points(k, dbinom(k, 12, 0.35), pch = 19, col = "#154360")
+x <- seq(-4, 4, length.out = 400)
+plot(x, dnorm(x), type = "l", lwd = 3, col = "#C0392B",
+     xlab = "x", ylab = "Density", main = "Standard normal")
+polygon(c(x, rev(x)), c(dnorm(x), rep(0, length(x))),
+        col = adjustcolor("#C0392B", 0.18), border = NA)
+lines(x, dnorm(x), lwd = 3, col = "#C0392B")
+par(old)
+```
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 56-64, 113-126.
+:::
+
+------------------------------------------------------------------------
+
+## Joint distributions describe variables together
+
+For two random variables $X$ and $Y$, the joint distribution describes
+
+$$
+P(X\in A,\ Y\in B).
+$$
+
+::: fragment
+- A **marginal distribution** focuses on one variable.
+:::
+
+::: fragment
+- A **conditional distribution** focuses on one variable given the other.
+:::
+
+::: fragment
+- Independence means the joint distribution factors into the product of marginals.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 74-90.
+:::
+
+------------------------------------------------------------------------
+
+## Covariance and correlation summarize co-movement
+
+$$
+\operatorname{Cov}(X,Y)
+=E[(X-E[X])(Y-E[Y])].
+$$
+
+$$
+\operatorname{Corr}(X,Y)
+=
+\frac{\operatorname{Cov}(X,Y)}
+{\operatorname{SD}(X)\operatorname{SD}(Y)}.
+$$
+
+::: fragment
+- Correlation lies between $-1$ and $1$.
+:::
+
+::: fragment
+- Independence implies zero covariance when moments exist.
+:::
+
+::: fragment
+- Zero covariance does not generally imply independence.
+:::
+
+::: fragment
+- Neither covariance nor correlation establishes causality.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 91-94.
+:::
+
+------------------------------------------------------------------------
+
+## Conditional expectation is the language of econometrics
+
+$$
+m(x)=E[Y\mid X=x].
+$$
+
+::: fragment
+$m(x)$ is the mean of the conditional distribution of $Y$ given $X=x$.
+:::
+
+::: fragment
+The decomposition
+
+$$
+Y=E[Y\mid X]+\varepsilon
+$$
+
+implies
+
+$$
+E[\varepsilon\mid X]=0.
+$$
+:::
+
+::: fragment
+Regression methods approximate or estimate conditional expectations.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 94-99.
+:::
+
+------------------------------------------------------------------------
+
+## The law of iterated expectations aggregates conditional means
+
+$$
+E[Y]=E\left[E[Y\mid X]\right].
+$$
+
+::: fragment
+Interpretation:
+
+1. compute the mean of $Y$ within each value or group of $X$;
+2. average those conditional means over the distribution of $X$.
+:::
+
+::: fragment
+This is the expectation analogue of the law of total probability.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 94-97.
+:::
+
+------------------------------------------------------------------------
+
+## Jensen's inequality links curvature and risk
+
+If $u$ is concave, then
+
+$$
+E[u(X)]\le u(E[X]).
+$$
+
+::: fragment
+A risk-averse decision maker prefers the utility of a certain mean payoff to the expected utility of a risky payoff with that mean.
+:::
+
+::: fragment
+Curvature, not merely variance, determines how uncertainty affects welfare.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 42-45.
+:::
+
+# 3. Sampling and estimators
+
+## A population parameter is fixed; a statistic is random
+
+Suppose $X_1,\ldots,X_n$ are a random sample from a population.
+
+::: fragment
+- **Parameter:** an unknown feature such as $\mu=E[X]$.
+:::
+
+::: fragment
+- **Statistic:** a function of the sample, such as
+
+$$
+\bar X=\frac{1}{n}\sum_{i=1}^nX_i.
+$$
+:::
+
+::: fragment
+- **Estimator:** the rule $\bar X$ used to estimate $\mu$.
+:::
+
+::: fragment
+- **Estimate:** the numerical value obtained in one sample.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 128-135.
+:::
+
+------------------------------------------------------------------------
+
+## The sampling distribution describes repeated-sample variation
+
+Imagine repeatedly drawing samples of size $n$ and computing $\bar X$.
+
+::: fragment
+The distribution of those values is the **sampling distribution** of $\bar X$.
+:::
+
+::: fragment
+Under IID sampling with finite variance,
+
+$$
+E[\bar X]=\mu,
+\qquad
+\operatorname{Var}(\bar X)=\frac{\sigma^2}{n}.
+$$
+:::
+
+::: fragment
+More data reduces variance, but the estimate remains random.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 128-140.
+:::
+
+------------------------------------------------------------------------
+
+## Standard deviation and standard error answer different questions
+
+::: fragment
+**Standard deviation:** how dispersed are individual observations?
+
+$$
+\operatorname{SD}(X)=\sigma.
+$$
+:::
+
+::: fragment
+**Standard error:** how dispersed is an estimator across repeated samples?
+
+$$
+\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}.
+$$
+:::
+
+::: fragment
+If sample size quadruples, the standard error is approximately halved.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 135-141.
+:::
+
+------------------------------------------------------------------------
+
+## R simulates a sampling distribution
+
+```{r}
+#| label: fig-sampling-distribution
+#| fig-width: 9
+#| fig-height: 4.8
+#| out-width: "88%"
+B <- 5000
+n <- 40
+means <- replicate(B, mean(rexp(n, rate = 1)))
+hist(means, breaks = 35, probability = TRUE,
+     col = adjustcolor("#154360", 0.35), border = "white",
+     xlab = "Sample mean", main = "Sampling distribution of the mean")
+curve(dnorm(x, mean = 1, sd = 1 / sqrt(n)), add = TRUE,
+      lwd = 3, col = "#C0392B")
+abline(v = 1, lty = 2, lwd = 2, col = "#1E8449")
+legend("topright", c("simulated means", "normal approximation", "population mean"),
+       col = c("#154360", "#C0392B", "#1E8449"),
+       lwd = c(6, 3, 2), lty = c(1, 1, 2), bty = "n")
+```
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 128-140, 165-173.
+:::
+
+------------------------------------------------------------------------
+
+## Bias, variance, and MSE evaluate an estimator
+
+Bias:
+
+$$
+\operatorname{Bias}(\hat\theta)
+=E[\hat\theta]-\theta.
+$$
+
+Mean squared error:
+
+$$
+\operatorname{MSE}(\hat\theta)
+=E[(\hat\theta-\theta)^2]
+=\operatorname{Var}(\hat\theta)
++\operatorname{Bias}(\hat\theta)^2.
+$$
+
+::: fragment
+An estimator can trade a small amount of bias for a large reduction in variance.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 135-140.
+:::
+
+# 4. Why large samples help
+
+## The law of large numbers gives consistency
+
+Under suitable conditions,
+
+$$
+\bar X_n\xrightarrow{p}\mu.
+$$
+
+::: fragment
+For every $\varepsilon>0$,
+
+$$
+P(|\bar X_n-\mu|>\varepsilon)\rightarrow0.
+$$
+:::
+
+::: fragment
+The LLN says the sample mean becomes close to the population mean in probability.
+:::
+
+::: fragment
+It does not describe the shape of the remaining error.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 149-160.
+:::
+
+------------------------------------------------------------------------
+
+## R shows convergence as sample size grows
+
+```{r}
+#| label: fig-lln
+#| fig-width: 9
+#| fig-height: 4.8
+#| out-width: "88%"
+nmax <- 1200
+x <- rexp(nmax, rate = 1)
+running_mean <- cumsum(x) / seq_along(x)
+plot(seq_along(x), running_mean, type = "l", lwd = 2,
+     col = "#154360", xlab = "Sample size, n",
+     ylab = "Running sample mean",
+     main = "The running mean settles near the population mean")
+abline(h = 1, lwd = 2, lty = 2, col = "#C0392B")
+legend("topright", c("running mean", "E[X] = 1"),
+       col = c("#154360", "#C0392B"), lwd = 2,
+       lty = c(1, 2), bty = "n")
+```
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 149-160.
+:::
+
+------------------------------------------------------------------------
+
+## The central limit theorem gives the shape of estimation error
+
+Under suitable conditions,
+
+$$
+\sqrt n(\bar X_n-\mu)
+\xrightarrow{d}
+N(0,\sigma^2).
+$$
+
+Equivalently, for large $n$,
+
+$$
+\bar X_n
+\approx
+N\left(\mu,\frac{\sigma^2}{n}\right).
+$$
+
+::: fragment
+This approximation is the bridge from estimation to standard errors, confidence intervals, and tests.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 165-173.
+:::
+
+------------------------------------------------------------------------
+
+## The original population need not be normal
+
+```{r}
+#| label: fig-clt
+#| fig-width: 9
+#| fig-height: 4.8
+#| out-width: "90%"
+old <- par(mfrow = c(1, 3), mar = c(4, 3.5, 3, 1))
+for (n in c(1, 5, 40)) {
+  vals <- replicate(4000, mean(rexp(n, rate = 1)))
+  hist(vals, breaks = 30, probability = TRUE,
+       col = adjustcolor("#154360", 0.35), border = "white",
+       xlab = "Sample mean", ylab = "Density",
+       main = paste0("n = ", n), xlim = c(0, 3))
+  curve(dnorm(x, mean = 1, sd = 1 / sqrt(n)), add = TRUE,
+        lwd = 2, col = "#C0392B")
+}
+par(old)
+```
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 165-173.
+:::
+
+------------------------------------------------------------------------
+
+## LLN and CLT answer different questions
+
+| Result | Main question | Main conclusion |
+|---|---|---|
+| LLN | Does the estimator approach the target? | $\bar X_n\to_p\mu$ |
+| CLT | What is the approximate distribution of its error? | $\sqrt n(\bar X_n-\mu)\to_d N(0,\sigma^2)$ |
+
+::: fragment
+- LLN supports consistency.
+:::
+
+::: fragment
+- CLT supports approximate inference.
+:::
+
+::: fragment
+Both rely on assumptions; neither is a license to ignore dependence, heavy tails, or poor sampling design.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 149-176.
+:::
+
+# 5. Estimation and inference
+
+## Method of moments matches sample moments to population moments
+
+Suppose a model implies
+
+$$
+E[g(X,\theta_0)]=0.
+$$
+
+The method of moments chooses $\hat\theta$ so that
+
+$$
+\frac{1}{n}\sum_{i=1}^n g(X_i,\hat\theta)=0.
+$$
+
+::: fragment
+For $E[X]=\mu$, the sample analogue gives
+
+$$
+\hat\mu=\bar X.
+$$
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 225-241.
+:::
+
+------------------------------------------------------------------------
+
+## Maximum likelihood asks which parameter best explains the sample
+
+For IID observations with density or mass function $f(x;\theta)$,
+
+$$
+L(\theta)=\prod_{i=1}^n f(X_i;\theta).
+$$
+
+The maximum likelihood estimator is
+
+$$
+\hat\theta_{MLE}=\arg\max_\theta L(\theta).
+$$
+
+::: fragment
+We usually maximize the log-likelihood:
+
+$$
+\ell(\theta)=\sum_{i=1}^n\log f(X_i;\theta).
+$$
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 192-206.
+:::
+
+------------------------------------------------------------------------
+
+## Bernoulli MLE: the sample mean estimates a probability
+
+If $X_i\sim\text{Bernoulli}(p)$, then
+
+$$
+\ell(p)
+=
+\sum_{i=1}^n
+\left[X_i\log p+(1-X_i)\log(1-p)\right].
+$$
+
+::: fragment
+The first-order condition yields
+
+$$
+\hat p=\frac{1}{n}\sum_{i=1}^nX_i=\bar X.
+$$
+:::
+
+::: fragment
+The MLE is simply the observed fraction of successes.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 192-206.
+:::
+
+------------------------------------------------------------------------
+
+## A confidence interval combines estimate and uncertainty
+
+If
+
+$$
+\frac{\hat\theta-\theta}{\operatorname{SE}(\hat\theta)}
+\approx N(0,1),
+$$
+
+an approximate 95% confidence interval is
+
+$$
+\boxed{
+\hat\theta
+\pm
+1.96\operatorname{SE}(\hat\theta)
+}.
+$$
+
+::: fragment
+Across repeated samples, approximately 95% of intervals constructed by this procedure contain the true parameter.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 296-301.
+:::
+
+------------------------------------------------------------------------
+
+## Confidence intervals vary from sample to sample
+
+```{r}
+#| label: fig-confidence-intervals
+#| fig-width: 9
+#| fig-height: 5.2
+#| out-width: "88%"
+B <- 30
+n <- 50
+mu <- 1
+est <- se <- numeric(B)
+for (b in seq_len(B)) {
+  xb <- rexp(n, rate = 1)
+  est[b] <- mean(xb)
+  se[b] <- sd(xb) / sqrt(n)
+}
+lo <- est - 1.96 * se
+hi <- est + 1.96 * se
+cover <- lo <= mu & hi >= mu
+plot(est, seq_len(B), pch = 19,
+     col = ifelse(cover, "#154360", "#C0392B"),
+     xlim = range(c(lo, hi, mu)), xlab = "Confidence interval",
+     ylab = "Repeated sample", main = "Most, but not all, 95% intervals cover the truth")
+segments(lo, seq_len(B), hi, seq_len(B),
+         col = ifelse(cover, "#154360", "#C0392B"), lwd = 2)
+abline(v = mu, lty = 2, lwd = 2, col = "#1E8449")
+```
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 296-301.
+:::
+
+------------------------------------------------------------------------
+
+## Hypothesis testing begins with a null claim
+
+Example:
+
+$$
+H_0:\theta=\theta_0
+\qquad\text{versus}\qquad
+H_1:\theta\neq\theta_0.
+$$
+
+The standardized test statistic is
+
+$$
+t=\frac{\hat\theta-\theta_0}{\operatorname{SE}(\hat\theta)}.
+$$
+
+::: fragment
+Under $H_0$, a large absolute value of $t$ is evidence against the null.
+:::
+
+::: fragment
+At the 5% level in a two-sided large-sample test, reject when $|t|>1.96$.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 271-290.
+:::
+
+------------------------------------------------------------------------
+
+## Type I and Type II errors are asymmetric
+
+| Decision | $H_0$ true | $H_0$ false |
+|---|---|---|
+| Reject $H_0$ | Type I error | Correct rejection |
+| Do not reject $H_0$ | Correct non-rejection | Type II error |
+
+::: fragment
+- Significance level $\alpha$: probability of a Type I error under the null.
+:::
+
+::: fragment
+- Power: probability of rejecting a false null.
+:::
+
+::: fragment
+Reducing one error probability can increase the other unless information increases.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 271-281.
+:::
+
+------------------------------------------------------------------------
+
+## A p-value measures incompatibility with the null
+
+The p-value is the probability, **assuming the null is true**, of observing a test statistic at least as extreme as the one observed.
+
+::: fragment
+For a two-sided asymptotic normal test,
+
+$$
+p\text{-value}
+=2\left[1-\Phi(|t_{obs}|)\right].
+$$
+:::
+
+::: fragment
+It is not $P(H_0\text{ is true}\mid\text{data})$.
+:::
+
+::: fragment
+A small p-value is evidence against $H_0$ relative to the assumed model.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 282-290.
+:::
+
+------------------------------------------------------------------------
+
+## R displays the two-sided p-value
+
+```{r}
+#| label: fig-pvalue
+#| fig-width: 9
+#| fig-height: 4.8
+#| out-width: "88%"
+x <- seq(-4, 4, length.out = 800)
+y <- dnorm(x)
+tobs <- 2.1
+plot(x, y, type = "l", lwd = 3, col = "#154360",
+     xlab = "Test statistic under H0", ylab = "Density",
+     main = "Two-sided p-value: probability beyond +/- |t observed|")
+xl <- x[x <= -tobs]
+xr <- x[x >= tobs]
+polygon(c(xl, rev(xl)), c(dnorm(xl), rep(0, length(xl))),
+        col = adjustcolor("#C0392B", 0.45), border = NA)
+polygon(c(xr, rev(xr)), c(dnorm(xr), rep(0, length(xr))),
+        col = adjustcolor("#C0392B", 0.45), border = NA)
+lines(x, y, lwd = 3, col = "#154360")
+abline(v = c(-tobs, tobs), lty = 2, col = "#C0392B")
+```
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 280-290.
+:::
+
+------------------------------------------------------------------------
+
+## Statistical significance is not economic significance
+
+Suppose an estimated policy effect is
+
+$$
+\hat\theta=0.002,
+\qquad
+\operatorname{SE}(\hat\theta)=0.0005.
+$$
+
+::: fragment
+Then $t=4$, so the estimate is statistically distinguishable from zero.
+:::
+
+::: fragment
+But whether an effect of $0.002$ matters depends on units, costs, baseline risk, and the decision context.
+:::
+
+::: fragment
+Always report and interpret the estimate, its uncertainty, and its substantive magnitude.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 289-301; numerical example is instructor-developed.
+:::
+
+------------------------------------------------------------------------
+
+## A larger sample does not solve every problem
+
+Larger $n$ often reduces sampling variance, but it does not automatically fix:
+
+::: fragment
+- selection bias;
+:::
+
+::: fragment
+- omitted variables or endogeneity;
+:::
+
+::: fragment
+- measurement error;
+:::
+
+::: fragment
+- dependence ignored by the standard error;
+:::
+
+::: fragment
+- model misspecification;
+:::
+
+::: fragment
+- a sample that does not represent the target population.
+:::
+
+::: {.notes}
+[Sources]
+- Hansen (2021), pp. 128-176, 213-217.
+:::
+
+------------------------------------------------------------------------
+
+## These ideas become the first regression toolkit
+
+In a regression model,
+
+$$
+Y_i=X_i'\beta+u_i,
+$$
+
+we use the same sequence:
+
+::: fragment
+1. define a population target $\beta$;
+:::
+
+::: fragment
+2. construct an estimator $\hat\beta$;
+:::
+
+::: fragment
+3. study bias, variance, and consistency;
+:::
+
+::: fragment
+4. derive an approximate sampling distribution;
+:::
+
+::: fragment
+5. compute standard errors, intervals, and tests.
+:::
+
+::: fragment
+Probability is not separate from econometrics; it is its foundation.
+:::
+
+------------------------------------------------------------------------
+
+## Practice: one empirical estimate
+
+A sample of $n=400$ workers gives
+
+$$
+\bar X=52.0,
+\qquad
+s=12.0,
+$$
+
+where $X$ is weekly hours worked.
+
+::: fragment
+1. Estimate the population mean.
+:::
+
+::: fragment
+2. Compute the standard error.
+:::
+
+::: fragment
+3. Construct an approximate 95% confidence interval.
+:::
+
+::: fragment
+4. Test $H_0:\mu=50$ using a two-sided large-sample test.
+:::
+
+------------------------------------------------------------------------
+
+## Practice solution
+
+Point estimate:
+
+$$
+\hat\mu=52.0.
+$$
+
+Standard error:
+
+$$
+SE(\bar X)=\frac{12}{\sqrt{400}}=0.6.
+$$
+
+::: fragment
+Approximate 95% confidence interval:
+
+$$
+52\pm1.96(0.6)
+=52\pm1.176
+=[50.824,53.176].
+$$
+:::
+
+------------------------------------------------------------------------
+
+## Test and interpretation
+
+$$
+t=\frac{52-50}{0.6}=3.33.
+$$
+
+::: fragment
+The two-sided p-value is approximately
+
+$$
+2[1-\Phi(3.33)]\approx0.0009.
+$$
+:::
+
+::: fragment
+We reject $H_0:\mu=50$ at conventional significance levels.
+:::
+
+::: fragment
+The sample provides evidence that the population mean differs from 50 hours; the estimate is about 2 hours higher.
+:::
+
+------------------------------------------------------------------------
+
+## Common interpretation errors
+
+::: fragment
+- “The parameter has a 95% probability of being inside this realized frequentist interval.”
+:::
+
+::: fragment
+- “A p-value of 0.03 means the null has a 3% probability of being true.”
+:::
+
+::: fragment
+- “Failure to reject proves the null.”
+:::
+
+::: fragment
+- “A significant association is causal.”
+:::
+
+::: fragment
+- “A narrow confidence interval guarantees the study is unbiased.”
+:::
+
+::: fragment
+Each statement confuses sampling uncertainty with a different inferential question.
+:::
+
+------------------------------------------------------------------------
+
+## Exit ticket
+
+::: fragment
+1. What is the difference between a parameter and an estimator?
+:::
+
+::: fragment
+2. What is the difference between a standard deviation and a standard error?
+:::
+
+::: fragment
+3. What does the LLN tell us? What does the CLT add?
+:::
+
+::: fragment
+4. Give a correct one-sentence interpretation of a p-value.
+:::
+
+::: fragment
+5. Name one problem that a larger sample does not automatically solve.
+:::
+
+------------------------------------------------------------------------
+
+## Keep this mental map
+
+$$
+\boxed{
+\begin{array}{c}
+\text{Probability}=\text{model of uncertainty}\\[3pt]
+\text{Estimator}=\text{random rule based on a sample}\\[3pt]
+\text{LLN}=\text{closeness to the target}\\[3pt]
+\text{CLT}=\text{shape of estimation error}\\[3pt]
+\text{SE}=\text{sampling uncertainty}\\[3pt]
+\text{Inference}=\text{estimate + uncertainty + assumptions}
+\end{array}}
+$$
+
+------------------------------------------------------------------------
+
+**Questions?**
+
+Primary reference: Hansen, *Probability and Statistics for Economists*, Chapters 1-8, 10-11, and 13-14.
