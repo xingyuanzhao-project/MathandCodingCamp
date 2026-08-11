@@ -15,29 +15,22 @@
 # never displayed. Headings with no natural folder of their own (for example
 # "Morning Session") simply omit the prefix and stay display-only.
 
-Day 1: modules/math/day-1
+Day 1:
   Morning Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Preliminaries: "modules/math/day-1/preliminaries/day-1-preliminaries.html"
-    - Differentiation 1: "modules/math/day-1/differentiation-1/day-1-differentiation-1.html"
-    - Probability 1: "modules/math/day-1/probability/day-1-probability.html"
+    - Preliminaries: "modules/math/day-1/preliminaries/Day1_Preliminaries.html"
+    - Algebra: "modules/math/day-2/algebra/pre-calculus.html"
   Afternoon Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Probability 2: "modules/math/day-1/probability/day-1-probability.html"
-    - Differentiation 2: "modules/math/day-1/differentiation-2/day-1-differentiation-2.html"
-    - Distributions 1: "modules/math/day-1/distributions/day-1-distributions.html"
+    - Calculus: "modules/math/day-1/calculus/calculus.html"
 
-Day 2: modules/math/day-2
+Day 2:
   Morning Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Algebra Review: "modules/math/day-2/algebra/day-2-algebra.html"
-    - Functions and Relations 1: "modules/math/day-2/functions-1/day-2-functions-1.html"
-    - Vector and Matrices 1: "modules/math/day-2/vectors-matrices-1/day-2-vectors-matrices-1.html"
+    - Linear Algebra: "modules/math/day-2/vectors-matrices-1/day2 linear algebra.html"
   Afternoon Session:
     - "(Check-in)": "https://docs.google.com/forms/d/e/1FAIpQLSeBfIjHR5v_yHZL2blQTwTcZEgt09b-vrwjFMdYdqgqQD4F9A/viewform"
-    - Vector and Matrices 2: "modules/math/day-2/vectors-matrices-2/day-2-vectors-matrices-2.html"
-    - Distributions 2: "modules/math/day-2/distributions/day-2-distributions.html"
-    - Functions and Relations 2: "modules/math/day-2/functions-2/day-2-functions-2.html"
+    - Probability and Statistics: "modules/math/day-2/probability_statistics/probability_statistics.html"
 
 Day 3: modules/coding/day-3
   Morning Session:
