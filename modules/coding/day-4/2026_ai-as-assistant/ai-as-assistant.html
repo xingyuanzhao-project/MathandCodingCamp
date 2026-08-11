@@ -416,7 +416,12 @@ Instructor: Xingyuan Zhao
 </div>
 <div class="fragment">
 <ul>
-<li>Generating plots and tables</li>
+<li>Generating simple plots and tables</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Simple data collection</li>
 </ul>
 </div>
 <div class="fragment">
@@ -447,7 +452,7 @@ Instructor: Xingyuan Zhao
 </div>
 <div class="fragment">
 <ul>
-<li>Ignoring interface</li>
+<li>Ignoring conventions</li>
 </ul>
 </div>
 <div class="fragment">
@@ -481,7 +486,7 @@ Instructor: Xingyuan Zhao
 </div>
 <div class="fragment">
 <ul>
-<li>Local code transformation</li>
+<li>Local code refactoring</li>
 </ul>
 </div>
 <div class="fragment">
@@ -528,12 +533,6 @@ Instructor: Xingyuan Zhao
 <li>Maintaining intent across long, multi-step tasks</li>
 </ul>
 </div>
-<div class="fragment">
-<p><strong>Example of Usage:</strong></p>
-</div>
-<div class="fragment">
-<p>Which AI output is problematic?</p>
-</div>
 </section>
 <section class="slide level2">
 
@@ -557,7 +556,7 @@ Instructor: Xingyuan Zhao
 </ul>
 </div>
 <div class="fragment">
-<p>You are the domain expert, you need to know these.</p>
+<p><em>You</em> are the domain expert, you need to know these.</p>
 </div>
 </section>
 <section class="slide level2">
@@ -641,18 +640,11 @@ Instructor: Xingyuan Zhao
 
 <h4 id="assisting-some-research-methods-and-measurement">Assisting <em>some</em> research methods and measurement</h4>
 <div class="fragment">
-<p>Example of Usage:</p>
-</div>
-<div class="fragment">
 <p><strong>Root Issue:</strong> AI has <em>growing</em> capabilities for solving mathematical, logical, and statistical problems, but might not be there yet.</p>
 </div>
 <div class="fragment">
-<p>Show plot of Mathematics Aptitude Test of Heuristics (MATH)</p>
-</div>
-</section>
-<section class="slide level2">
-
 <p><strong>Why this can be dangerous?</strong></p>
+</div>
 <div class="fragment">
 <ul>
 <li>Method mis-specification</li>
@@ -699,7 +691,7 @@ Instructor: Xingyuan Zhao
 </div>
 <div class="fragment">
 <ul>
-<li>Descriptive analysis</li>
+<li>Descriptive statistics</li>
 </ul>
 </div>
 <div class="fragment">
@@ -725,9 +717,6 @@ Instructor: Xingyuan Zhao
 <ul>
 <li>Independently implement a complex causal inference analyses</li>
 </ul>
-</div>
-<div class="fragment">
-<p><strong>Example of Usage:</strong></p>
 </div>
 </section>
 <section class="slide level2">
@@ -797,7 +786,9 @@ Instructor: Xingyuan Zhao
 <li>Describe an obvious pattern in a simple bar, line, or scatter plot</li>
 </ul>
 </div>
+<div class="fragment">
 <p><strong>What it is bad at</strong></p>
+</div>
 <div class="fragment">
 <ul>
 <li>Explain what a reported effect size, confidence interval, or test statistic represents</li>
@@ -827,8 +818,45 @@ Instructor: Xingyuan Zhao
 <li>Apply the interpretation in the domain context, rather than just restating the numbers</li>
 </ul>
 </div>
+</section>
+<section class="slide level2">
+
+<h3 id="example-of-usage">Example of Usage</h3>
 <div class="fragment">
-<p><strong>Example of Usage:</strong></p>
+<p><strong>Prompt A:</strong> “This function is broken, can you clean it up and make it better?”</p>
+</div>
+<div class="fragment">
+<p><strong>Prompt B:</strong> “Fix only the error in the for loop on line XX. Keep the existing variable names and style. Do not change anything else.”</p>
+</div>
+<div class="fragment">
+<p>Which prompt is better?</p>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="fragment">
+<p><strong>Prompt A:</strong> “Search my library folder for papers on social media and political polarization, and list them in APSA format, sort by publication years.”</p>
+</div>
+<div class="fragment">
+<p><strong>Prompt B:</strong> “Find me ten papers that prove social media causes political polarization.”</p>
+</div>
+<div class="fragment">
+<p>Which prompt is better?</p>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="fragment">
+<p><strong>Given input prompt:</strong> “Fix the bug where the function crashes when the this field is empty.”</p>
+</div>
+<div class="fragment">
+<p><strong>Response A:</strong> “I found the crash and fixed it. While I was in there, I also refactored the authentication module to use a cleaner session handling pattern and added input validation across all the other forms.”</p>
+</div>
+<div class="fragment">
+<p><strong>Response B:</strong> “The crash happened because the code called <code>.strip()</code> on the password before checking if it was empty. I added a check for empty or missing passwords before that line. I did not change anything else.”</p>
+</div>
+<div class="fragment">
+<p>Which response is better given the prompt?</p>
 </div>
 </section>
 <section class="slide level2">

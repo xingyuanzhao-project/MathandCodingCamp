@@ -13,16 +13,21 @@ format:
 
 ## Learning objectives:
 
-## Final destination:
+- Learn what to do and what not to do with AI
+- This is not prohibition nor encouragement, but understanding the principles
 
-## Takeaway:
+## Compliance
 
-## Policy Compliance first
+- [UTDSP5017, Generative AI Use in Academic Work](https://policy.utdallas.edu/utdsp5017).
+- [OIT/ISO AI Usage Guidelines](https://infosecurity.utdallas.edu/information-hub/artificial-intelligence-ai-usage-guidelines/).
+- [Texas DIR Covered Applications and Prohibited Technologies](https://dir.texas.gov/information-security/covered-applications-and-prohibited-technologies) bans specific AI vendors and software on state owned devices.
+
+---
 
 ### Permitted Use
 
 ::: fragment
-When the faculty member permits generative AI use, students are expected to use generative AI ethically and responsibly. Students should document and attribute the use of generative AI as appropriate to the academic style (APA, MLA, Chicago, etc.) or a professional style specified by the faculty member. Students must follow written guidelines from faculty on citation styles. Students must validate or verify the output from generative AI.
+When the faculty member permits generative AI use, students are expected to use generative AI ethically and responsibly. Students should **document and attribute** the use of generative AI as appropriate to the academic style (APA, MLA, Chicago, etc.) or a professional style specified by the faculty member. Students must follow written guidelines from faculty on citation styles. Students must **validate or verify** the output from generative AI.
 :::
 
 ---
@@ -30,7 +35,7 @@ When the faculty member permits generative AI use, students are expected to use 
 ### Partial Use
 
 ::: fragment
-When generative AI use is allowed for some but not all academic work, students are expected to follow written guidelines provided by the faculty member. Students should document and attribute the use of generative AI as appropriate to the academic style (APA, MLA, Chicago, etc.). Faculty should detail usage guidelines in assignment prompts. These guidelines detail the ways generative AI can be used in academic work.
+When generative AI use is allowed for some but not all academic work, students are expected to follow written guidelines provided by the faculty member. Students should **document and attribute** the use of generative AI as appropriate to the academic style (APA, MLA, Chicago, etc.). **Faculty should detail usage guidelines** in assignment prompts. These guidelines detail the ways generative AI can be used in academic work.
 :::
 
 ---
@@ -38,10 +43,17 @@ When generative AI use is allowed for some but not all academic work, students a
 ### Prohibited Use
 
 ::: fragment
-When the faculty member prohibits use of specific generative AI tools, use is unauthorized and thus is a violation of UTDSP5003. Students should present their work without the use of generative AI, including but not limited to use for ideating, outlining, writing, or studying, and creating text, tables, code, analysis, video, or images. Given the integration of generative AI tools into commonly used tools, students should receive written guidance from faculty on which applications of generative AI are not permitted.
+When the faculty member prohibits use of specific generative AI tools, use is unauthorized and thus is a violation of UTDSP5003. Students should present their work without the use of generative AI, **including but not limited to use for ideating, outlining, writing, or studying, and creating text, tables, code, analysis, video, or images**. Given the integration of generative AI tools into commonly used tools, students should receive written guidance from faculty on which applications of generative AI are not permitted.
 :::
 
 ## Comet AI
+
+- [CometAI service page](https://atlas.utdallas.edu/TDClient/30/Portal/Requests/Service/540/CometAI) covers eligibility and lets student employees request access through their manager.
+- [CometAI login](https://cometai.utdallas.edu/) is where faculty and staff sign in directly with their NetID.
+
+- Access to 15 AI models
+- $5.00 credit per month
+- Customize and share AI agents, prompt templates, and responses
 
 ## Beyond prompt engineering
 

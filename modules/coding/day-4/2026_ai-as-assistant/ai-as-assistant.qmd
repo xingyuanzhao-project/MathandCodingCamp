@@ -73,7 +73,11 @@ format:
 :::
 
 ::: fragment
-- Generating plots and tables
+- Generating simple plots and tables
+:::
+
+::: fragment
+- Simple data collection
 :::
 
 ::: fragment
@@ -103,7 +107,7 @@ Example: let AI download tables for you
 :::
 
 ::: fragment
-- Ignoring interface
+- Ignoring conventions
 :::
 
 ::: fragment
@@ -131,7 +135,7 @@ Example: let AI download tables for you
 :::
 
 ::: fragment
-- Local code transformation
+- Local code refactoring
 :::
 
 ::: fragment
@@ -170,14 +174,6 @@ Example: let AI download tables for you
 - Maintaining intent across long, multi-step tasks
 :::
 
-::: fragment
-**Example of Usage:**
-:::
-
-::: fragment
-Which AI output is problematic?
-:::
-
 ---
 
 #### Collet and manage Literatures
@@ -202,7 +198,7 @@ Which AI output is problematic?
 :::
 
 ::: fragment
-You are the domain expert, you need to know these.
+*You* are the domain expert, you need to know these.
 :::
 
 ---
@@ -274,21 +270,13 @@ You are the domain expert, you need to know these.
 #### Assisting *some* research methods and measurement
 
 ::: fragment
-Example of Usage:
-:::
-
-::: fragment
 **Root Issue:** 
 AI has *growing* capabilities for solving mathematical, logical, and statistical problems, but might not be there yet.
 :::
 
 ::: fragment
-Show plot of Mathematics Aptitude Test of Heuristics (MATH)
-:::
-
----
-
 **Why this can be dangerous?**
+:::
 
 ::: fragment
 - Method mis-specification
@@ -327,7 +315,7 @@ Show plot of Mathematics Aptitude Test of Heuristics (MATH)
 :::
 
 ::: fragment
-- Descriptive analysis
+- Descriptive statistics
 :::
 
 ::: fragment
@@ -348,10 +336,6 @@ Show plot of Mathematics Aptitude Test of Heuristics (MATH)
 
 ::: fragment
 - Independently implement a complex causal inference analyses
-:::
-
-::: fragment
-**Example of Usage:**
 :::
 
 ---
@@ -414,7 +398,9 @@ What AI read in your results?
 - Describe an obvious pattern in a simple bar, line, or scatter plot
 :::
 
+::: fragment
 **What it is bad at**
+:::
 
 ::: fragment
 - Explain what a reported effect size, confidence interval, or test statistic represents
@@ -440,8 +426,53 @@ What AI read in your results?
 - Apply the interpretation in the domain context, rather than just restating the numbers
 :::
 
+---
+
+
+### Example of Usage
+
 ::: fragment
-**Example of Usage:**
+**Prompt A:** "This function is broken, can you clean it up and make it better?"
+:::
+
+::: fragment
+**Prompt B:** "Fix only the error in the for loop on line XX. Keep the existing variable names and style. Do not change anything else."
+:::
+
+::: fragment
+Which prompt is better?
+:::
+
+---
+
+::: fragment
+**Prompt A:** "Search my library folder for papers on social media and political polarization, and list them in APSA format, sort by publication years."
+:::
+
+::: fragment
+**Prompt B:** "Find me ten papers that prove social media causes political polarization."
+:::
+
+::: fragment
+Which prompt is better?
+:::
+
+---
+
+::: fragment
+**Given input prompt:** "Fix the bug where the function crashes when the this field is empty."
+:::
+
+::: fragment
+**Response A:** "I found the crash and fixed it. While I was in there, I also refactored the authentication module to use a cleaner session handling pattern and added input validation across all the other forms."
+:::
+
+::: fragment
+**Response B:** "The crash happened because the code called `.strip()` on the password before checking if it was empty. I added a check for empty or missing passwords before that line. I did not change anything else."
+:::
+
+::: fragment
+Which response is better given the prompt?
 :::
 
 ---

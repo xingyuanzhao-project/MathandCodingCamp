@@ -22,10 +22,116 @@ format:
 ::: fragment
 **Method:**
 
-- AI *IS* in your research pipeline. It can be methodology, or the target being studied, or something else.
+- AI *IS* a part of your research pipeline. It can be methodology, or the target being studied, or something else.
+:::
+
+## How to do it?
+
+::: fragment
+- Using chatbot Graphical User Interface (GUI)
+:::
+
+::: fragment
+- Using API
+:::
+
+::: fragment
+- Deploy local model
 :::
 
 ## Applications
+
+### Data standardization
+
+::: fragment
+- Standardize inconsistent formats, cases, codes, units, and delimiters
+:::
+
+::: fragment
+- Detect and repair typos, invalid values, outliers, and inconsistent encodings
+:::
+
+::: fragment
+- Impute missing values using related variables or documented external context
+:::
+
+---
+
+### Data integration
+
+::: fragment
+- Entity Matching: Link records that refer to the same real-world entity across datasets
+:::
+
+::: fragment
+- Schema Matching: Identify semantic correspondences between elements across heterogeneous schemas from different sources
+:::
+
+### Data enrichment
+
+::: fragment
+- Data Annotation: Assign semantic or structural labels to tables, columns, and cells
+:::
+
+::: fragment
+- Data Profiling: Derive structured metadata from semantic datasets
+:::
+
+---
+
+::: fragment
+**Example:**
+:::
+
+::: fragment
+Given a series of unstandardized dates -> AI models -> Standardized dates
+:::
+
+::: fragment
+```python
+from openai import OpenAI
+
+# Client points at the local vLLM server; api_key is unused but required by the SDK
+client = OpenAI(base_url="http://localhost:8000/v1", api_key="dummy")
+
+# Raw data: noisy scraped values that need one consistent format
+raw_data = [
+    "March 3rd, 2021",
+    "2021.03.03",
+    "03/03/21",
+]
+
+# Instruction applied to every input value
+prompt_template = (
+    "Rewrite the date below as YYYY-MM-DD. "
+    "Return only the date, nothing else.\nDate: {value}"
+)
+
+# The LLM call: one request per input value
+standardized_data = []
+for value in raw_data:
+    response = client.chat.completions.create(
+        model="google/gemma-4-12B-it",
+        messages=[{"role": "user", "content": prompt_template.format(value=value)}],
+        temperature=0.0,
+        max_tokens=64,
+    )
+    # Returns: pull the reply text out of the response object
+    standardized_data.append(response.choices[0].message.content.strip())
+```
+:::
+
+---
+
+**Example output**
+
+::: fragment
+```json
+["2021-03-03", "2021-03-03", "2021-03-03"]
+```
+:::
+
+---
 
 ### Natural language processing (NLP) tasks
 
@@ -53,64 +159,74 @@ format:
 - Semantic similarity
 :::
 
+---
+
 ::: fragment
 **Example:**
+Given a list of event descriptions from the Global Terrorism Database -> AI models -> Victims and aggressors, extracted and labeled
+:::
+
+::: fragment
+```python
+from openai import OpenAI
+import json
+
+# Client points at the local vLLM server; api_key is unused but required by the SDK
+client = OpenAI(base_url="http://localhost:8000/v1", api_key="dummy")
+
+# Raw data: short event descriptions to pull named entities from
+events = [
+    "Gunmen linked to the Riverlands Front stormed a market in Dalcroft, killing two vendors before being detained by local police.",
+    "A bomb attributed to the Kestrel Brigade damaged a bus station in Merrow, injuring three commuters.",
+]
+
+# Options: the prompt states the two roles the model must choose between
+prompt_template = (
+    "Read the event below and extract every named person or group mentioned. "
+    "Classify each one as one of two options: victim or aggressor.\n"
+    "Event: {event}"
+)
+
+# Output format: coerce the reply into this structure; each list only
+# accepts strings, so every entity must be sorted into one of the two options
+response_format = {"type": "json_schema", "json_schema": {
+    "name": "entity_extraction",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "victims": {"type": "array", "items": {"type": "string"}},
+            "aggressors": {"type": "array", "items": {"type": "string"}},
+        },
+    },
+}}
+
+# The LLM call: one request per event
+extracted_entities = []
+for event in events:
+    response = client.chat.completions.create(
+        model="google/gemma-4-12B-it",
+        messages=[{"role": "user", "content": prompt_template.format(event=event)}],
+        temperature=0.0,
+        max_tokens=200,
+        response_format=response_format,
+    )
+    # Returns: parse the JSON reply into its victims and aggressors lists
+    parsed = json.loads(response.choices[0].message.content)
+    extracted_entities.append(parsed)
+```
 :::
 
 ---
 
-### Data standardization
+**Example output**
 
 ::: fragment
-- Standardize inconsistent formats, cases, codes, units, and delimiters
-:::
-
-::: fragment
-- Detect and repair typos, invalid values, outliers, and inconsistent encodings
-:::
-
-::: fragment
-- Impute missing values using related variables or documented external context
-:::
-
-::: fragment
-**Example:**
-:::
-
-::: fragment
-Given a noisy scraped HTML -> AI models -> Standardized excepts
-:::
-
----
-
-### Data integration
-
-::: fragment
-- Entity Matching: Link records that refer to the same real-world entity across datasets
-:::
-
-::: fragment
-- Schema Matching: Identify semantic correspondences between elements across heterogeneous schemas from different sources
-:::
-
-::: fragment
-**Example:**
-:::
-
----
-
-### Data enrichment
-
-::: fragment
-- Data Annotation: Assign semantic or structural labels to tables, columns, and cells
-:::
-
-::: fragment
-- Data Profiling: Derive structured metadata from semantic datasets
-:::
-
-::: fragment
-**Example:**
+```json
+[
+    {"victims": [], "aggressors": ["Riverlands Front"]},
+    {"victims": [], "aggressors": ["Kestrel Brigade"]}
+]
+```
 :::
 
 ---
@@ -123,6 +239,85 @@ You can stack multiple tasks together to create a pipeline.
 
 ::: fragment
 **Example:**
+Given a series of scraped candidate wiki pages -> AI models (clean, then annotate) -> Partisanship and election metadata per candidate
+:::
+
+---
+
+::: fragment
+```python
+from openai import OpenAI
+import json
+
+# Client points at the local vLLM server; api_key is unused but required by the SDK
+client = OpenAI(base_url="http://localhost:8000/v1", api_key="dummy")
+
+# Raw data: scraped wiki infobox HTML for a series of election candidates
+raw_html_pages = [
+    "<div class='infobox'><h2>Barack Obama</h2><p>Obama was nominated by the <b>Democratic Party</b> for <b>President of the United States</b> in the <i>2008</i> election and defeated Republican nominee John McCain.</p></div>",
+    "<div class='infobox'><h2>John McCain</h2><p>McCain was the <b>Republican Party</b> nominee for <b>President of the United States</b> in the <i>2008</i> election and lost to Democrat Barack Obama.</p></div>",
+]
+
+# Stage 1 instruction: clean each scraped page into plain biography text
+clean_prompt_template = "Strip the HTML below to plain text. Return only the text.\nHTML: {html}"
+
+# Stage 1: one cleaning call per scraped page
+clean_bios = []
+for html in raw_html_pages:
+    response = client.chat.completions.create(
+        model="google/gemma-4-12B-it",
+        messages=[{"role": "user", "content": clean_prompt_template.format(html=html)}],
+        temperature=0.0,
+        max_tokens=200,
+    )
+    clean_bios.append(response.choices[0].message.content.strip())
+
+# Stage 2 instruction: annotate partisanship and election details from the clean text
+annotate_prompt_template = (
+    "Read the biography below and report the candidate's party, the office "
+    "they sought, the election year, and whether they won.\nBiography: {bio}"
+)
+
+# Stage 2 output format: coerce the reply into these four fields
+response_format = {"type": "json_schema", "json_schema": {
+    "name": "candidate_annotation",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "party": {"type": "string"},
+            "office": {"type": "string"},
+            "election_year": {"type": "string"},
+            "outcome": {"type": "string", "enum": ["won", "lost"]},
+        },
+    },
+}}
+
+# Stage 2: one annotation call per cleaned biography, chained from stage 1's output
+annotations = []
+for bio in clean_bios:
+    response = client.chat.completions.create(
+        model="google/gemma-4-12B-it",
+        messages=[{"role": "user", "content": annotate_prompt_template.format(bio=bio)}],
+        temperature=0.0,
+        max_tokens=100,
+        response_format=response_format,
+    )
+    # Returns: parse the JSON reply into its four annotated fields
+    annotations.append(json.loads(response.choices[0].message.content))
+```
+:::
+
+---
+
+**Example output**
+
+::: fragment
+```json
+[
+    {"party": "Democratic Party", "office": "President of the United States", "election_year": "2008", "outcome": "won"},
+    {"party": "Republican Party", "office": "President of the United States", "election_year": "2008", "outcome": "lost"}
+]
+```
 :::
 
 ---
@@ -240,23 +435,26 @@ You can stack multiple tasks together to create a pipeline.
 ## Validation
 
 ::: fragment
-AI <- Human -> Ground truth
+```{dot}
+//| fig-width: 6
+//| fig-height: 3
+//| fig-align: center
+digraph triangle {
+    layout=neato;
+    overlap=false;
+    node [shape=ellipse, style=filled, fillcolor="#EAF2FF", fontname=Helvetica];
+    edge [dir=both];
+
+    Human [pos="0,2!"];
+    AI    [pos="-2,0!"];
+    "Ground Truth" [pos="2,0!"];
+
+    Human -> AI;
+    Human -> "Ground Truth";
+}
+```
 :::
 
 ::: fragment
 AI outputs are not considered as the ground truth. It is human's responsibility to validate them.
-:::
-
-## How to do it?
-
-::: fragment
-- Using chatbot Graphical User Interface (GUI)
-:::
-
-::: fragment
-- Using API
-:::
-
-::: fragment
-- Deploy local model
 :::
