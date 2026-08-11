@@ -1,7 +1,7 @@
 ---
 title: "EPPS Math and Coding Camp"
 subtitle: "Differentiation"
-author: "Instructor: Taowen Hu"
+author: "Instructor: Haien Peng"
 format: 
   revealjs:
     theme: [serif]
