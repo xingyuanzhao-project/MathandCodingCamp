@@ -12,9 +12,6 @@ format:
     incremental: true
     chalkboard: true
     transition: fade
-html-math-method:
-  method: mathjax
-  url: mathjax2/MathJax.js?config=TeX-AMS_HTML-full
 execute:
   echo: false
   warning: false
