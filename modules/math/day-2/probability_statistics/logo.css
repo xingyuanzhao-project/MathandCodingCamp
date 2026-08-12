@@ -6,7 +6,7 @@
   top: 5px;
   left: 12px;
   height: 50px !important;
-  width: 50x !important;
+  width: auto !important;
   max-width: unset !important;
   max-height: unset !important;
 }
@@ -17,7 +17,12 @@
     color: #777777 !important;
   }
 
-
-.reveal .slides {
-  font-size: 32px;
+/* reveal.css styles `.reveal > .overlay` as a frosted modal, including
+   backdrop-filter: blur(6px). The chalkboard plugin reuses that class name for
+   its drawing canvases, so the blur lands on every slide permanently. Scope the
+   reset to the plugin's own IDs so Reveal's real modals keep the frosted effect. */
+.reveal > #notescanvas,
+.reveal > #chalkboard {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
