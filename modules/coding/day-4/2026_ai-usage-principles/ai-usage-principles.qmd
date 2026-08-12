@@ -9,6 +9,8 @@ format:
     logo: assets/eppslogo.png
     css: assets/logo.css
     scrollable: true
+    incremental: true
+    chalkboard: true
 ---
 
 ## Learning objectives:

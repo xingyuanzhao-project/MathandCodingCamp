@@ -9,6 +9,8 @@ format:
     logo: eppslogo.png
     css: logo.css
     scrollable: true
+    incremental: true
+    chalkboard: true
     transition: fade
 html-math-method:
   method: mathjax
