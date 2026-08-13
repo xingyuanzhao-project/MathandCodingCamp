@@ -13,6 +13,10 @@ format:
     chalkboard: true
 ---
 
+![](assets/check_in_form.png){fig-align="center" out-width="100%"}
+
+------------------------------------------------------------------------
+
 ## Learning objectives:
 
 - Learn what to do and what not to do with AI

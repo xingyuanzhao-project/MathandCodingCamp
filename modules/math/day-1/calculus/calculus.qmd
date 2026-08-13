@@ -22,6 +22,10 @@ editor:
     wrap: 72
 ---
 
+![](check_in_form.png){fig-align="center" out-width="100%"}
+
+------------------------------------------------------------------------
+
 ```{r}
 #| label: setup
 #| include: false
