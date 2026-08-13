@@ -29,45 +29,19 @@ set.seed(2026)
 par(family = "serif")
 ```
 
-## Why calculus is the language of economic change
-
-::: fragment
-- Economic models ask how an outcome changes when a choice, price,
-  policy, or parameter changes.
-:::
-
-::: fragment
-- A **derivative** measures local change.
-:::
-
-::: fragment
-- A **total derivative** tracks several channels of change at once.
-:::
-
-::: fragment
-- An **optimization condition** turns economic behavior into equations
-  we can analyze.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 3-9, 22-38.
-:::
-
-------------------------------------------------------------------------
-
 ## Our path today
 
-$$\text{Marginal change}
-\longrightarrow
-\text{Multivariable change}
-\longrightarrow
-\text{Comparative statics}
-\longrightarrow
-\text{Optimization}$$
+<div style="font-size: 1em; line-height: 2; text-align: center;">
+Single-variable derivatives<br>
+&darr;<br>
+Multivariable derivatives<br>
+&darr;<br>
+Optimization
+</div>
 
 ::: fragment
 By the end, you should be able to **read, compute, and interpret** the
-calculus that appears in first-year economics.
+calculus used in quantitative analysis.
 :::
 
 ::: notes
@@ -81,61 +55,347 @@ calculus that appears in first-year economics.
 By the end of this session, you should be able to:
 
 ::: fragment
-1.  interpret derivatives, elasticities, and Taylor approximations;
+1.  interpret and compute one-variable derivatives;
 :::
 
 ::: fragment
-2.  compute gradients, total differentials, and Hessians;
+2.  compute partial derivatives, gradients, and Hessians;
 :::
 
 ::: fragment
-3.  use implicit differentiation for comparative statics;
+3.  use implicit differentiation for relationships defined by equations;
 :::
 
 ::: fragment
-4.  solve basic unconstrained and equality-constrained optimization
-    problems;
+4.  use Taylor polynomials to approximate smooth functions;
 :::
 
 ::: fragment
-5.  explain the economic meaning of first-order conditions and
-    multipliers.
+5.  solve unconstrained and equality-constrained problems, and recognize
+    when KKT conditions are needed.
+:::
+
+# 1. Marginal change
+
+## A limit and a function value answer different questions {.compact-limit}
+
+$$
+\begin{array}{c|c}
+\displaystyle \lim_{x\to a}f(x) & f(a)\\ \hline
+\text{What value does }f(x)\text{ approach near }a? &
+\text{What is the value exactly at }a?
+\end{array}
+$$
+
+::: fragment
+The limit depends on values **around** $a$, not on the value assigned at
+$a$. Therefore, $\lim_{x\to a}f(x)$ and $f(a)$ may be different, and one
+may exist even when the other does not.
+:::
+
+::: fragment
+$$
+\lim_{x\to a}f(x)=L
+$$
+
+means that $f(x)$ can be made **arbitrarily close to** $L$ by taking
+$x$ sufficiently close to $a$, with $x\ne a$.
+:::
+
+::: notes
+Introduce the limit in words: values of $f(x)$ can be made arbitrarily
+close to $L$ by choosing $x$ sufficiently close to $a$, without requiring
+$x=a$. Emphasize that this describes nearby behavior, not $f(a)$.
+
+\[Sources\] - Simon and Blume (1994), pp. 23-26.
 :::
 
 ------------------------------------------------------------------------
 
-## Warm-up: what do you already recognize?
+## One-sided limits distinguish continuity at a point
 
-Without calculating everything, identify what each object is asking for.
+Around $x=a$, define
+
+$$
+L_- = \lim_{x\to a^-}f(x),
+\qquad
+f(a),
+\qquad
+L_+ = \lim_{x\to a^+}f(x).
+$$
+
+
 
 ::: fragment
-1.  $\displaystyle \frac{d}{dp}\left(Ap^{-\varepsilon}\right)$
+- $f$ is **continuous** at $a$ when $L_-=L_+=f(a)$.
 :::
 
 ::: fragment
-2.  $\displaystyle \frac{\partial F(K,L)}{\partial K}$
-:::
-
-::: fragment
-3.  $\displaystyle F(p,t)=0 \quad\Rightarrow\quad \frac{dp^*}{dt}=?$
-:::
-
-::: fragment
-4.  $\displaystyle \max_x f(x) \quad \text{s.t.}\quad g(x)=m$
+- $f$ is **left-continuous** when $L_-=f(a)$, and
+  **right-continuous** when $L_+=f(a)$.
 :::
 
 ::: notes
-Do not grade this. Ask students to name the operation and its economic
-purpose. Return to the four expressions near the end.
+Ask students to compare three objects on every example: the left-hand
+limit, the right-hand limit, and the actual function value.
+
+\[Sources\] - Simon and Blume (1994), pp. 29-32.
 :::
 
-# 1. Marginal change
+------------------------------------------------------------------------
+
+## Continuous: both sides meet the function value
+
+::: {.columns}
+::: {.column width="44%"}
+Let
+
+$$
+f(x)=x^2.
+$$
+
+At $x=0$,
+
+$$
+\begin{aligned}
+\lim_{x\to0^-}f(x)&=0,\\
+\lim_{x\to0^+}f(x)&=0,\\
+f(0)&=0.
+\end{aligned}
+$$
+
+The graph has no break at the point.
+:::
+
+::: {.column width="56%"}
+```{r}
+#| label: plot-limit-continuous
+#| fig-width: 6.2
+#| fig-height: 4.5
+#| out-width: "95%"
+x <- seq(-1.5, 1.5, length.out = 300)
+plot(x, x^2, type = "l", lwd = 3, col = "#154360",
+     xlab = "x", ylab = "f(x)", ylim = c(-0.35, 2.35),
+     main = "Continuous at x = 0")
+abline(v = 0, lty = 3, col = "#7F8C8D")
+points(0, 0, pch = 19, cex = 1.5, col = "#C0392B")
+```
+:::
+:::
+
+::: notes
+The filled point records the actual value $f(0)$. Both branches approach
+that same point.
+
+\[Sources\] - Simon and Blume (1994), pp. 31-32.
+:::
+
+------------------------------------------------------------------------
+
+## Left-continuous only: the left side matches the value
+
+::: {.columns}
+::: {.column width="44%"}
+Let
+
+$$
+f(x)=
+\begin{cases}
+x, & x\le 0,\\
+x+1, & x>0.
+\end{cases}
+$$
+
+Then
+
+$$
+\begin{aligned}
+\lim_{x\to0^-}f(x)&=f(0)=0,\\
+\lim_{x\to0^+}f(x)&=1.
+\end{aligned}
+$$
+:::
+
+::: {.column width="56%"}
+```{r}
+#| label: plot-limit-left-continuous
+#| fig-width: 6.2
+#| fig-height: 4.5
+#| out-width: "95%"
+x_left <- seq(-1.5, 0, length.out = 150)
+x_right <- seq(0, 1.5, length.out = 150)
+plot(NA, xlim = c(-1.5, 1.5), ylim = c(-1.6, 2.6),
+     xlab = "x", ylab = "f(x)", main = "Left-continuous at x = 0")
+abline(v = 0, lty = 3, col = "#7F8C8D")
+lines(x_left, x_left, lwd = 3, col = "#154360")
+lines(x_right, x_right + 1, lwd = 3, col = "#154360")
+points(0, 0, pch = 19, cex = 1.5, col = "#C0392B")
+points(0, 1, pch = 21, cex = 1.5, lwd = 2,
+       col = "#C0392B", bg = "white")
+```
+:::
+:::
+
+::: notes
+The filled point belongs to the left branch. The open point shows the
+value approached from the right but not taken at zero.
+
+\[Sources\] - Constructed example based on Simon and Blume (1994),
+pp. 31-32.
+:::
+
+------------------------------------------------------------------------
+
+## Right-continuous only: the right side matches the value
+
+::: {.columns}
+::: {.column width="44%"}
+Let
+
+$$
+f(x)=
+\begin{cases}
+x-1, & x<0,\\
+x, & x\ge 0.
+\end{cases}
+$$
+
+Then
+
+$$
+\begin{aligned}
+\lim_{x\to0^-}f(x)&=-1,\\
+\lim_{x\to0^+}f(x)&=f(0)=0.
+\end{aligned}
+$$
+:::
+
+::: {.column width="56%"}
+```{r}
+#| label: plot-limit-right-continuous
+#| fig-width: 6.2
+#| fig-height: 4.5
+#| out-width: "95%"
+x_left <- seq(-1.5, 0, length.out = 150)
+x_right <- seq(0, 1.5, length.out = 150)
+plot(NA, xlim = c(-1.5, 1.5), ylim = c(-2.6, 1.6),
+     xlab = "x", ylab = "f(x)", main = "Right-continuous at x = 0")
+abline(v = 0, lty = 3, col = "#7F8C8D")
+lines(x_left, x_left - 1, lwd = 3, col = "#154360")
+lines(x_right, x_right, lwd = 3, col = "#154360")
+points(0, -1, pch = 21, cex = 1.5, lwd = 2,
+       col = "#C0392B", bg = "white")
+points(0, 0, pch = 19, cex = 1.5, col = "#C0392B")
+```
+:::
+:::
+
+::: notes
+This reverses the preceding example: the actual value now belongs to the
+right branch.
+
+\[Sources\] - Constructed example based on Simon and Blume (1994),
+pp. 31-32.
+:::
+
+------------------------------------------------------------------------
+
+## Neither side matches the function value
+
+::: {.columns}
+::: {.column width="44%"}
+Let
+
+$$
+f(x)=
+\begin{cases}
+-1, & x<0,\\
+0, & x=0,\\
+1, & x>0.
+\end{cases}
+$$
+
+Here
+
+$$
+\begin{aligned}
+\lim_{x\to0^-}f(x)&=-1,\\
+f(0)&=0,\\
+\lim_{x\to0^+}f(x)&=1.
+\end{aligned}
+$$
+:::
+
+::: {.column width="56%"}
+```{r}
+#| label: plot-limit-neither-continuous
+#| fig-width: 6.2
+#| fig-height: 4.5
+#| out-width: "95%"
+plot(NA, xlim = c(-1.5, 1.5), ylim = c(-1.6, 1.6),
+     xlab = "x", ylab = "f(x)",
+     main = "Neither left- nor right-continuous at x = 0")
+abline(v = 0, lty = 3, col = "#7F8C8D")
+segments(-1.5, -1, 0, -1, lwd = 3, col = "#154360")
+segments(0, 1, 1.5, 1, lwd = 3, col = "#154360")
+points(0, -1, pch = 21, cex = 1.5, lwd = 2,
+       col = "#C0392B", bg = "white")
+points(0, 1, pch = 21, cex = 1.5, lwd = 2,
+       col = "#C0392B", bg = "white")
+points(0, 0, pch = 19, cex = 1.5, col = "#C0392B")
+```
+:::
+:::
+
+::: notes
+Neither one-sided limit equals the filled point. The two-sided limit also
+fails to exist because the one-sided limits disagree.
+
+\[Sources\] - Constructed example based on Simon and Blume (1994),
+pp. 31-32.
+:::
+
+------------------------------------------------------------------------
+
+## Exercise 1: is the function continuous?
+
+Consider
+
+$$
+f(x)=
+\begin{cases}
+\dfrac{x^2-1}{x-1}, & x\ne1,\\[6pt]
+2, & x=1.
+\end{cases}
+$$
+
+At $x=1$:
+
+1.  Find $\displaystyle\lim_{x\to1^-}f(x)$ and
+    $\displaystyle\lim_{x\to1^+}f(x)$.
+2.  Find $f(1)$.
+3.  Is $f$ continuous at $x=1$? Justify your answer using the
+    definition of continuity.
+
+::: notes
+This exercise follows the four continuity cases immediately. Students
+should factor $x^2-1=(x-1)(x+1)$ for $x\ne1$, then compare both
+one-sided limits with the assigned function value.
+:::
+
+------------------------------------------------------------------------
 
 ## A derivative is a local comparison
 
 For a function $y=f(x)$,
 
-$$f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.$$
+$$
+f'(x)=y'=\frac{dy}{dx}
+=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.
+$$
+
+This derivative exists when the limit is finite and the same for every
+way that $h$ approaches zero.
 
 ::: fragment
 - Numerator: change in the outcome.
@@ -153,222 +413,328 @@ $$f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.$$
 Economically, $f'(x)$ is a **marginal effect**, holding the model fixed.
 :::
 
+
 ::: notes
 \[Sources\] - Simon and Blume (1994), pp. 22-29.
 :::
 
 ------------------------------------------------------------------------
 
-## The derivative rules are a compact toolkit
+## Use the definition once: $f(x)=x^2$
 
-| Function      | Derivative                     |
-|---------------|--------------------------------|
-| $x^a$         | $ax^{a-1}$                     |
-| $af(x)+bg(x)$ | $af'(x)+bg'(x)$                |
-| $f(x)g(x)$    | $f'(x)g(x)+f(x)g'(x)$          |
-| $f(x)/g(x)$   | $[f'(x)g(x)-f(x)g'(x)]/g(x)^2$ |
-| $f(g(x))$     | $f'(g(x))g'(x)$                |
-| $e^x$         | $e^x$                          |
-| $\log x$      | $1/x$                          |
+For
+
+$$
+f(x)=x^2,
+$$
+
+apply the definition:
+
+$$
+f'(x)=\lim_{h\to0}\frac{(x+h)^2-x^2}{h}.
+$$
+
+
+
+::: fragment
+After simplifying and taking the limit,
+
+$$
+f'(x)=2x,
+\qquad
+f'(3)=6.
+$$
+:::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 25-28, 70-74, 93-96.
+Do not substitute $h=0$ into the original fraction. For $h\ne0$, first
+factor and cancel $h$; only then take the limit. Ask students to identify
+where the condition $h\ne0$ matters.
+
+\[Sources\] - Simon and Blume (1994), pp. 25-26.
 :::
 
 ------------------------------------------------------------------------
 
-## The chain rule follows the channel of change
-
-Suppose output depends on capital, and capital depends on the interest
-rate:
-
-$$Y=F(K), \qquad K=K(r).$$
-
-::: fragment
-Then
-
-$$\frac{dY}{dr}
-=
-\frac{dF}{dK}\frac{dK}{dr}.$$
-:::
-
-::: fragment
-Interpretation:
-
-$$\text{effect of }r\text{ on }Y
-=
-\text{effect of }K\text{ on }Y
-\times
-\text{effect of }r\text{ on }K.$$
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 70-74.
-:::
-
-------------------------------------------------------------------------
-
-## Elasticity puts marginal change in percentage units
-
-For $y=f(x)$, the elasticity of $y$ with respect to $x$ is
-
-$$\varepsilon_{y,x}
-=
-\frac{dy}{dx}\frac{x}{y}
-=
-\frac{d\log y}{d\log x}.$$
-
-::: fragment
-Elasticity answers:
-
-> By approximately what percent does $y$ change when $x$ rises by one
-> percent?
-:::
-
-::: fragment
-It is unit-free, so it supports comparisons across markets and scales.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 64-69, 100-106.
-:::
-
-------------------------------------------------------------------------
-
-## Constant-elasticity demand makes the interpretation transparent
+## Exercise 2: differentiate from the definition
 
 Let
 
-$$q(p)=Ap^{-\varepsilon}, \qquad A>0,\ \varepsilon>0.$$
+$$f(x)=x^2+x+1.$$
+
+Using only
+
+$$
+f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h},
+$$
+
+derive $f'(x)$. Show the expansion, cancel the common factor $h$, and
+only then take the limit.
+
+::: notes
+This comes immediately after the worked $x^2$ example. Ask students to
+expand $(x+h)^2+(x+h)+1$ without using the power rule. The result is
+$f'(x)=2x+1$.
+:::
+
+------------------------------------------------------------------------
+
+## Seven rules cover the derivatives we need
+
+::: {.columns}
+::: {.column width="55%"}
+**Operations**
+
+| Rule | Formula |
+|---|---|
+| Linearity | $[af+bg]'=af'+bg'$ |
+| Product | $(fg)'=f'g+fg'$ |
+| Quotient | $\left(\dfrac{f}{g}\right)'=\dfrac{f'g-fg'}{g^2}$ |
+:::
+
+::: {.column width="45%"}
+**Basic derivatives**
+
+| Function | Derivative |
+|---|---|
+| $c$ | $0$ |
+| $e^x$ | $e^x$ |
+| $\ln x$ | $1/x$ |
+| $x^a$ | $ax^{a-1}$ |
+:::
+:::
+
+::: fragment
+The limit definition establishes these rules; calculation usually begins
+by choosing among them.
+:::
+
+::: notes
+Linearity includes both the constant-multiple and sum/difference rules.
+State the domain restrictions when relevant: $g(x)\ne0$ for the quotient
+rule and $x>0$ for $\ln x$.
+
+\[Sources\] - Simon and Blume (1994), pp. 25-28, 82-96.
+:::
+
+------------------------------------------------------------------------
+
+## Different rules must give the same derivative
+
+For $x\ne0$, consider
+
+$$
+f(x)=\frac{1}{x}.
+$$
+
+::: fragment
+::: {.columns}
+::: {.column width="50%"}
+**Quotient rule**
+
+$$
+f'(x)
+=\frac{(0)(x)-(1)(1)}{x^2}
+=-\frac{1}{x^2}.
+$$
+:::
+
+::: {.column width="50%"}
+**Power rule**
+
+$$
+\begin{aligned}
+f(x)&=x^{-1},\\
+f'(x)&=-x^{-2}=-\frac{1}{x^2}.
+\end{aligned}
+$$
+:::
+:::
+:::
+
+::: fragment
+The route can differ; the derivative cannot.
+:::
+
+::: notes
+Ask which method is shorter. The quotient rule is valid, but rewriting the
+function as a power is more efficient. Use this to distinguish correctness
+from convenience.
+
+\[Sources\] - Simon and Blume (1994), pp. 25-28.
+:::
+
+------------------------------------------------------------------------
+
+## The chain rule handles functions inside functions
+
+If
+
+$$
+y=f(u),
+\qquad
+u=g(x),
+$$
+
+then
+
+$$
+\frac{dy}{dx}
+=\frac{dy}{du}\frac{du}{dx}
+=f'(g(x))g'(x).
+$$
+
+::: fragment
+With $u=u(x)$, common patterns are
+
+$$
+\frac{d}{dx}u^a=au^{a-1}u',
+\qquad
+\frac{d}{dx}e^u=e^u u',
+\qquad
+\frac{d}{dx}\ln u=\frac{u'}{u}.
+$$
+:::
+
+::: fragment
+Differentiate the **outside**, then multiply by the derivative of the
+**inside**.
+:::
+
+::: notes
+Use verbal language first: outside derivative times inside derivative.
+Then connect this notation to the economic channel-of-change example on
+the later slide.
+
+\[Sources\] - Simon and Blume (1994), pp. 70-74, 93-96.
+:::
+
+------------------------------------------------------------------------
+
+## One function can require several rules
+
+Consider, for $x>-1$,
+
+$$
+F(x)=\frac{x^2e^{3x}+\ln(x+1)}{(1+x^2)^2}.
+$$
+
+::: fragment
+- **Outer structure:** quotient.
+:::
+
+::: fragment
+- **Numerator:** sum; its first term is a product.
+:::
+
+::: fragment
+- **Inner functions:** $e^{3x}$ and $\ln(x+1)$ require the chain rule.
+:::
+
+::: fragment
+- **Denominator:** a squared composite, so it also uses the chain rule.
+:::
+
+::: notes
+Before calculating, ask students to name the rules in the order they see
+them. Structural recognition should precede algebra.
+
+\[Sources\] - Constructed example using rules in Simon and Blume (1994),
+pp. 25-28, 70-74, 93-96.
+:::
+
+------------------------------------------------------------------------
+
+## Differentiate the pieces, then apply the outer rule
+
+Write
+
+$$
+N(x)=x^2e^{3x}+\ln(x+1),
+\qquad
+D(x)=(1+x^2)^2.
+$$
 
 ::: fragment
 Then
 
-$$q'(p)=-\varepsilon Ap^{-\varepsilon-1}$$
-
-and
-
-$$\frac{dq}{dp}\frac{p}{q}=-\varepsilon.$$
+$$
+N'(x)=2xe^{3x}+3x^2e^{3x}+\frac{1}{x+1},
+\qquad
+D'(x)=4x(1+x^2).
+$$
 :::
 
 ::: fragment
-The exponent is the price elasticity, with the sign reflecting the
-downward-sloping demand curve.
+Finally,
+
+$$
+F'(x)=
+\frac{N'(x)D(x)-N(x)D'(x)}{[D(x)]^2}.
+$$
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 64-69, 100-106.
+Do not expand the final expression. Leaving the answer in structured form
+makes the rule usage visible and reduces algebraic errors.
+
+\[Sources\] - Constructed example using rules in Simon and Blume (1994),
+pp. 25-28, 70-74, 93-96.
 :::
 
 ------------------------------------------------------------------------
 
-## R makes the local nature of a derivative visible
+## Exercise 3: apply the derivative rules {.compact-exercise}
 
-```{r}
-#| label: fig-demand-tangent
-#| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "88%"
-p <- seq(1, 8, length.out = 300)
-A <- 100
-eps <- 1.4
-q <- A * p^(-eps)
-p0 <- 3
-q0 <- A * p0^(-eps)
-slope <- -eps * A * p0^(-eps - 1)
-tangent <- q0 + slope * (p - p0)
-plot(p, q, type = "l", lwd = 3, col = "#154360",
-     xlab = "Price, p", ylab = "Quantity demanded, q(p)",
-     main = "Demand curve and its local linear approximation")
-lines(p, tangent, lwd = 2, lty = 2, col = "#C0392B")
-points(p0, q0, pch = 19, cex = 1.3, col = "#C0392B")
-legend("topright", c("q(p)", "tangent at p = 3"),
-       col = c("#154360", "#C0392B"), lwd = c(3, 2),
-       lty = c(1, 2), bty = "n")
-```
+Differentiate each function. Name the main rule or rules you use.
 
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 22-38, 64-69.
+::: {.columns}
+::: {.column width="53%"}
+**Problems**
+
+$$
+\begin{aligned}
+\text{(a)}\quad &f(x)=3x^4-2x+7,\\[4pt]
+\text{(b)}\quad &f(x)=x^2e^x,\\[4pt]
+\text{(c)}\quad &f(x)=\frac{\ln x}{x},\\[6pt]
+\text{(d)}\quad &f(x)=\ln(1+x^2),\\[4pt]
+\text{(e)}\quad &f(x)=\frac{e^{2x}}{1+x}.
+\end{aligned}
+$$
 :::
 
-------------------------------------------------------------------------
+::: {.column width="47%" .rule-reference}
+**Rule reference**
 
-## Quick check: elasticity
+*Operations*
 
-Suppose $q(p)=400p^{-2}$.
+Linearity: $[af+bg]'=af'+bg'$  
+Product: $(fg)'=f'g+fg'$  
+Quotient: $\displaystyle
+\left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2}$
 
-::: fragment
-1.  Is demand upward- or downward-sloping?
+*Basic derivatives*
+
+$c'=0$  
+$(x^a)'=ax^{a-1}$  
+$(e^x)'=e^x$  
+$(\ln x)'=1/x$
+
+*Chain rule*
+
+$[f(g(x))]'=f'(g(x))g'(x)$
 :::
-
-::: fragment
-2.  What is the price elasticity?
-:::
-
-::: fragment
-3.  If price increases by 1%, what is the approximate percentage change
-    in quantity?
-:::
-
-::: fragment
-**Answer:** elasticity is $-2$, so quantity falls by approximately 2%.
-:::
-
-------------------------------------------------------------------------
-
-## Taylor approximation turns a nonlinear model into a local linear model
-
-Near $x_0$,
-
-$$f(x)
-\approx
-f(x_0)+f'(x_0)(x-x_0).$$
-
-::: fragment
-Including curvature gives
-
-$$f(x)
-\approx
-f(x_0)+f'(x_0)(x-x_0)
-+\frac{1}{2}f''(x_0)(x-x_0)^2.$$
-:::
-
-::: fragment
-Economists use this idea for approximation, log-linearization,
-comparative statics, and asymptotic statistics.
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 34-38 and 827-835.
+The five functions respectively emphasize linearity and the power rule,
+the product rule, the quotient rule, the chain rule, and a combination
+of the quotient and chain rules. Keep the rule reference visible while
+students work so that the exercise tests rule selection and application,
+not memorization.
 :::
 
 ------------------------------------------------------------------------
-
-## First-order approximation is accurate locally
-
-```{r}
-#| label: fig-taylor
-#| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "88%"
-x <- seq(-1.4, 1.4, length.out = 300)
-truth <- exp(x)
-first <- 1 + x
-second <- 1 + x + x^2 / 2
-plot(x, truth, type = "l", lwd = 3, col = "#154360",
-     xlab = "x", ylab = "Value",
-     main = "Taylor approximations to exp(x) around x = 0")
-lines(x, first, lwd = 2, lty = 2, col = "#C0392B")
-lines(x, second, lwd = 2, lty = 3, col = "#1E8449")
-abline(v = 0, col = "grey70")
-legend("topleft", c("exp(x)", "first order", "second order"),
-       col = c("#154360", "#C0392B", "#1E8449"),
-       lwd = c(3, 2, 2), lty = c(1, 2, 3), bty = "n")
-```
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 34-38 and 827-835.
-:::
 
 # 2. Multivariable change
 
@@ -428,61 +794,135 @@ The gradient points in the direction of the steepest local increase.
 
 ------------------------------------------------------------------------
 
-## The total differential adds the channels of change
+## Second derivatives describe how slopes change {.compact-second}
 
-For $z=f(x,y)$,
+::: {.columns}
+::: {.column width="43%"}
+**One variable**
 
-$$dz=f_x(x,y)\,dx+f_y(x,y)\,dy.$$
+If $y=f(x)$,
 
-::: fragment
-In vector notation,
-
-$$df=\nabla f(x)'dx.$$
+$$
+f''(x)=y''=\frac{d^2y}{dx^2}
+=\frac{d}{dx}f'(x).
+$$
 :::
 
-::: fragment
-For production,
+::: {.column width="57%"}
+**Several variables**
 
-$$dY\approx F_K\,dK+F_L\,dL.$$
+For $f(x_1,x_2)$, the **own second partials** are
+
+$$
+f_{11}=\frac{\partial^2f}{\partial x_1^2},
+\qquad
+f_{22}=\frac{\partial^2f}{\partial x_2^2}.
+$$
+
+The **cross partials** are
+
+$$
+f_{12}
+ =\frac{\partial^2f}{\partial x_1\partial x_2},
+\qquad
+f_{21}
+ =\frac{\partial^2f}{\partial x_2\partial x_1}.
+$$
+
+:::
 :::
 
-::: fragment
-This decomposes the change in output into a capital channel and a labor
-channel.
+::: {.notation-note}
+**Notation varies across sources.** You may see
+
+$$
+f_{12},\qquad f_{x_1x_2},\qquad f'_{12},\qquad f'_{x_1x_2}.
+$$
+
+They may denote the same cross partial; always check the author's
+convention for the order.
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 307-312, 323-327.
+For this course, follow the instructor's requested left-to-right visual
+convention: $f_{12}$ is written with $x_1$ on the left and $x_2$ on the
+right. Explicitly warn students that other sources use different ordering
+conventions or nested operator notation. The following example uses this
+notation before the Hessian arranges the second partials into a matrix.
+
+\[Sources\] - Simon and Blume (1994), pp. 328-333.
 :::
 
 ------------------------------------------------------------------------
 
-## Multivariable chain rule: direct and indirect effects
+## Example: compute the second derivatives
 
-Suppose utility depends on consumption, while consumption depends on
-income:
+::: {.columns}
+::: {.column width="46%"}
+**One variable**
 
-$$U=U(c_1,c_2),
-\qquad
-c_1=c_1(m),\quad c_2=c_2(m).$$
+$$
+f(x)=x^3.
+$$
 
-::: fragment
-Then
+::: {.fragment data-fragment-index="1"}
+First derivative:
 
-$$\frac{dU}{dm}
-=
-U_{c_1}\frac{dc_1}{dm}
-+
-U_{c_2}\frac{dc_2}{dm}.$$
+$$
+f'(x)=3x^2.
+$$
 :::
 
-::: fragment
-Every channel contributes a marginal effect multiplied by the response
-of that channel.
+::: {.fragment data-fragment-index="2"}
+Second derivative:
+
+$$
+f''(x)=6x.
+$$
+:::
+:::
+
+::: {.column width="54%"}
+**Several variables**
+
+$$
+f(x_1,x_2)=x_1^2+x_2^2.
+$$
+
+::: {.fragment data-fragment-index="1"}
+First partial derivatives:
+
+$$
+f_1=2x_1,
+\qquad
+f_2=2x_2.
+$$
+:::
+
+::: {.fragment data-fragment-index="2"}
+Second partial derivatives:
+
+$$
+f_{11}=2,
+\qquad
+f_{22}=2,
+$$
+
+$$
+f_{12}=f_{21}=0.
+$$
+:::
+:::
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 313-318, 323-327.
+Reveal the first derivatives in both columns together, then reveal the
+second derivatives. In the multivariable example, connect the zero cross
+partials to the absence of an interaction term. The next slide places the
+four second partials into the Hessian matrix.
+
+\[Sources\] - Constructed examples using the higher-derivative notation
+in Simon and Blume (1994), pp. 328-333.
 :::
 
 ------------------------------------------------------------------------
@@ -499,12 +939,13 @@ f_{n1} & \cdots & f_{nn}
 \end{bmatrix}.$$
 
 ::: fragment
-The second-order approximation is
+For $f(x,y)$,
 
-$$f(x+\Delta x)
-\approx
-f(x)+\nabla f(x)'\Delta x
-+\frac{1}{2}\Delta x'H_f(x)\Delta x.$$
+$$H_f(x,y)=
+\begin{bmatrix}
+f_{xx} & f_{xy}\\
+f_{yx} & f_{yy}
+\end{bmatrix}.$$
 :::
 
 ::: fragment
@@ -517,710 +958,974 @@ The gradient gives slope; the Hessian gives curvature and interactions.
 
 ------------------------------------------------------------------------
 
-## Concavity connects curvature to global behavior
+## Exercise 4: write the gradient and Hessian
 
-::: fragment
-- If $H_f(x)$ is negative definite, $f$ is locally strictly concave at
-  $x$.
+For
+
+$$
+f(x_1,x_2)=x_1^2+3x_1x_2+2x_2^2,
+$$
+
+write:
+
+1.  the gradient vector $\nabla f(x_1,x_2)$;
+2.  the Hessian matrix $H_f(x_1,x_2)$.
+
+Which entries describe own curvature, and which entries describe the
+interaction between $x_1$ and $x_2$?
+
+::: notes
+The gradient is $(2x_1+3x_2,\ 3x_1+4x_2)'$ and the Hessian is
+$\begin{bmatrix}2&3\\3&4\end{bmatrix}$. The diagonal entries are own
+curvature; the off-diagonal entries are cross effects.
 :::
 
-::: fragment
-- If $f$ is concave on its domain, any point satisfying the appropriate
-  first-order condition is a global maximizer.
-:::
+------------------------------------------------------------------------
 
-::: fragment
-For a $2\times2$ symmetric Hessian,
+## The multivariable chain rule tracks every channel
 
-$$H=
-\begin{bmatrix}
-f_{11}&f_{12}\\
-f_{12}&f_{22}
-\end{bmatrix},$$
+Suppose
 
-negative definiteness requires
-
-$$f_{11}<0,
+$$
+z=F(x_1,\ldots,x_n),
 \qquad
-\det(H)>0.$$
+x_i=x_i(t).
+$$
+
+Then
+
+$$
+\frac{dz}{dt}
+=\sum_{i=1}^n F_{x_i}\frac{dx_i}{dt}
+$$
+
+::: fragment
+For $F(x,y(x))$, there are two channels of change:
+
+$$
+\frac{d}{dx}F(x,y(x))
+=F_x\frac{dx}{dx}+F_y\frac{dy}{dx}
+=F_x+F_y\frac{dy}{dx}.
+$$
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 375-385, 398-404, 505-521.
+Start with the general formula, then specialize immediately. In the
+special case, point to the direct channel through $x$ and the indirect
+channel through $y(x)$. This identity is the only new ingredient needed
+for implicit differentiation on the next slide.
+
+\[Sources\] - Simon and Blume (1994), pp. 313-327, 334-341.
 :::
 
 ------------------------------------------------------------------------
 
-## Level curves organize multivariable information
+## Implicit differentiation avoids solving explicitly
 
-```{r}
-#| label: fig-level-curves
-#| fig-width: 8.5
-#| fig-height: 5.2
-#| out-width: "82%"
-k <- seq(0.4, 10, length.out = 120)
-l <- seq(0.4, 10, length.out = 120)
-z <- outer(k, l, function(K, L) K^0.4 * L^0.6)
-contour(k, l, z, nlevels = 8, lwd = 2, col = "#154360",
-        xlab = "Capital, K", ylab = "Labor, L",
-        main = "Isoquants of a Cobb-Douglas production function")
-points(4, 6, pch = 19, col = "#C0392B", cex = 1.2)
-arrows(4, 6, 5.1, 6.5, length = 0.10, lwd = 2, col = "#C0392B")
-text(5.4, 6.7, "gradient", col = "#C0392B", pos = 4)
-```
+Suppose $y$ and an exogenous parameter $\theta$ satisfy
 
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 277-286, 319-322, 342-349.
-:::
-
-------------------------------------------------------------------------
-
-## Quick check: total change
-
-Let $Y=K^{1/3}L^{2/3}$.
+$$F(y,\theta)=0.$$
 
 ::: fragment
-1.  Find $Y_K$ and $Y_L$.
-:::
+Treat $y=y(\theta)$ and differentiate both sides with respect to
+$\theta$:
 
-::: fragment
-2.  Write the total differential $dY$.
-:::
-
-::: fragment
-3.  If both inputs rise by 1%, what is the approximate percentage change
-    in output?
-:::
-
-::: fragment
-**Answer:** approximately 1%, because the output elasticities sum to
-one.
+$$F_y\frac{dy}{d\theta}+F_\theta=0.$$
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 302-312, 483-492.
-:::
+The partial derivatives introduced just before this slide make the two
+channels explicit: $F_y$ is the indirect channel through $y(\theta)$,
+whereas $F_\theta$ is the direct channel.
 
-# 3. Comparative statics
-
-## Equilibrium is often defined by an equation, not a closed form
-
-Suppose an equilibrium $y^*$ satisfies
-
-$$F(y^*,\theta)=0,$$
-
-where $\theta$ is an exogenous parameter.
-
-::: fragment
-The comparative-static question is
-
-$$\frac{dy^*}{d\theta}=?$$
-:::
-
-::: fragment
-We do not always need to solve explicitly for $y^*(\theta)$.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 334-341, 360-363.
-:::
-
-------------------------------------------------------------------------
-
-## Implicit differentiation gives the local response
-
-Differentiate the equilibrium condition:
-
-$$F_y\,dy^*+F_\theta\,d\theta=0.$$
-
-::: fragment
-If $F_y\neq0$, then
-
-$$\boxed{
-\frac{dy^*}{d\theta}
-=
--\frac{F_\theta}{F_y}
-}$$
-:::
-
-::: fragment
-The denominator condition is what allows the equilibrium relation to be
-locally solved for $y$.
-:::
-
-::: notes
 \[Sources\] - Simon and Blume (1994), pp. 334-341.
 :::
 
 ------------------------------------------------------------------------
 
-## Example: a per-unit tax shifts market equilibrium
+## The implicit derivative is a ratio of partial effects
 
-Let demand and supply be
+If $F_y\ne0$, rearrange the differentiated equation:
 
-$$Q_D=a-bp,
-\qquad
-Q_S=c+d(p-t).$$
-
-Equilibrium satisfies
-
-$$F(p,t)=a-bp-c-d(p-t)=0.$$
+$$\boxed{\frac{dy}{d\theta}=-\frac{F_\theta}{F_y}}$$
 
 ::: fragment
+- $F_\theta$: the direct effect of the parameter on the equation.
+:::
+
+::: fragment
+- $F_y$: the adjustment in the equation generated by changing $y$.
+:::
+
+::: fragment
+The condition $F_y\ne0$ allows us to solve locally for $y$ as a
+function of $\theta$.
+:::
+
+::: notes
+This is the one-equation version of the implicit function theorem. The
+next slide applies it to an indifference curve.
+
+\[Sources\] - Simon and Blume (1994), pp. 334-341.
+:::
+
+------------------------------------------------------------------------
+
+## Example: move along a Cobb--Douglas indifference curve {.compact-example}
+
+Given the utility curve, with $u$ held constant,
+
+$$
+u=x_1^\alpha x_2^{1-\alpha},
+\qquad 0<\alpha<1,
+$$
+
+if $x_2$ increases by one unit, how many units of $x_1$ must be given
+up at $\alpha=\tfrac12$ and $(x_1,x_2)=(4,2)$?
+
+::: fragment
+Write $F(x_1,x_2;u)=x_1^\alpha x_2^{1-\alpha}-u=0$:
+
+$$
+\frac{dx_1}{dx_2}
+=-\frac{F_{x_2}}{F_{x_1}}
+=-\frac{1-\alpha}{\alpha}\frac{x_1}{x_2}.
+$$
+:::
+
+::: fragment
+$$
+\left.\frac{dx_1}{dx_2}\right|_{(4,2)}
+=-\frac{1/2}{1/2}\frac{4}{2}=-2.
+$$
+
+Locally, one more unit of $x_2$ requires giving up approximately **two
+units of $x_1$** to keep utility unchanged.
+:::
+
+::: notes
+Show only the question at first. On the first click, reveal the implicit
+derivative. On the second click, reveal the numerical answer and its
+economic interpretation. Emphasize that the statement is local: it is
+the slope of the indifference curve at $(4,2)$.
+
+\[Sources\] - Simon and Blume (1994), pp. 334-341, 544-549.
+:::
+
+------------------------------------------------------------------------
+
+## Exercise 5: two methods for an implicit derivative {.compact-exercise}
+
+Suppose $x$ and $y$ satisfy
+
+$$
+x^2+xy+y^2=7.
+$$
+
+1.  **Differentiate the equation directly.** Treat $y=y(x)$,
+    differentiate both sides with respect to $x$, apply the product rule
+    to $xy$, and solve for $dy/dx$.
+
+2.  **Use the implicit derivative formula.** Define
+    $F(x,y)=x^2+xy+y^2-7$ and use
+
+    $$
+    \frac{dy}{dx}=-\frac{F_x}{F_y}.
+    $$
+
+    Confirm that both methods give the same expression.
+
+::: notes
+Method 1 gives
+$2x+y+x\,dy/dx+2y\,dy/dx=0$, so
+$dy/dx=-(2x+y)/(x+2y)$. For Method 2,
+$F_x=2x+y$ and $F_y=x+2y$, which gives the same derivative immediately.
+:::
+
+------------------------------------------------------------------------
+
+## Taylor expansion gives a local approximation {.compact-taylor}
+
+Around a point $a$, the Taylor polynomial of order $m$ is
+
+$$
+\begin{aligned}
+f_m(x)
+&=\sum_{k=0}^{m}\frac{f^{(k)}(a)}{k!}(x-a)^k\\
+&=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2\\
+&\quad+\frac{f^{(3)}(a)}{3!}(x-a)^3
++\cdots+\frac{f^{(m)}(a)}{m!}(x-a)^m.
+\end{aligned}
+$$
+
+$f^{(k)}(a)$ means the **$k$th derivative** of $f$, evaluated at $a$;
+$f^{(0)}(a)=f(a)$.
+
+::: fragment
+Replacing $m$ by infinity gives the Taylor series
+
+$$\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k.$$
+
+The equality $f(x)=\sum_{k=0}^\infty f^{(k)}(a)(x-a)^k/k!$ holds only
+when this series converges to $f$.
+:::
+
+::: notes
+Do not say that every convergent function equals its Taylor series.
+Smoothness supports finite-order local approximation; exact infinite
+representation requires the Taylor series itself to converge to the
+function.
+
+\[Sources\] - Simon and Blume (1994), pp. 827-835.
+:::
+
+------------------------------------------------------------------------
+
+## Use the Taylor expansion to approximate $e^{0.5}$ {.compact-maclaurin}
+
+Because every derivative of $e^x$ equals $e^x$, expanding around
+$a=0$ gives
+
+$$e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots.$$
+
+::: fragment
+At $x=0.5$:
+
+$$
+\begin{aligned}
+f_1(0.5)&=1+0.5=1.5,\\
+f_2(0.5)&=1+0.5+\frac{0.5^2}{2}=1.625,\\
+f_3(0.5)&=1+0.5+\frac{0.5^2}{2}+\frac{0.5^3}{6}
+\approx1.645833.
+\end{aligned}
+$$
+:::
+
+::: fragment
+The true value is $e^{0.5}\approx1.648721$; the third-order relative
+error is only about $0.18\%$.
+:::
+
+::: notes
+Ask students to calculate the three values before revealing them. The
+point is the approximation procedure, not memorizing the decimal value.
+
+\[Sources\] - Simon and Blume (1994), pp. 827-835.
+:::
+
+------------------------------------------------------------------------
+
+## Higher order improves the approximation near $x=0.5$
+
+```{r}
+#| label: plot-taylor-e05
+#| fig-width: 9
+#| fig-height: 4.8
+#| out-width: "88%"
+x <- seq(0, 0.7, length.out = 400)
+f1 <- 1 + x
+f2 <- f1 + x^2 / 2
+f3 <- f2 + x^3 / 6
+plot(x, exp(x), type = "l", lwd = 3, col = "#111111",
+     xlim = c(0, 0.7), ylim = c(0.98, 2.05),
+     xlab = "x", ylab = "Value",
+     main = "Maclaurin approximations near the target x = 0.5")
+lines(x, f1, lwd = 2, lty = 4, col = "#7F8C8D")
+lines(x, f2, lwd = 2, lty = 3, col = "#2E86C1")
+lines(x, f3, lwd = 3, lty = 2, col = "#C0392B")
+abline(v = 0.5, lty = 3, col = "#555555")
+points(rep(0.5, 4), c(exp(0.5), 1.5, 1.625,
+       1 + 0.5 + 0.5^2/2 + 0.5^3/6), pch = 19,
+       col = c("#111111", "#7F8C8D", "#2E86C1", "#C0392B"))
+legend("topleft", c("e^x", "f1", "f2", "f3"),
+       col = c("#111111", "#7F8C8D", "#2E86C1", "#C0392B"),
+       lwd = c(3, 2, 2, 3), lty = c(1, 4, 3, 2), bty = "n")
+```
+
+::: notes
+The graph includes the expansion point $a=0$ and the target $x=0.5$.
+At the target, the first three Taylor polynomials visibly approach
+$e^x$, illustrating both higher-order improvement and the local nature
+of the approximation.
+
+\[Sources\] - Simon and Blume (1994), pp. 827-835.
+:::
+
+------------------------------------------------------------------------
+
+## Exercise 6: Taylor approximation of $\ln(2)$
+
+Starting from $f(x)=\ln(1+x)$:
+
+1.  Compute the derivatives needed for a third-order Taylor
+    polynomial.
+$$
+f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2
+$$
+2.  Write the third-order approximation of $\ln(1+x)$ around $a=0$.
+3.  Set $x=1$ and use the polynomial to approximate $\ln(2)$.
+
+
+::: notes
+The third-order polynomial is $f_3(x)=x-x^2/2+x^3/3$, giving
+$f_3(1)=5/6$. This is a useful reminder that a Taylor approximation is
+local and that $x=1$ lies at the boundary of the power series' interval
+of convergence.
+:::
+
+------------------------------------------------------------------------
+
+## Example: The Delta method {.compact-delta}
+
+Suppose
+
+$$
+\sqrt n(\hat\theta-\theta)
+\xrightarrow{d}N(0,V).
+$$
+
+**What if we care about $g(\hat\theta)$, not $\hat\theta$?**
+
+::: fragment
+First-order Taylor expansion:
+
+$$
+g(\hat\theta)
+\approx g(\theta)+g'(\theta)(\hat\theta-\theta).
+$$
+
 Therefore,
 
-$$\frac{dp^*}{dt}
-=
--\frac{F_t}{F_p}
-=
-\frac{d}{b+d}>0.$$
-:::
+$$
+g(\hat\theta)-g(\theta)
+\approx g'(\theta)(\hat\theta-\theta).
+$$
 
-::: fragment
-The consumer price rises, but generally by less than the full tax.
+Multiplying by $\sqrt n$,
+
+$$
+\sqrt n\,[g(\hat\theta)-g(\theta)]
+\approx g'(\theta)\sqrt n(\hat\theta-\theta).
+$$
+
+Thus,
+
+$$
+\boxed{
+\sqrt n\,[g(\hat\theta)-g(\theta)]
+\xrightarrow{d}
+N\!\left(0,[g'(\theta)]^2V\right)
+}.
+$$
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 360-363; the linear
-supply-demand application is instructor-developed.
+Show the assumption and question first. Reveal the complete derivation
+with one click.
+
+\[Sources\] - Hansen (2021), pp. 170-173.
+:::
+
+# 3. Optimization
+
+## Start with one choice variable
+
+Consider
+
+$$
+u(x)=(x-2)^2.
+$$
+
+::: fragment
+Where is the stationary point?
+:::
+
+::: fragment
+Is it a maximum or a minimum? How can derivatives establish the answer?
+:::
+
+::: notes
+Show only the function first. Ask students to predict its shape and the
+location of the optimum before differentiating. Do not reveal the answer
+on this slide.
+
+\[Sources\] - Constructed example using the one-variable optimization
+method in Simon and Blume (1994), pp. 396-401.
 :::
 
 ------------------------------------------------------------------------
 
-## R shows the equilibrium before and after the tax
+## Two derivatives locate and classify the optimum {.compact-one-opt}
 
+::: {.columns}
+::: {.column width="51%"}
+**Step 1: first-order condition**
+
+$$
+u'(x)=2(x-2)=0
+\quad\Longrightarrow\quad x^*=2.
+$$
+
+::: fragment
+**Step 2: second-order condition**
+
+$$
+u''(x)=2,
+\qquad
+u''(2)>0.
+$$
+
+Therefore, $x^*=2$ is a **strict local minimum**.
+:::
+
+::: fragment
+At a stationary point $x^*$:
+
+$$
+\begin{array}{c|c}
+u''(x^*)>0 & \text{strict local minimum}\\
+u''(x^*)<0 & \text{strict local maximum}\\
+u''(x^*)=0 & \text{test is inconclusive}
+\end{array}
+$$
+:::
+:::
+
+::: {.column width="49%"}
 ```{r}
-#| label: fig-tax-equilibrium
-#| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "88%"
-q <- seq(0, 90, length.out = 300)
-a <- 100; b <- 2; c0 <- 10; d <- 1.5; tax <- 12
-pd <- (a - q) / b
-ps0 <- (q - c0) / d
-ps1 <- tax + ps0
-plot(q, pd, type = "l", lwd = 3, col = "#154360",
-     xlab = "Quantity", ylab = "Price",
-     ylim = range(c(pd, ps0, ps1)),
-     main = "A per-unit tax shifts the supply curve upward")
-lines(q, ps0, lwd = 2, col = "#1E8449")
-lines(q, ps1, lwd = 2, lty = 2, col = "#C0392B")
-legend("topright", c("Demand", "Supply", "Supply + tax"),
-       col = c("#154360", "#1E8449", "#C0392B"),
-       lwd = c(3, 2, 2), lty = c(1, 1, 2), bty = "n")
+#| label: plot-one-variable-optimization
+#| echo: false
+#| fig-align: center
+#| fig-width: 5.0
+#| fig-height: 4.5
+#| out-width: "98%"
+x <- seq(-1, 5, length.out = 400)
+u <- (x - 2)^2
+plot(x, u, type = "l", lwd = 3, col = "#2E86C1",
+     xlab = "x", ylab = "u(x)",
+     main = expression(u(x) == (x-2)^2))
+abline(h = 0, lty = 3, col = "#777777")
+abline(v = 2, lty = 3, col = "#777777")
+segments(1.35, 0, 2.65, 0, lwd = 3, col = "#C0392B")
+points(2, 0, pch = 19, cex = 1.5, col = "#C0392B")
+text(2, 1.0, "x* = 2", col = "#C0392B")
 ```
+:::
+:::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 360-363; figure and
-calibration are instructor-developed.
+The first derivative identifies a stationary candidate; the second
+derivative classifies its local curvature. The red horizontal segment
+represents the zero-slope tangent at the minimum. Mention that this
+quadratic is also globally minimized at $x=2$ because it is nonnegative
+for every $x$.
+
+Transition: in several variables, the gradient replaces the first
+derivative and the Hessian replaces the second derivative.
+
+\[Sources\] - Simon and Blume (1994), pp. 396-401; figure generated in R.
 :::
 
 ------------------------------------------------------------------------
 
-## Comparative statics is about signs, magnitudes, and conditions
+## Exercise 7: classify the stationary points {.compact-exercise}
 
-When you derive $dy^*/d\theta$, ask:
+::: {.columns}
+::: {.column width="54%"}
+Consider
 
-::: fragment
-1.  **Sign:** does the equilibrium rise or fall?
+$$
+f(x)=x^3-3x.
+$$
+
+1.  Find all stationary points.
+2.  Compute $f''(x)$.
+3.  Use the second-order condition to classify each stationary point.
 :::
 
-::: fragment
-2.  **Magnitude:** how sensitive is the equilibrium?
+::: {.column width="43%" .rule-reference}
+**Second-order condition**
+
+At a stationary point $x^*$:
+
+$$
+\begin{array}{c|c}
+f''(x^*)>0 & \text{strict local minimum}\\
+f''(x^*)<0 & \text{strict local maximum}\\
+f''(x^*)=0 & \text{test is inconclusive}
+\end{array}
+$$
 :::
-
-::: fragment
-3.  **Mechanism:** which derivative drives the result?
-:::
-
-::: fragment
-4.  **Condition:** what must be nonzero or have a particular sign?
-:::
-
-::: fragment
-5.  **Scope:** is the result local or global?
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 334-363.
-:::
-
-# 4. Optimization
-
-## Optimization turns behavior into equations
-
-An unconstrained choice problem has the form
-
-$$\max_x f(x).$$
-
-::: fragment
-At an interior optimum $x^*$, a small feasible change cannot improve the
-objective.
-:::
-
-::: fragment
-This intuition produces the first-order condition
-
-$$f'(x^*)=0.$$
-:::
-
-::: fragment
-But a zero derivative identifies a candidate, not automatically a
-maximum.
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 51-57, 396-404.
-:::
-
-------------------------------------------------------------------------
-
-## First-order and second-order conditions do different jobs
-
-For a one-dimensional interior optimum:
-
-::: fragment
-- **FOC:** $f'(x^*)=0$ identifies stationary points.
-:::
-
-::: fragment
-- **SOC for a strict local maximum:** $f''(x^*)<0$ verifies downward
-  curvature.
-:::
-
-::: fragment
-- **Global statement:** concavity ensures a stationary point is a global
-  maximum.
-:::
-
-::: fragment
-Boundary points must be checked separately.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 51-57, 396-404, 505-521.
-:::
-
-------------------------------------------------------------------------
-
-## Example: a profit-maximizing firm sets marginal revenue equal to marginal cost
-
-Let
-
-$$\pi(q)=R(q)-C(q).$$
-
-::: fragment
 The first-order condition is
+$f'(x)=3x^2-3=3(x-1)(x+1)=0$, so the stationary points are
+$x=-1$ and $x=1$. Since $f''(x)=6x$,
+$f''(-1)=-6<0$ and $f''(1)=6>0$. Therefore $x=-1$ is a strict local
+maximum, with $f(-1)=2$, and $x=1$ is a strict local minimum, with
+$f(1)=-2$. Neither is a global extremum because the cubic is unbounded
+above and below.
 
-$$\pi'(q^*)=R'(q^*)-C'(q^*)=0,$$
-
-so
-
-$$MR(q^*)=MC(q^*).$$
-:::
-
-::: fragment
-The economic rule is the mathematical condition with labels attached.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 58-64, 404-410.
+\[Sources\] - Constructed exercise using the one-variable second-order
+test in Simon and Blume (1994), pp. 396-401.
 :::
 
 ------------------------------------------------------------------------
 
-## A graph separates the candidate from the curvature condition
-
 ```{r}
-#| label: fig-profit-max
+#| label: plot-one-variable-exercise
+#| echo: false
+#| fig-align: center
 #| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "88%"
-q <- seq(0, 24, length.out = 300)
-price <- 30
-cost <- 40 + 6 * q + 0.6 * q^2
-profit <- price * q - cost
-qstar <- (price - 6) / 1.2
-pistar <- price * qstar - (40 + 6 * qstar + 0.6 * qstar^2)
-plot(q, profit, type = "l", lwd = 3, col = "#154360",
-     xlab = "Output, q", ylab = "Profit, pi(q)",
-     main = "The FOC locates the peak; curvature verifies it")
-abline(h = 0, col = "grey75")
-points(qstar, pistar, pch = 19, cex = 1.3, col = "#C0392B")
-abline(v = qstar, lty = 2, col = "#C0392B")
+#| fig-height: 5.8
+#| out-width: "92%"
+x <- seq(-2.2, 2.2, length.out = 500)
+f <- x^3 - 3*x
+plot(x, f, type = "l", lwd = 3, col = "#2E86C1",
+     xlim = c(-2.2, 2.2), ylim = c(-4, 4),
+     xlab = "x", ylab = "f(x)",
+     main = expression(f(x) == x^3 - 3*x))
+abline(h = 0, v = 0, lty = 3, col = "#888888")
+points(c(-1, 1), c(2, -2), pch = 19, cex = 1.5,
+       col = c("#C0392B", "#1E8449"))
+text(-1, 2.55, "local maximum", col = "#C0392B", font = 2)
+text(1, -2.55, "local minimum", col = "#1E8449", font = 2)
 ```
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 58-64, 396-410; calibration is
+Reveal this graph after students classify the two stationary points.
+Connect the negative second derivative at $x=-1$ to downward curvature
+and the positive second derivative at $x=1$ to upward curvature.
+
+\[Sources\] - Figure generated in R from the constructed Exercise 7
+function.
+:::
+
+------------------------------------------------------------------------
+
+## Example: choosing two consumption goods
+
+A consumer has two goods, $x_1$ and $x_2$, and must decide how much of
+each good to consume in order to maximize utility:
+
+$$
+u(x_1,x_2)
+=8x_1+2x_2-x_1^2-x_2^2.
+$$
+
+::: notes
+Introduce only the consumer's choice problem here: two goods and one
+objective, utility maximization. Save the calculus for the next slide.
+
+[Sources] - Simon and Blume (1994), pp. 396-423; example is
 instructor-developed.
 :::
 
 ------------------------------------------------------------------------
 
-## In several dimensions, the gradient must vanish
+## Unconstrained optimization: two steps
 
-For
+Consider
 
-$$\max_{x\in\mathbb R^n} f(x),$$
-
-an interior optimum satisfies
-
-$$\nabla f(x^*)=0.$$
+$$
+\max_{x_1,x_2}\;u(x_1,x_2).
+$$
 
 ::: fragment
-For two variables, this is a system:
+**Step 1. Write one first-order condition for each choice direction**
 
-$$f_{x_1}(x_1^*,x_2^*)=0,
+$$
+\frac{\partial u}{\partial x_1}=0,
 \qquad
-f_{x_2}(x_1^*,x_2^*)=0.$$
+\frac{\partial u}{\partial x_2}=0.
+$$
 :::
 
 ::: fragment
-The Hessian then provides the local curvature test.
+**Step 2. Solve the two equations simultaneously**, then use the
+Hessian to verify the maximum.
 :::
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 396-404.
+[Sources] - Simon and Blume (1994), pp. 396-410.
 :::
 
 ------------------------------------------------------------------------
 
-## A constraint changes which directions are feasible
+## Step 2: use the Hessian to classify the solution {.compact-hessian}
 
-Consumer choice has the form
+For a twice-differentiable function of two variables, let
 
-$$\max_{x_1,x_2} u(x_1,x_2)
-\quad\text{s.t.}\quad
-p_1x_1+p_2x_2=m.$$
-
-::: fragment
-At an interior optimum, the highest attainable indifference curve is
-tangent to the budget line.
-:::
+$$
+D=\det(H_f)=f_{x_1x_1}f_{x_2x_2}-f_{x_1x_2}^2.
+$$
 
 ::: fragment
-The constraint means we cannot perturb $x_1$ and $x_2$ independently.
+$$
+\begin{array}{c|c}
+\text{Hessian condition at }\nabla f=0 & \text{Conclusion}\\ \hline
+D>0,\ f_{x_1x_1}>0 & \text{strict local minimum}\\
+D>0,\ f_{x_1x_1}<0 & \text{strict local maximum}\\
+D<0 & \text{saddle point}\\
+D=0 & \text{test is inconclusive}
+\end{array}
+$$
 :::
+
+
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 5-9, 232-233, 411-423,
-544-556.
+Place this test immediately after Step 2 so students see that solving
+the FOCs produces only a candidate. For a symmetric $2\times2$ Hessian,
+the determinant test supplies the second-order classification.
+
+[Sources] - Simon and Blume (1994), pp. 375-410.
 :::
 
 ------------------------------------------------------------------------
 
-## The Lagrangian incorporates the constraint
+## Apply the two unconstrained steps
 
-Write
+::: fragment
+**Step 1:**
 
-$$\mathcal L(x_1,x_2,\lambda)
-=
+$$
 u(x_1,x_2)
-+\lambda(m-p_1x_1-p_2x_2).$$
+=8x_1+2x_2-x_1^2-x_2^2\\
+\frac{\partial u}{\partial x_1}=0,
+\qquad
+\frac{\partial u}{\partial x_2}=0\\
+8-2x_1=0,
+\qquad
+2-2x_2=0.
+$$
+:::
 
 ::: fragment
+**Step 2:**
+
+$$
+\boxed{(x_1^*,x_2^*)=(4,1)},
+\qquad
+u(x_1^*,x_2^*)=17.
+$$
+:::
+
+::: fragment
+$$
+D=4>0,
+\qquad
+u_{x_1x_1}=-2<0.
+$$
+
+Therefore the candidate is a strict maximum.
+:::
+
+::: notes
+[Sources] - Simon and Blume (1994), pp. 396-410.
+:::
+
+------------------------------------------------------------------------
+
+## At the peak, both directional slopes are zero
+
+```{r}
+#| label: plot-unconstrained-3d
+#| fig-width: 9
+#| fig-height: 5.1
+#| out-width: "86%"
+x1 <- seq(0, 5, length.out = 70)
+x2 <- seq(0, 3, length.out = 70)
+u <- function(x1, x2) 8*x1 + 2*x2 - x1^2 - x2^2
+z <- outer(x1, x2, u)
+pmat <- persp(x1, x2, z, theta = 35, phi = 25, expand = 0.72,
+              col = "#D9E1E8", border = "#FFFFFF75", shade = 0.32,
+              xlab = "x1", ylab = "x2", zlab = "u(x1,x2)",
+              main = "Unconstrained: both directional slopes are zero")
+x1_path <- seq(0, 5, length.out = 200)
+path1 <- trans3d(x1_path, rep(1, 200), u(x1_path, 1), pmat)
+lines(path1, lwd = 4, col = "#2E86C1")
+x2_path <- seq(0, 3, length.out = 200)
+path2 <- trans3d(rep(4, 200), x2_path, u(4, x2_path), pmat)
+lines(path2, lwd = 4, col = "#1E8449")
+p <- trans3d(4, 1, u(4, 1), pmat)
+points(p, pch = 19, cex = 1.7, col = "#C0392B")
+text(p$x, p$y, "both partial derivatives = 0", pos = 3,
+     col = "#C0392B")
+```
+
+::: notes
+The blue cross-section varies $x_1$ while holding $x_2=1$. The green
+cross-section varies $x_2$ while holding $x_1=4$. Both curves are flat
+at the red point.
+
+[Sources] - Simon and Blume (1994), pp. 396-410; figure is
+instructor-developed in R.
+:::
+
+------------------------------------------------------------------------
+
+## Constrained optimization: two steps
+
+Now suppose each good has its own price, $p_1$ and $p_2$, and the
+consumer has wealth $w$. If all wealth is spent, the problem becomes:
+
+$$
+\text{max }u(x_1,x_2)
+=8x_1+2x_2-x_1^2-x_2^2\\
+s.t \quad p_1x_1+p_2x_2=w.
+$$
+
+::: fragment
+**Step 1. Build the Lagrangian**
+
+$$
+\mathcal L(x_1,x_2,\lambda)
+=u(x_1,x_2)+\lambda(w-p_1x_1-p_2x_2).
+$$
+:::
+
+::: fragment
+**Step 2. Differentiate with respect to $x_1$, $x_2$, and $\lambda$;
+then solve the three equations simultaneously.**
+:::
+
+::: notes
+[Sources] - Simon and Blume (1994), pp. 411-423.
+:::
+
+------------------------------------------------------------------------
+
+## Apply the two constrained steps
+
+::: fragment
+**Step 1:**
+
+For the numerical example, let $p_1=p_2=1$ and $w=4$:
+
+$$
+\mathcal L
+=8x_1+2x_2-x_1^2-x_2^2
++\lambda(4-x_1-x_2).
+$$
+:::
+
+::: fragment
+**Step 2:**
+
+$$
+8-2x_1-\lambda=0,
+\qquad
+2-2x_2-\lambda=0,
+\qquad
+x_1+x_2=4.
+$$
+:::
+
+::: fragment
+Solving gives
+
+$$
+\boxed{(x_1^*,x_2^*)=(3.5,0.5)},
+\qquad
+\lambda^*=1.
+$$
+:::
+
+::: notes
+Subtract the first two FOCs to obtain $x_1-x_2=3$, then combine this
+with $x_1+x_2=4$.
+
+[Sources] - Simon and Blume (1994), pp. 411-423.
+:::
+
+------------------------------------------------------------------------
+
+## The bordered Hessian classifies the constrained solution {.compact-soc}
+
+For one equality constraint $g(x_1,x_2)=0$, form
+
+$$
+B=
+\begin{bmatrix}
+0 & g_{x_1} & g_{x_2}\\
+g_{x_1} & \mathcal L_{x_1x_1} & \mathcal L_{x_1x_2}\\
+g_{x_2} & \mathcal L_{x_2x_1} & \mathcal L_{x_2x_2}
+\end{bmatrix}.
+$$
+
+::: fragment
+With two choice variables and one equality constraint,
+
+$$
+\begin{array}{rcl}
+\det(B)>0 &\Rightarrow& \text{strict constrained maximum},\\
+\det(B)<0 &\Rightarrow& \text{strict constrained minimum}.
+\end{array}
+$$
+If $\det(B)=0$, the test is inconclusive.
+:::
+
+::: fragment
+Here $g=4-x_1-x_2$ and $H_{\mathcal L}=-2I$, so
+
+$$
+B=
+\begin{bmatrix}
+0&-1&-1\\
+-1&-2&\phantom{-}0\\
+-1&\phantom{-}0&-2
+\end{bmatrix},
+\qquad
+\det(B)=4>0.
+$$
+
+Therefore $(3.5,0.5)$ is a strict constrained maximum.
+:::
+
+::: notes
+For the convention $g(x)=0$, the bordered Hessian uses the gradient of
+the constraint as its border and the Hessian of the Lagrangian as its
+lower-right block. In the two-variable, one-constraint case, a positive
+determinant gives a constrained maximum and a negative determinant gives
+a constrained minimum.
+
+[Sources] - Simon and Blume (1994), pp. 411-423.
+:::
+
+------------------------------------------------------------------------
+
+## The constraint restricts the search to a plane
+
+```{r}
+#| label: plot-equality-3d
+#| fig-width: 9
+#| fig-height: 5.1
+#| out-width: "86%"
+x1 <- seq(0, 5, length.out = 70)
+x2 <- seq(0, 3, length.out = 70)
+u <- function(x1, x2) 8*x1 + 2*x2 - x1^2 - x2^2
+z <- outer(x1, x2, u)
+pmat <- persp(x1, x2, z, theta = 35, phi = 25, expand = 0.72,
+              col = "#D9E1E8", border = "#FFFFFF70", shade = 0.3,
+              xlab = "x1", ylab = "x2", zlab = "u(x1,x2)",
+              main = "Constrained: maximize on the plane p1*x1 + p2*x2 = w")
+zlim <- range(z)
+plane <- trans3d(c(1, 4, 4, 1), c(3, 0, 0, 3),
+                 c(zlim[1], zlim[1], zlim[2], zlim[2]), pmat)
+polygon(plane$x, plane$y, col = adjustcolor("#F4D03F", alpha.f = 0.24),
+        border = "#B7950B", lwd = 2)
+x1_curve <- seq(1, 4, length.out = 200)
+x2_curve <- 4 - x1_curve
+curve3d <- trans3d(x1_curve, x2_curve, u(x1_curve, x2_curve), pmat)
+lines(curve3d, lwd = 5, col = "#2E86C1")
+p <- trans3d(3.5, 0.5, u(3.5, 0.5), pmat)
+points(p, pch = 19, cex = 1.7, col = "#C0392B")
+text(p$x, p$y, "highest feasible point", pos = 3, col = "#C0392B")
+```
+
+::: notes
+The yellow vertical plane is the equality constraint
+$p_1x_1+p_2x_2=w$, shown here with $p_1=p_2=1$ and $w=4$.
+The blue curve is its intersection with the utility surface. The red
+point is the highest point on that feasible curve.
+
+[Sources] - Simon and Blume (1994), pp. 411-423; figure is
+instructor-developed in R.
+:::
+
+------------------------------------------------------------------------
+
+## Karush--Kuhn--Tucker (KKT) conditions {.compact-kkt}
+
+What if the consumer does **not necessarily spend all available wealth**?
+
+$$
+p_1x_1+p_2x_2\le w,
+\qquad
+x_1,x_2\ge0.
+$$
+
+::: fragment
+With
+$\mathcal L=u+\lambda(w-p_1x_1-p_2x_2)+\mu_1x_1+\mu_2x_2$,
+the complete KKT conditions are
+
+$$
+\begin{aligned}
+\text{Stationarity:}\quad
+&u_{x_1}-\lambda p_1+\mu_1=0,
+&&u_{x_2}-\lambda p_2+\mu_2=0;\\
+\text{Primal feasibility:}\quad
+&w-p_1x_1-p_2x_2\ge0,
+&&x_1,x_2\ge0;\\
+\text{Dual feasibility:}\quad
+&\lambda\ge0,
+&&\mu_1,\mu_2\ge0;\\
+\text{Complementary slackness:}\quad
+&\lambda(w-p_1x_1-p_2x_2)=0,
+&&\mu_1x_1=\mu_2x_2=0.
+\end{aligned}
+$$
+:::
+
+::: fragment
+Complementary slackness identifies which constraints bind and permits
+corner solutions.
+:::
+
+::: notes
+Do not solve the KKT system in this introductory lecture. The purpose is
+only to show how the method extends the Lagrangian when constraints are
+inequalities or nonnegativity can bind.
+
+[Sources] - Simon and Blume (1994), pp. 424-447.
+:::
+
+------------------------------------------------------------------------
+
+## Exercise 8: unconstrained and constrained optimization {.compact-exercise}
+
+Consider
+
+$$
+f(x_1,x_2)=(x_1^2-1)^2+x_2^2.
+$$
+
+1.  **Unconstrained problem:** find all stationary points. You should
+    obtain **three points**. Use the second-order condition to classify
+    each as a local maximum, local minimum, or saddle point.
+
+2.  **Constrained problem:** optimize the same function subject to
+
+    $$x_2=x_1.$$
+
+    Find all Lagrangian candidates. Do **not** construct a bordered
+    Hessian. Plug the candidate points back into the objective function and compare their values to determine the maximum and minimum.
+    
+::: notes
 The first-order conditions are
+$4x_1(x_1^2-1)=0$ and $2x_2=0$, giving
+$(-1,0)$, $(0,0)$, and $(1,0)$. The Hessian is diagonal with entries
+$12x_1^2-4$ and $2$. Thus $(\pm1,0)$ are strict local minima, while
+$(0,0)$ is a saddle point.
 
-$$u_{x_1}-\lambda p_1=0,
-\qquad
-u_{x_2}-\lambda p_2=0,
-\qquad
-m-p_1x_1-p_2x_2=0.$$
+Under $x_2=x_1$, write $x_1=x_2=t$. The restricted objective is
+$\phi(t)=f(t,t)=t^4-t^2+1$, so
+$\phi'(t)=2t(2t^2-1)=0$. The three constrained candidates are
+$(0,0)$ and $(\pm1/\sqrt{2},\pm1/\sqrt{2})$, with matching signs.
+Because $\phi''(t)=12t^2-2$, $(0,0)$ is a constrained local maximum,
+where $f=1$, while the other two points are constrained local and global
+minima, where $f=3/4$. There is no constrained global maximum because
+$\phi(t)\to\infty$ as $|t|\to\infty$.
 :::
 
-::: fragment
-These equations jointly determine $x_1^*$, $x_2^*$, and $\lambda^*$.
-:::
+------------------------------------------------------------------------
+
+## Any questions? {.center}
 
 ::: notes
-\[Sources\] - Simon and Blume (1994), pp. 411-423.
+Use this final slide to revisit any exercise or mathematical tool that
+students want to discuss.
 :::
-
-------------------------------------------------------------------------
-
-## Tangency equates marginal benefit per dollar
-
-Dividing the first two conditions gives
-
-$$\frac{u_{x_1}}{u_{x_2}}
-=
-\frac{p_1}{p_2}.$$
-
-Equivalently,
-
-$$\frac{u_{x_1}}{p_1}
-=
-\frac{u_{x_2}}{p_2}
-=\lambda.$$
-
-::: fragment
-At an interior optimum, the last dollar spent on either good generates
-the same marginal utility.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 411-423, 544-556.
-:::
-
-------------------------------------------------------------------------
-
-## Worked example: Cobb-Douglas demand
-
-Let
-
-$$u(x_1,x_2)=x_1^\alpha x_2^{1-\alpha},
-\qquad 0<\alpha<1.$$
-
-::: fragment
-Solving the FOCs and the budget constraint gives
-
-$$x_1^*=\frac{\alpha m}{p_1},
-\qquad
-x_2^*=\frac{(1-\alpha)m}{p_2}.$$
-:::
-
-::: fragment
-The consumer spends a constant share $\alpha$ on good 1 and $1-\alpha$
-on good 2.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 411-423, 544-556.
-:::
-
-------------------------------------------------------------------------
-
-## The multiplier is a shadow value
-
-Let the value function be
-
-$$V(m)=\max_x f(x)
-\quad\text{s.t.}\quad g(x)=m.$$
-
-::: fragment
-Under regularity conditions,
-
-$$\frac{dV(m)}{dm}=\lambda^*.$$
-:::
-
-::: fragment
-$\lambda^*$ measures how much the optimized objective changes when the
-constraint is relaxed by one unit.
-:::
-
-::: fragment
-Examples: marginal utility of income, value of capacity, or value of a
-policy resource.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 448-456.
-:::
-
-------------------------------------------------------------------------
-
-## The envelope theorem avoids differentiating the optimizer
-
-Suppose
-
-$$V(\theta)=\max_x f(x,\theta).$$
-
-At an interior optimum,
-
-$$\frac{dV}{d\theta}
-=
-f_x(x^*,\theta)\frac{dx^*}{d\theta}
-+f_\theta(x^*,\theta).$$
-
-::: fragment
-Because $f_x(x^*,\theta)=0$,
-
-$$\boxed{\frac{dV}{d\theta}=f_\theta(x^*,\theta)}.$$
-:::
-
-::: fragment
-At the optimum, the indirect effect through the optimizing choice
-vanishes to first order.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 453-456.
-:::
-
-------------------------------------------------------------------------
-
-## One calculus toolkit appears across the PhD core
-
-| Tool | Microeconomics | Macroeconomics | Econometrics |
-|------------------|------------------|------------------|------------------|
-| Derivative | marginal utility | growth rates | score function |
-| Gradient | FOCs | equilibrium systems | normal equations |
-| Hessian | concavity | local dynamics | information matrix |
-| IFT | demand responses | policy comparative statics | estimator sensitivity |
-| Taylor expansion | welfare approximation | log-linearization | delta method |
-| Optimization | consumer/firm choice | planner problem | MLE/GMM |
-
-::: notes
-\[Sources\] - Simon and Blume (1994), Chapters 14-19. - Hansen (2021),
-pp. 170-173, 192-217.
-:::
-
-------------------------------------------------------------------------
-
-## Common mistakes to catch early
-
-::: fragment
-- Treating a partial derivative as if every other variable also changes.
-:::
-
-::: fragment
-- Forgetting the inner derivative in the chain rule.
-:::
-
-::: fragment
-- Treating a first-order condition as proof of a maximum.
-:::
-
-::: fragment
-- Ignoring boundary or corner solutions.
-:::
-
-::: fragment
-- Interpreting a local comparative-static result as a global theorem.
-:::
-
-::: fragment
-- Reporting a derivative without units or economic interpretation.
-:::
-
-------------------------------------------------------------------------
-
-## Practice: connect the tools
-
-Consider a competitive firm with production $q=\sqrt{L}$, output price
-$p$, and wage $w$.
-
-$$\pi(L)=p\sqrt L-wL.$$
-
-::: fragment
-1.  Derive the firm's labor demand $L^*(p,w)$.
-:::
-
-::: fragment
-2.  Determine the sign of $\partial L^*/\partial w$.
-:::
-
-::: fragment
-3.  Find the optimized profit $\pi^*(p,w)$.
-:::
-
-::: fragment
-4.  Use the envelope theorem to find $\partial\pi^*/\partial w$.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 396-410, 453-456, 557-564.
-:::
-
-------------------------------------------------------------------------
-
-## Practice solution
-
-The FOC is
-
-$$\frac{p}{2\sqrt L}-w=0,$$
-
-so
-
-$$L^*(p,w)=\frac{p^2}{4w^2}.$$
-
-::: fragment
-Therefore,
-
-$$\frac{\partial L^*}{\partial w}
-=-\frac{p^2}{2w^3}<0.$$
-:::
-
-::: fragment
-The optimized profit is
-
-$$\pi^*(p,w)=\frac{p^2}{4w}.$$
-:::
-
-------------------------------------------------------------------------
-
-## The envelope check
-
-Direct differentiation gives
-
-$$\frac{\partial\pi^*}{\partial w}
-=-\frac{p^2}{4w^2}.$$
-
-::: fragment
-The envelope theorem gives the same answer immediately:
-
-$$\frac{\partial\pi^*}{\partial w}
-=
-\left.
-\frac{\partial\pi(L;p,w)}{\partial w}
-\right|_{L=L^*}
-=-L^*
-=-\frac{p^2}{4w^2}.$$
-:::
-
-::: fragment
-Economic interpretation: a marginal wage increase reduces optimized
-profit by the firm's optimal labor demand.
-:::
-
-::: notes
-\[Sources\] - Simon and Blume (1994), pp. 453-456, 557-564.
-:::
-
-------------------------------------------------------------------------
-
-## Exit ticket
-
-In one sentence or one equation, answer each question.
-
-::: fragment
-1.  What is the difference between a partial derivative and a total
-    derivative?
-:::
-
-::: fragment
-2.  What additional condition turns an FOC candidate into a maximum?
-:::
-
-::: fragment
-3.  What does $-F_\theta/F_y$ measure?
-:::
-
-::: fragment
-4.  What is the economic meaning of a Lagrange multiplier?
-:::
-
-------------------------------------------------------------------------
-
-## Keep this mental map
-
-$$\boxed{
-\begin{array}{c}
-\text{Derivative}=\text{marginal change}\\[3pt]
-\text{Gradient}=\text{all marginal changes}\\[3pt]
-\text{Hessian}=\text{curvature}\\[3pt]
-\text{IFT}=\text{equilibrium response}\\[3pt]
-\text{FOC + curvature}=\text{optimal choice}
-\end{array}}$$
-
-::: fragment
-The goal is not to memorize isolated formulas. It is to recognize which
-economic question each object answers.
-:::
-
-------------------------------------------------------------------------
-
-**Questions?**
-
-Primary reference: Simon and Blume, *Mathematics for Economists*,
-Chapters 2-5 and 13-19.

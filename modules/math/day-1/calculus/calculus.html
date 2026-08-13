@@ -342,53 +342,13 @@ Instructor: Haien Peng
 </div>
 
 </section>
-<section id="why-calculus-is-the-language-of-economic-change" class="slide level2">
-<h2>Why calculus is the language of economic change</h2>
-<div class="fragment">
-<ul>
-<li class="fragment">Economic models ask how an outcome changes when a choice, price, policy, or parameter changes.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">A <strong>derivative</strong> measures local change.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">A <strong>total derivative</strong> tracks several channels of change at once.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">An <strong>optimization condition</strong> turns economic behavior into equations we can analyze.</li>
-</ul>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;3-9, 22-38.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="our-path-today" class="slide level2">
 <h2>Our path today</h2>
-<p><span class="math display">\[\text{Marginal change}
-\longrightarrow
-\text{Multivariable change}
-\longrightarrow
-\text{Comparative statics}
-\longrightarrow
-\text{Optimization}\]</span></p>
+<div style="font-size: 1em; line-height: 2; text-align: center;">
+<p>Single-variable derivatives<br> ↓<br> Multivariable derivatives<br> ↓<br> Optimization</p>
+</div>
 <div class="fragment">
-<p>By the end, you should be able to <strong>read, compute, and interpret</strong> the calculus that appears in first-year economics.</p>
+<p>By the end, you should be able to <strong>read, compute, and interpret</strong> the calculus used in quantitative analysis.</p>
 </div>
 <aside class="notes">
 <p>[Sources] - Simon and Blume (1994), Chapters 2-5 and 13-19.</p>
@@ -409,55 +369,56 @@ Instructor: Haien Peng
 <p>By the end of this session, you should be able to:</p>
 <div class="fragment">
 <ol type="1">
-<li class="fragment">interpret derivatives, elasticities, and Taylor approximations;</li>
+<li class="fragment">interpret and compute one-variable derivatives;</li>
 </ol>
 </div>
 <div class="fragment">
 <ol start="2" type="1">
-<li class="fragment">compute gradients, total differentials, and Hessians;</li>
+<li class="fragment">compute partial derivatives, gradients, and Hessians;</li>
 </ol>
 </div>
 <div class="fragment">
 <ol start="3" type="1">
-<li class="fragment">use implicit differentiation for comparative statics;</li>
+<li class="fragment">use implicit differentiation for relationships defined by equations;</li>
 </ol>
 </div>
 <div class="fragment">
 <ol start="4" type="1">
-<li class="fragment">solve basic unconstrained and equality-constrained optimization problems;</li>
+<li class="fragment">use Taylor polynomials to approximate smooth functions;</li>
 </ol>
 </div>
 <div class="fragment">
 <ol start="5" type="1">
-<li class="fragment">explain the economic meaning of first-order conditions and multipliers.</li>
+<li class="fragment">solve unconstrained and equality-constrained problems, and recognize when KKT conditions are needed.</li>
 </ol>
 </div>
 </section>
-<section id="warm-up-what-do-you-already-recognize" class="slide level2 scrollable">
-<h2>Warm-up: what do you already recognize?</h2>
-<p>Without calculating everything, identify what each object is asking for.</p>
+<section>
+<section id="marginal-change" class="title-slide slide level1 center">
+<h1>1. Marginal change</h1>
+
+</section>
+<section id="a-limit-and-a-function-value-answer-different-questions" class="slide level2 compact-limit">
+<h2>A limit and a function value answer different questions</h2>
+<p><span class="math display">\[
+\begin{array}{c|c}
+\displaystyle \lim_{x\to a}f(x) &amp; f(a)\\ \hline
+\text{What value does }f(x)\text{ approach near }a? &amp;
+\text{What is the value exactly at }a?
+\end{array}
+\]</span></p>
 <div class="fragment">
-<ol type="1">
-<li class="fragment"><span class="math inline">\(\displaystyle \frac{d}{dp}\left(Ap^{-\varepsilon}\right)\)</span></li>
-</ol>
+<p>The limit depends on values <strong>around</strong> <span class="math inline">\(a\)</span>, not on the value assigned at <span class="math inline">\(a\)</span>. Therefore, <span class="math inline">\(\lim_{x\to a}f(x)\)</span> and <span class="math inline">\(f(a)\)</span> may be different, and one may exist even when the other does not.</p>
 </div>
 <div class="fragment">
-<ol start="2" type="1">
-<li class="fragment"><span class="math inline">\(\displaystyle \frac{\partial F(K,L)}{\partial K}\)</span></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li class="fragment"><span class="math inline">\(\displaystyle F(p,t)=0 \quad\Rightarrow\quad \frac{dp^*}{dt}=?\)</span></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li class="fragment"><span class="math inline">\(\displaystyle \max_x f(x) \quad \text{s.t.}\quad g(x)=m\)</span></li>
-</ol>
+<p><span class="math display">\[
+\lim_{x\to a}f(x)=L
+\]</span></p>
+<p>means that <span class="math inline">\(f(x)\)</span> can be made <strong>arbitrarily close to</strong> <span class="math inline">\(L\)</span> by taking <span class="math inline">\(x\)</span> sufficiently close to <span class="math inline">\(a\)</span>, with <span class="math inline">\(x\ne a\)</span>.</p>
 </div>
 <aside class="notes">
-<p>Do not grade this. Ask students to name the operation and its economic purpose. Return to the four expressions near the end.</p>
+<p>Introduce the limit in words: values of <span class="math inline">\(f(x)\)</span> can be made arbitrarily close to <span class="math inline">\(L\)</span> by choosing <span class="math inline">\(x\)</span> sufficiently close to <span class="math inline">\(a\)</span>, without requiring <span class="math inline">\(x=a\)</span>. Emphasize that this describes nearby behavior, not <span class="math inline">\(f(a)\)</span>.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;23-26.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -470,15 +431,259 @@ Instructor: Haien Peng
           display:block!important;
       }</style></aside>
 </section>
-<section>
-<section id="marginal-change" class="title-slide slide level1 center">
-<h1>1. Marginal change</h1>
-
+<section id="one-sided-limits-distinguish-continuity-at-a-point" class="slide level2">
+<h2>One-sided limits distinguish continuity at a point</h2>
+<p>Around <span class="math inline">\(x=a\)</span>, define</p>
+<p><span class="math display">\[
+L_- = \lim_{x\to a^-}f(x),
+\qquad
+f(a),
+\qquad
+L_+ = \lim_{x\to a^+}f(x).
+\]</span></p>
+<div class="fragment">
+<ul>
+<li class="fragment"><span class="math inline">\(f\)</span> is <strong>continuous</strong> at <span class="math inline">\(a\)</span> when <span class="math inline">\(L_-=L_+=f(a)\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment"><span class="math inline">\(f\)</span> is <strong>left-continuous</strong> when <span class="math inline">\(L_-=f(a)\)</span>, and <strong>right-continuous</strong> when <span class="math inline">\(L_+=f(a)\)</span>.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Ask students to compare three objects on every example: the left-hand limit, the right-hand limit, and the actual function value.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;29-32.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="continuous-both-sides-meet-the-function-value" class="slide level2">
+<h2>Continuous: both sides meet the function value</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p>Let</p>
+<p><span class="math display">\[
+f(x)=x^2.
+\]</span></p>
+<p>At <span class="math inline">\(x=0\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\lim_{x\to0^-}f(x)&amp;=0,\\
+\lim_{x\to0^+}f(x)&amp;=0,\\
+f(0)&amp;=0.
+\end{aligned}
+\]</span></p>
+<p>The graph has no break at the point.</p>
+</div><div class="column" style="width:56%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="calculus_files/figure-revealjs/plot-limit-continuous-1.png" style="width:95.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>The filled point records the actual value <span class="math inline">\(f(0)\)</span>. Both branches approach that same point.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;31-32.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="left-continuous-only-the-left-side-matches-the-value" class="slide level2">
+<h2>Left-continuous only: the left side matches the value</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p>Let</p>
+<p><span class="math display">\[
+f(x)=
+\begin{cases}
+x, &amp; x\le 0,\\
+x+1, &amp; x&gt;0.
+\end{cases}
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+\begin{aligned}
+\lim_{x\to0^-}f(x)&amp;=f(0)=0,\\
+\lim_{x\to0^+}f(x)&amp;=1.
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:56%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="calculus_files/figure-revealjs/plot-limit-left-continuous-1.png" style="width:95.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>The filled point belongs to the left branch. The open point shows the value approached from the right but not taken at zero.</p>
+<p>[Sources] - Constructed example based on Simon and Blume (1994), pp.&nbsp;31-32.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="right-continuous-only-the-right-side-matches-the-value" class="slide level2">
+<h2>Right-continuous only: the right side matches the value</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p>Let</p>
+<p><span class="math display">\[
+f(x)=
+\begin{cases}
+x-1, &amp; x&lt;0,\\
+x, &amp; x\ge 0.
+\end{cases}
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+\begin{aligned}
+\lim_{x\to0^-}f(x)&amp;=-1,\\
+\lim_{x\to0^+}f(x)&amp;=f(0)=0.
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:56%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="calculus_files/figure-revealjs/plot-limit-right-continuous-1.png" style="width:95.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>This reverses the preceding example: the actual value now belongs to the right branch.</p>
+<p>[Sources] - Constructed example based on Simon and Blume (1994), pp.&nbsp;31-32.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="neither-side-matches-the-function-value" class="slide level2">
+<h2>Neither side matches the function value</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p>Let</p>
+<p><span class="math display">\[
+f(x)=
+\begin{cases}
+-1, &amp; x&lt;0,\\
+0, &amp; x=0,\\
+1, &amp; x&gt;0.
+\end{cases}
+\]</span></p>
+<p>Here</p>
+<p><span class="math display">\[
+\begin{aligned}
+\lim_{x\to0^-}f(x)&amp;=-1,\\
+f(0)&amp;=0,\\
+\lim_{x\to0^+}f(x)&amp;=1.
+\end{aligned}
+\]</span></p>
+</div><div class="column" style="width:56%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="calculus_files/figure-revealjs/plot-limit-neither-continuous-1.png" style="width:95.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>Neither one-sided limit equals the filled point. The two-sided limit also fails to exist because the one-sided limits disagree.</p>
+<p>[Sources] - Constructed example based on Simon and Blume (1994), pp.&nbsp;31-32.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exercise-1-is-the-function-continuous" class="slide level2 scrollable">
+<h2>Exercise 1: is the function continuous?</h2>
+<p>Consider</p>
+<p><span class="math display">\[
+f(x)=
+\begin{cases}
+\dfrac{x^2-1}{x-1}, &amp; x\ne1,\\[6pt]
+2, &amp; x=1.
+\end{cases}
+\]</span></p>
+<p>At <span class="math inline">\(x=1\)</span>:</p>
+<ol type="1">
+<li class="fragment">Find <span class="math inline">\(\displaystyle\lim_{x\to1^-}f(x)\)</span> and <span class="math inline">\(\displaystyle\lim_{x\to1^+}f(x)\)</span>.</li>
+<li class="fragment">Find <span class="math inline">\(f(1)\)</span>.</li>
+<li class="fragment">Is <span class="math inline">\(f\)</span> continuous at <span class="math inline">\(x=1\)</span>? Justify your answer using the definition of continuity.</li>
+</ol>
+<aside class="notes">
+<p>This exercise follows the four continuity cases immediately. Students should factor <span class="math inline">\(x^2-1=(x-1)(x+1)\)</span> for <span class="math inline">\(x\ne1\)</span>, then compare both one-sided limits with the assigned function value.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="a-derivative-is-a-local-comparison" class="slide level2">
 <h2>A derivative is a local comparison</h2>
 <p>For a function <span class="math inline">\(y=f(x)\)</span>,</p>
-<p><span class="math display">\[f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.\]</span></p>
+<p><span class="math display">\[
+f'(x)=y'=\frac{dy}{dx}
+=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.
+\]</span></p>
+<p>This derivative exists when the limit is finite and the same for every way that <span class="math inline">\(h\)</span> approaches zero.</p>
 <div class="fragment">
 <ul>
 <li class="fragment">Numerator: change in the outcome.</li>
@@ -511,8 +716,91 @@ Instructor: Haien Peng
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-derivative-rules-are-a-compact-toolkit" class="slide level2">
-<h2>The derivative rules are a compact toolkit</h2>
+<section id="use-the-definition-once-fxx2" class="slide level2">
+<h2>Use the definition once: <span class="math inline">\(f(x)=x^2\)</span></h2>
+<p>For</p>
+<p><span class="math display">\[
+f(x)=x^2,
+\]</span></p>
+<p>apply the definition:</p>
+<p><span class="math display">\[
+f'(x)=\lim_{h\to0}\frac{(x+h)^2-x^2}{h}.
+\]</span></p>
+<div class="fragment">
+<p>After simplifying and taking the limit,</p>
+<p><span class="math display">\[
+f'(x)=2x,
+\qquad
+f'(3)=6.
+\]</span></p>
+</div>
+<aside class="notes">
+<p>Do not substitute <span class="math inline">\(h=0\)</span> into the original fraction. For <span class="math inline">\(h\ne0\)</span>, first factor and cancel <span class="math inline">\(h\)</span>; only then take the limit. Ask students to identify where the condition <span class="math inline">\(h\ne0\)</span> matters.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;25-26.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exercise-2-differentiate-from-the-definition" class="slide level2">
+<h2>Exercise 2: differentiate from the definition</h2>
+<p>Let</p>
+<p><span class="math display">\[f(x)=x^2+x+1.\]</span></p>
+<p>Using only</p>
+<p><span class="math display">\[
+f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h},
+\]</span></p>
+<p>derive <span class="math inline">\(f'(x)\)</span>. Show the expansion, cancel the common factor <span class="math inline">\(h\)</span>, and only then take the limit.</p>
+<aside class="notes">
+<p>This comes immediately after the worked <span class="math inline">\(x^2\)</span> example. Ask students to expand <span class="math inline">\((x+h)^2+(x+h)+1\)</span> without using the power rule. The result is <span class="math inline">\(f'(x)=2x+1\)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="seven-rules-cover-the-derivatives-we-need" class="slide level2">
+<h2>Seven rules cover the derivatives we need</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>Operations</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Rule</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linearity</td>
+<td><span class="math inline">\([af+bg]'=af'+bg'\)</span></td>
+</tr>
+<tr class="even">
+<td>Product</td>
+<td><span class="math inline">\((fg)'=f'g+fg'\)</span></td>
+</tr>
+<tr class="odd">
+<td>Quotient</td>
+<td><span class="math inline">\(\left(\dfrac{f}{g}\right)'=\dfrac{f'g-fg'}{g^2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:45%;">
+<p><strong>Basic derivatives</strong></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -522,37 +810,30 @@ Instructor: Haien Peng
 </thead>
 <tbody>
 <tr class="odd">
+<td><span class="math inline">\(c\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(e^x\)</span></td>
+<td><span class="math inline">\(e^x\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\ln x\)</span></td>
+<td><span class="math inline">\(1/x\)</span></td>
+</tr>
+<tr class="even">
 <td><span class="math inline">\(x^a\)</span></td>
 <td><span class="math inline">\(ax^{a-1}\)</span></td>
 </tr>
-<tr class="even">
-<td><span class="math inline">\(af(x)+bg(x)\)</span></td>
-<td><span class="math inline">\(af'(x)+bg'(x)\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(f(x)g(x)\)</span></td>
-<td><span class="math inline">\(f'(x)g(x)+f(x)g'(x)\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(f(x)/g(x)\)</span></td>
-<td><span class="math inline">\([f'(x)g(x)-f(x)g'(x)]/g(x)^2\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(f(g(x))\)</span></td>
-<td><span class="math inline">\(f'(g(x))g'(x)\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(e^x\)</span></td>
-<td><span class="math inline">\(e^x\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\log x\)</span></td>
-<td><span class="math inline">\(1/x\)</span></td>
-</tr>
 </tbody>
 </table>
+</div></div>
+<div class="fragment">
+<p>The limit definition establishes these rules; calculation usually begins by choosing among them.</p>
+</div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;25-28, 70-74, 93-96.</p>
+<p>Linearity includes both the constant-multiple and sum/difference rules. State the domain restrictions when relevant: <span class="math inline">\(g(x)\ne0\)</span> for the quotient rule and <span class="math inline">\(x&gt;0\)</span> for <span class="math inline">\(\ln x\)</span>.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;25-28, 82-96.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -565,26 +846,158 @@ Instructor: Haien Peng
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-chain-rule-follows-the-channel-of-change" class="slide level2">
-<h2>The chain rule follows the channel of change</h2>
-<p>Suppose output depends on capital, and capital depends on the interest rate:</p>
-<p><span class="math display">\[Y=F(K), \qquad K=K(r).\]</span></p>
+<section id="different-rules-must-give-the-same-derivative" class="slide level2">
+<h2>Different rules must give the same derivative</h2>
+<p>For <span class="math inline">\(x\ne0\)</span>, consider</p>
+<p><span class="math display">\[
+f(x)=\frac{1}{x}.
+\]</span></p>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Quotient rule</strong></p>
+<p><span class="math display">\[
+f'(x)
+=\frac{(0)(x)-(1)(1)}{x^2}
+=-\frac{1}{x^2}.
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><strong>Power rule</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+f(x)&amp;=x^{-1},\\
+f'(x)&amp;=-x^{-2}=-\frac{1}{x^2}.
+\end{aligned}
+\]</span></p>
+</div></div>
+</div>
+<div class="fragment">
+<p>The route can differ; the derivative cannot.</p>
+</div>
+<aside class="notes">
+<p>Ask which method is shorter. The quotient rule is valid, but rewriting the function as a power is more efficient. Use this to distinguish correctness from convenience.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;25-28.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-chain-rule-handles-functions-inside-functions" class="slide level2">
+<h2>The chain rule handles functions inside functions</h2>
+<p>If</p>
+<p><span class="math display">\[
+y=f(u),
+\qquad
+u=g(x),
+\]</span></p>
+<p>then</p>
+<p><span class="math display">\[
+\frac{dy}{dx}
+=\frac{dy}{du}\frac{du}{dx}
+=f'(g(x))g'(x).
+\]</span></p>
+<div class="fragment">
+<p>With <span class="math inline">\(u=u(x)\)</span>, common patterns are</p>
+<p><span class="math display">\[
+\frac{d}{dx}u^a=au^{a-1}u',
+\qquad
+\frac{d}{dx}e^u=e^u u',
+\qquad
+\frac{d}{dx}\ln u=\frac{u'}{u}.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Differentiate the <strong>outside</strong>, then multiply by the derivative of the <strong>inside</strong>.</p>
+</div>
+<aside class="notes">
+<p>Use verbal language first: outside derivative times inside derivative. Then connect this notation to the economic channel-of-change example on the later slide.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;70-74, 93-96.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="one-function-can-require-several-rules" class="slide level2">
+<h2>One function can require several rules</h2>
+<p>Consider, for <span class="math inline">\(x&gt;-1\)</span>,</p>
+<p><span class="math display">\[
+F(x)=\frac{x^2e^{3x}+\ln(x+1)}{(1+x^2)^2}.
+\]</span></p>
+<div class="fragment">
+<ul>
+<li class="fragment"><strong>Outer structure:</strong> quotient.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment"><strong>Numerator:</strong> sum; its first term is a product.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment"><strong>Inner functions:</strong> <span class="math inline">\(e^{3x}\)</span> and <span class="math inline">\(\ln(x+1)\)</span> require the chain rule.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment"><strong>Denominator:</strong> a squared composite, so it also uses the chain rule.</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Before calculating, ask students to name the rules in the order they see them. Structural recognition should precede algebra.</p>
+<p>[Sources] - Constructed example using rules in Simon and Blume (1994), pp.&nbsp;25-28, 70-74, 93-96.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="differentiate-the-pieces-then-apply-the-outer-rule" class="slide level2">
+<h2>Differentiate the pieces, then apply the outer rule</h2>
+<p>Write</p>
+<p><span class="math display">\[
+N(x)=x^2e^{3x}+\ln(x+1),
+\qquad
+D(x)=(1+x^2)^2.
+\]</span></p>
 <div class="fragment">
 <p>Then</p>
-<p><span class="math display">\[\frac{dY}{dr}
-=
-\frac{dF}{dK}\frac{dK}{dr}.\]</span></p>
+<p><span class="math display">\[
+N'(x)=2xe^{3x}+3x^2e^{3x}+\frac{1}{x+1},
+\qquad
+D'(x)=4x(1+x^2).
+\]</span></p>
 </div>
 <div class="fragment">
-<p>Interpretation:</p>
-<p><span class="math display">\[\text{effect of }r\text{ on }Y
-=
-\text{effect of }K\text{ on }Y
-\times
-\text{effect of }r\text{ on }K.\]</span></p>
+<p>Finally,</p>
+<p><span class="math display">\[
+F'(x)=
+\frac{N'(x)D(x)-N(x)D'(x)}{[D(x)]^2}.
+\]</span></p>
 </div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;70-74.</p>
+<p>Do not expand the final expression. Leaving the answer in structured form makes the rule usage visible and reduces algebraic errors.</p>
+<p>[Sources] - Constructed example using rules in Simon and Blume (1994), pp.&nbsp;25-28, 70-74, 93-96.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -597,25 +1010,38 @@ Instructor: Haien Peng
           display:block!important;
       }</style></aside>
 </section>
-<section id="elasticity-puts-marginal-change-in-percentage-units" class="slide level2">
-<h2>Elasticity puts marginal change in percentage units</h2>
-<p>For <span class="math inline">\(y=f(x)\)</span>, the elasticity of <span class="math inline">\(y\)</span> with respect to <span class="math inline">\(x\)</span> is</p>
-<p><span class="math display">\[\varepsilon_{y,x}
-=
-\frac{dy}{dx}\frac{x}{y}
-=
-\frac{d\log y}{d\log x}.\]</span></p>
-<div class="fragment">
-<p>Elasticity answers:</p>
-<blockquote>
-<p>By approximately what percent does <span class="math inline">\(y\)</span> change when <span class="math inline">\(x\)</span> rises by one percent?</p>
-</blockquote>
-</div>
-<div class="fragment">
-<p>It is unit-free, so it supports comparisons across markets and scales.</p>
-</div>
+<section id="exercise-3-apply-the-derivative-rules" class="slide level2 compact-exercise">
+<h2>Exercise 3: apply the derivative rules</h2>
+<p>Differentiate each function. Name the main rule or rules you use.</p>
+<div class="columns">
+<div class="column" style="width:53%;">
+<p><strong>Problems</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{(a)}\quad &amp;f(x)=3x^4-2x+7,\\[4pt]
+\text{(b)}\quad &amp;f(x)=x^2e^x,\\[4pt]
+\text{(c)}\quad &amp;f(x)=\frac{\ln x}{x},\\[6pt]
+\text{(d)}\quad &amp;f(x)=\ln(1+x^2),\\[4pt]
+\text{(e)}\quad &amp;f(x)=\frac{e^{2x}}{1+x}.
+\end{aligned}
+\]</span></p>
+</div><div class="column rule-reference" style="width:47%;">
+<p><strong>Rule reference</strong></p>
+<p><em>Operations</em></p>
+<p>Linearity: <span class="math inline">\([af+bg]'=af'+bg'\)</span><br>
+Product: <span class="math inline">\((fg)'=f'g+fg'\)</span><br>
+Quotient: <span class="math inline">\(\displaystyle
+\left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2}\)</span></p>
+<p><em>Basic derivatives</em></p>
+<p><span class="math inline">\(c'=0\)</span><br>
+<span class="math inline">\((x^a)'=ax^{a-1}\)</span><br>
+<span class="math inline">\((e^x)'=e^x\)</span><br>
+<span class="math inline">\((\ln x)'=1/x\)</span></p>
+<p><em>Chain rule</em></p>
+<p><span class="math inline">\([f(g(x))]'=f'(g(x))g'(x)\)</span></p>
+</div></div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;64-69, 100-106.</p>
+<p>The five functions respectively emphasize linearity and the power rule, the product rule, the quotient rule, the chain rule, and a combination of the quotient and chain rules. Keep the rule reference visible while students work so that the exercise tests rule selection and application, not memorization.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -628,122 +1054,8 @@ Instructor: Haien Peng
           display:block!important;
       }</style></aside>
 </section>
-<section id="constant-elasticity-demand-makes-the-interpretation-transparent" class="slide level2">
-<h2>Constant-elasticity demand makes the interpretation transparent</h2>
-<p>Let</p>
-<p><span class="math display">\[q(p)=Ap^{-\varepsilon}, \qquad A&gt;0,\ \varepsilon&gt;0.\]</span></p>
-<div class="fragment">
-<p>Then</p>
-<p><span class="math display">\[q'(p)=-\varepsilon Ap^{-\varepsilon-1}\]</span></p>
-<p>and</p>
-<p><span class="math display">\[\frac{dq}{dp}\frac{p}{q}=-\varepsilon.\]</span></p>
-</div>
-<div class="fragment">
-<p>The exponent is the price elasticity, with the sign reflecting the downward-sloping demand curve.</p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;64-69, 100-106.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="r-makes-the-local-nature-of-a-derivative-visible" class="slide level2">
-<h2>R makes the local nature of a derivative visible</h2>
+<section class="slide level2">
 
-<img data-src="calculus_files/figure-revealjs/fig-demand-tangent-1.png" id="fig-demand-tangent" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;1
-</p><aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;22-38, 64-69.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="quick-check-elasticity" class="slide level2 scrollable">
-<h2>Quick check: elasticity</h2>
-<p>Suppose <span class="math inline">\(q(p)=400p^{-2}\)</span>.</p>
-<div class="fragment">
-<ol type="1">
-<li class="fragment">Is demand upward- or downward-sloping?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li class="fragment">What is the price elasticity?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li class="fragment">If price increases by 1%, what is the approximate percentage change in quantity?</li>
-</ol>
-</div>
-<div class="fragment">
-<p><strong>Answer:</strong> elasticity is <span class="math inline">\(-2\)</span>, so quantity falls by approximately 2%.</p>
-</div>
-</section>
-<section id="taylor-approximation-turns-a-nonlinear-model-into-a-local-linear-model" class="slide level2">
-<h2>Taylor approximation turns a nonlinear model into a local linear model</h2>
-<p>Near <span class="math inline">\(x_0\)</span>,</p>
-<p><span class="math display">\[f(x)
-\approx
-f(x_0)+f'(x_0)(x-x_0).\]</span></p>
-<div class="fragment">
-<p>Including curvature gives</p>
-<p><span class="math display">\[f(x)
-\approx
-f(x_0)+f'(x_0)(x-x_0)
-+\frac{1}{2}f''(x_0)(x-x_0)^2.\]</span></p>
-</div>
-<div class="fragment">
-<p>Economists use this idea for approximation, log-linearization, comparative statics, and asymptotic statistics.</p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;34-38 and 827-835.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="first-order-approximation-is-accurate-locally" class="slide level2">
-<h2>First-order approximation is accurate locally</h2>
-
-<img data-src="calculus_files/figure-revealjs/fig-taylor-1.png" id="fig-taylor" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;2
-</p><aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;34-38 and 827-835.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section></section>
 <section>
 <section id="multivariable-change" class="title-slide slide level1 center">
@@ -812,23 +1124,43 @@ F_L(K,L)
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-total-differential-adds-the-channels-of-change" class="slide level2">
-<h2>The total differential adds the channels of change</h2>
-<p>For <span class="math inline">\(z=f(x,y)\)</span>,</p>
-<p><span class="math display">\[dz=f_x(x,y)\,dx+f_y(x,y)\,dy.\]</span></p>
-<div class="fragment">
-<p>In vector notation,</p>
-<p><span class="math display">\[df=\nabla f(x)'dx.\]</span></p>
-</div>
-<div class="fragment">
-<p>For production,</p>
-<p><span class="math display">\[dY\approx F_K\,dK+F_L\,dL.\]</span></p>
-</div>
-<div class="fragment">
-<p>This decomposes the change in output into a capital channel and a labor channel.</p>
+<section id="second-derivatives-describe-how-slopes-change" class="slide level2 compact-second">
+<h2>Second derivatives describe how slopes change</h2>
+<div class="columns">
+<div class="column" style="width:43%;">
+<p><strong>One variable</strong></p>
+<p>If <span class="math inline">\(y=f(x)\)</span>,</p>
+<p><span class="math display">\[
+f''(x)=y''=\frac{d^2y}{dx^2}
+=\frac{d}{dx}f'(x).
+\]</span></p>
+</div><div class="column" style="width:57%;">
+<p><strong>Several variables</strong></p>
+<p>For <span class="math inline">\(f(x_1,x_2)\)</span>, the <strong>own second partials</strong> are</p>
+<p><span class="math display">\[
+f_{11}=\frac{\partial^2f}{\partial x_1^2},
+\qquad
+f_{22}=\frac{\partial^2f}{\partial x_2^2}.
+\]</span></p>
+<p>The <strong>cross partials</strong> are</p>
+<p><span class="math display">\[
+f_{12}
+=\frac{\partial^2f}{\partial x_1\partial x_2},
+\qquad
+f_{21}
+=\frac{\partial^2f}{\partial x_2\partial x_1}.
+\]</span></p>
+</div></div>
+<div class="notation-note">
+<p><strong>Notation varies across sources.</strong> You may see</p>
+<p><span class="math display">\[
+f_{12},\qquad f_{x_1x_2},\qquad f'_{12},\qquad f'_{x_1x_2}.
+\]</span></p>
+<p>They may denote the same cross partial; always check the author’s convention for the order.</p>
 </div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;307-312, 323-327.</p>
+<p>For this course, follow the instructor’s requested left-to-right visual convention: <span class="math inline">\(f_{12}\)</span> is written with <span class="math inline">\(x_1\)</span> on the left and <span class="math inline">\(x_2\)</span> on the right. Explicitly warn students that other sources use different ordering conventions or nested operator notation. The following example uses this notation before the Hessian arranges the second partials into a matrix.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;328-333.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -841,25 +1173,54 @@ F_L(K,L)
           display:block!important;
       }</style></aside>
 </section>
-<section id="multivariable-chain-rule-direct-and-indirect-effects" class="slide level2">
-<h2>Multivariable chain rule: direct and indirect effects</h2>
-<p>Suppose utility depends on consumption, while consumption depends on income:</p>
-<p><span class="math display">\[U=U(c_1,c_2),
+<section id="example-compute-the-second-derivatives" class="slide level2">
+<h2>Example: compute the second derivatives</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<p><strong>One variable</strong></p>
+<p><span class="math display">\[
+f(x)=x^3.
+\]</span></p>
+<div class="fragment" data-fragment-index="1">
+<p>First derivative:</p>
+<p><span class="math display">\[
+f'(x)=3x^2.
+\]</span></p>
+</div>
+<div class="fragment" data-fragment-index="2">
+<p>Second derivative:</p>
+<p><span class="math display">\[
+f''(x)=6x.
+\]</span></p>
+</div>
+</div><div class="column" style="width:54%;">
+<p><strong>Several variables</strong></p>
+<p><span class="math display">\[
+f(x_1,x_2)=x_1^2+x_2^2.
+\]</span></p>
+<div class="fragment" data-fragment-index="1">
+<p>First partial derivatives:</p>
+<p><span class="math display">\[
+f_1=2x_1,
 \qquad
-c_1=c_1(m),\quad c_2=c_2(m).\]</span></p>
-<div class="fragment">
-<p>Then</p>
-<p><span class="math display">\[\frac{dU}{dm}
-=
-U_{c_1}\frac{dc_1}{dm}
-+
-U_{c_2}\frac{dc_2}{dm}.\]</span></p>
+f_2=2x_2.
+\]</span></p>
 </div>
-<div class="fragment">
-<p>Every channel contributes a marginal effect multiplied by the response of that channel.</p>
+<div class="fragment" data-fragment-index="2">
+<p>Second partial derivatives:</p>
+<p><span class="math display">\[
+f_{11}=2,
+\qquad
+f_{22}=2,
+\]</span></p>
+<p><span class="math display">\[
+f_{12}=f_{21}=0.
+\]</span></p>
 </div>
+</div></div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;313-318, 323-327.</p>
+<p>Reveal the first derivatives in both columns together, then reveal the second derivatives. In the multivariable example, connect the zero cross partials to the absence of an interaction term. The next slide places the four second partials into the Hessian matrix.</p>
+<p>[Sources] - Constructed examples using the higher-derivative notation in Simon and Blume (1994), pp.&nbsp;328-333.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -882,11 +1243,12 @@ f_{11} &amp; \cdots &amp; f_{1n}\\
 f_{n1} &amp; \cdots &amp; f_{nn}
 \end{bmatrix}.\]</span></p>
 <div class="fragment">
-<p>The second-order approximation is</p>
-<p><span class="math display">\[f(x+\Delta x)
-\approx
-f(x)+\nabla f(x)'\Delta x
-+\frac{1}{2}\Delta x'H_f(x)\Delta x.\]</span></p>
+<p>For <span class="math inline">\(f(x,y)\)</span>,</p>
+<p><span class="math display">\[H_f(x,y)=
+\begin{bmatrix}
+f_{xx} &amp; f_{xy}\\
+f_{yx} &amp; f_{yy}
+\end{bmatrix}.\]</span></p>
 </div>
 <div class="fragment">
 <p>The gradient gives slope; the Hessian gives curvature and interactions.</p>
@@ -905,117 +1267,20 @@ f(x)+\nabla f(x)'\Delta x
           display:block!important;
       }</style></aside>
 </section>
-<section id="concavity-connects-curvature-to-global-behavior" class="slide level2">
-<h2>Concavity connects curvature to global behavior</h2>
-<div class="fragment">
-<ul>
-<li class="fragment">If <span class="math inline">\(H_f(x)\)</span> is negative definite, <span class="math inline">\(f\)</span> is locally strictly concave at <span class="math inline">\(x\)</span>.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">If <span class="math inline">\(f\)</span> is concave on its domain, any point satisfying the appropriate first-order condition is a global maximizer.</li>
-</ul>
-</div>
-<div class="fragment">
-<p>For a <span class="math inline">\(2\times2\)</span> symmetric Hessian,</p>
-<p><span class="math display">\[H=
-\begin{bmatrix}
-f_{11}&amp;f_{12}\\
-f_{12}&amp;f_{22}
-\end{bmatrix},\]</span></p>
-<p>negative definiteness requires</p>
-<p><span class="math display">\[f_{11}&lt;0,
-\qquad
-\det(H)&gt;0.\]</span></p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;375-385, 398-404, 505-521.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="level-curves-organize-multivariable-information" class="slide level2">
-<h2>Level curves organize multivariable information</h2>
-
-<img data-src="calculus_files/figure-revealjs/fig-level-curves-1.png" id="fig-level-curves" style="width:82.0%" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;3
-</p><aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;277-286, 319-322, 342-349.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="quick-check-total-change" class="slide level2 scrollable">
-<h2>Quick check: total change</h2>
-<p>Let <span class="math inline">\(Y=K^{1/3}L^{2/3}\)</span>.</p>
-<div class="fragment">
+<section id="exercise-4-write-the-gradient-and-hessian" class="slide level2 scrollable">
+<h2>Exercise 4: write the gradient and Hessian</h2>
+<p>For</p>
+<p><span class="math display">\[
+f(x_1,x_2)=x_1^2+3x_1x_2+2x_2^2,
+\]</span></p>
+<p>write:</p>
 <ol type="1">
-<li class="fragment">Find <span class="math inline">\(Y_K\)</span> and <span class="math inline">\(Y_L\)</span>.</li>
+<li class="fragment">the gradient vector <span class="math inline">\(\nabla f(x_1,x_2)\)</span>;</li>
+<li class="fragment">the Hessian matrix <span class="math inline">\(H_f(x_1,x_2)\)</span>.</li>
 </ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li class="fragment">Write the total differential <span class="math inline">\(dY\)</span>.</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li class="fragment">If both inputs rise by 1%, what is the approximate percentage change in output?</li>
-</ol>
-</div>
-<div class="fragment">
-<p><strong>Answer:</strong> approximately 1%, because the output elasticities sum to one.</p>
-</div>
+<p>Which entries describe own curvature, and which entries describe the interaction between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>?</p>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;302-312, 483-492.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section></section>
-<section>
-<section id="comparative-statics" class="title-slide slide level1 center">
-<h1>3. Comparative statics</h1>
-
-</section>
-<section id="equilibrium-is-often-defined-by-an-equation-not-a-closed-form" class="slide level2">
-<h2>Equilibrium is often defined by an equation, not a closed form</h2>
-<p>Suppose an equilibrium <span class="math inline">\(y^*\)</span> satisfies</p>
-<p><span class="math display">\[F(y^*,\theta)=0,\]</span></p>
-<p>where <span class="math inline">\(\theta\)</span> is an exogenous parameter.</p>
-<div class="fragment">
-<p>The comparative-static question is</p>
-<p><span class="math display">\[\frac{dy^*}{d\theta}=?\]</span></p>
-</div>
-<div class="fragment">
-<p>We do not always need to solve explicitly for <span class="math inline">\(y^*(\theta)\)</span>.</p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;334-341, 360-363.</p>
+<p>The gradient is <span class="math inline">\((2x_1+3x_2,\ 3x_1+4x_2)'\)</span> and the Hessian is <span class="math inline">\(\begin{bmatrix}2&amp;3\\3&amp;4\end{bmatrix}\)</span>. The diagonal entries are own curvature; the off-diagonal entries are cross effects.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1028,22 +1293,52 @@ Figure&nbsp;3
           display:block!important;
       }</style></aside>
 </section>
-<section id="implicit-differentiation-gives-the-local-response" class="slide level2">
-<h2>Implicit differentiation gives the local response</h2>
-<p>Differentiate the equilibrium condition:</p>
-<p><span class="math display">\[F_y\,dy^*+F_\theta\,d\theta=0.\]</span></p>
+<section id="the-multivariable-chain-rule-tracks-every-channel" class="slide level2">
+<h2>The multivariable chain rule tracks every channel</h2>
+<p>Suppose</p>
+<p><span class="math display">\[
+z=F(x_1,\ldots,x_n),
+\qquad
+x_i=x_i(t).
+\]</span></p>
+<p>Then</p>
+<p><span class="math display">\[
+\frac{dz}{dt}
+=\sum_{i=1}^n F_{x_i}\frac{dx_i}{dt}
+\]</span></p>
 <div class="fragment">
-<p>If <span class="math inline">\(F_y\neq0\)</span>, then</p>
-<p><span class="math display">\[\boxed{
-\frac{dy^*}{d\theta}
-=
--\frac{F_\theta}{F_y}
-}\]</span></p>
-</div>
-<div class="fragment">
-<p>The denominator condition is what allows the equilibrium relation to be locally solved for <span class="math inline">\(y\)</span>.</p>
+<p>For <span class="math inline">\(F(x,y(x))\)</span>, there are two channels of change:</p>
+<p><span class="math display">\[
+\frac{d}{dx}F(x,y(x))
+=F_x\frac{dx}{dx}+F_y\frac{dy}{dx}
+=F_x+F_y\frac{dy}{dx}.
+\]</span></p>
 </div>
 <aside class="notes">
+<p>Start with the general formula, then specialize immediately. In the special case, point to the direct channel through <span class="math inline">\(x\)</span> and the indirect channel through <span class="math inline">\(y(x)\)</span>. This identity is the only new ingredient needed for implicit differentiation on the next slide.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;313-327, 334-341.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="implicit-differentiation-avoids-solving-explicitly" class="slide level2">
+<h2>Implicit differentiation avoids solving explicitly</h2>
+<p>Suppose <span class="math inline">\(y\)</span> and an exogenous parameter <span class="math inline">\(\theta\)</span> satisfy</p>
+<p><span class="math display">\[F(y,\theta)=0.\]</span></p>
+<div class="fragment">
+<p>Treat <span class="math inline">\(y=y(\theta)\)</span> and differentiate both sides with respect to <span class="math inline">\(\theta\)</span>:</p>
+<p><span class="math display">\[F_y\frac{dy}{d\theta}+F_\theta=0.\]</span></p>
+</div>
+<aside class="notes">
+<p>The partial derivatives introduced just before this slide make the two channels explicit: <span class="math inline">\(F_y\)</span> is the indirect channel through <span class="math inline">\(y(\theta)\)</span>, whereas <span class="math inline">\(F_\theta\)</span> is the direct channel.</p>
 <p>[Sources] - Simon and Blume (1994), pp.&nbsp;334-341.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1057,27 +1352,26 @@ Figure&nbsp;3
           display:block!important;
       }</style></aside>
 </section>
-<section id="example-a-per-unit-tax-shifts-market-equilibrium" class="slide level2">
-<h2>Example: a per-unit tax shifts market equilibrium</h2>
-<p>Let demand and supply be</p>
-<p><span class="math display">\[Q_D=a-bp,
-\qquad
-Q_S=c+d(p-t).\]</span></p>
-<p>Equilibrium satisfies</p>
-<p><span class="math display">\[F(p,t)=a-bp-c-d(p-t)=0.\]</span></p>
+<section id="the-implicit-derivative-is-a-ratio-of-partial-effects" class="slide level2">
+<h2>The implicit derivative is a ratio of partial effects</h2>
+<p>If <span class="math inline">\(F_y\ne0\)</span>, rearrange the differentiated equation:</p>
+<p><span class="math display">\[\boxed{\frac{dy}{d\theta}=-\frac{F_\theta}{F_y}}\]</span></p>
 <div class="fragment">
-<p>Therefore,</p>
-<p><span class="math display">\[\frac{dp^*}{dt}
-=
--\frac{F_t}{F_p}
-=
-\frac{d}{b+d}&gt;0.\]</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\(F_\theta\)</span>: the direct effect of the parameter on the equation.</li>
+</ul>
 </div>
 <div class="fragment">
-<p>The consumer price rises, but generally by less than the full tax.</p>
+<ul>
+<li class="fragment"><span class="math inline">\(F_y\)</span>: the adjustment in the equation generated by changing <span class="math inline">\(y\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>The condition <span class="math inline">\(F_y\ne0\)</span> allows us to solve locally for <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(\theta\)</span>.</p>
 </div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;360-363; the linear supply-demand application is instructor-developed.</p>
+<p>This is the one-equation version of the implicit function theorem. The next slide applies it to an indifference curve.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;334-341.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1090,55 +1384,216 @@ Q_S=c+d(p-t).\]</span></p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="r-shows-the-equilibrium-before-and-after-the-tax" class="slide level2">
-<h2>R shows the equilibrium before and after the tax</h2>
-
-<img data-src="calculus_files/figure-revealjs/fig-tax-equilibrium-1.png" id="fig-tax-equilibrium" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;4
-</p><aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;360-363; figure and calibration are instructor-developed.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="comparative-statics-is-about-signs-magnitudes-and-conditions" class="slide level2 scrollable">
-<h2>Comparative statics is about signs, magnitudes, and conditions</h2>
-<p>When you derive <span class="math inline">\(dy^*/d\theta\)</span>, ask:</p>
+<section id="example-move-along-a-cobbdouglas-indifference-curve" class="slide level2 compact-example">
+<h2>Example: move along a Cobb–Douglas indifference curve</h2>
+<p>Given the utility curve, with <span class="math inline">\(u\)</span> held constant,</p>
+<p><span class="math display">\[
+u=x_1^\alpha x_2^{1-\alpha},
+\qquad 0&lt;\alpha&lt;1,
+\]</span></p>
+<p>if <span class="math inline">\(x_2\)</span> increases by one unit, how many units of <span class="math inline">\(x_1\)</span> must be given up at <span class="math inline">\(\alpha=\tfrac12\)</span> and <span class="math inline">\((x_1,x_2)=(4,2)\)</span>?</p>
 <div class="fragment">
+<p>Write <span class="math inline">\(F(x_1,x_2;u)=x_1^\alpha x_2^{1-\alpha}-u=0\)</span>:</p>
+<p><span class="math display">\[
+\frac{dx_1}{dx_2}
+=-\frac{F_{x_2}}{F_{x_1}}
+=-\frac{1-\alpha}{\alpha}\frac{x_1}{x_2}.
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\left.\frac{dx_1}{dx_2}\right|_{(4,2)}
+=-\frac{1/2}{1/2}\frac{4}{2}=-2.
+\]</span></p>
+<p>Locally, one more unit of <span class="math inline">\(x_2\)</span> requires giving up approximately <strong>two units of <span class="math inline">\(x_1\)</span></strong> to keep utility unchanged.</p>
+</div>
+<aside class="notes">
+<p>Show only the question at first. On the first click, reveal the implicit derivative. On the second click, reveal the numerical answer and its economic interpretation. Emphasize that the statement is local: it is the slope of the indifference curve at <span class="math inline">\((4,2)\)</span>.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;334-341, 544-549.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exercise-5-two-methods-for-an-implicit-derivative" class="slide level2 compact-exercise scrollable">
+<h2>Exercise 5: two methods for an implicit derivative</h2>
+<p>Suppose <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> satisfy</p>
+<p><span class="math display">\[
+x^2+xy+y^2=7.
+\]</span></p>
 <ol type="1">
-<li class="fragment"><strong>Sign:</strong> does the equilibrium rise or fall?</li>
+<li class="fragment"><p><strong>Differentiate the equation directly.</strong> Treat <span class="math inline">\(y=y(x)\)</span>, differentiate both sides with respect to <span class="math inline">\(x\)</span>, apply the product rule to <span class="math inline">\(xy\)</span>, and solve for <span class="math inline">\(dy/dx\)</span>.</p></li>
+<li class="fragment"><p><strong>Use the implicit derivative formula.</strong> Define <span class="math inline">\(F(x,y)=x^2+xy+y^2-7\)</span> and use</p>
+<p><span class="math display">\[
+\frac{dy}{dx}=-\frac{F_x}{F_y}.
+\]</span></p>
+<p>Confirm that both methods give the same expression.</p></li>
 </ol>
-</div>
+<aside class="notes">
+<p>Method 1 gives <span class="math inline">\(2x+y+x\,dy/dx+2y\,dy/dx=0\)</span>, so <span class="math inline">\(dy/dx=-(2x+y)/(x+2y)\)</span>. For Method 2, <span class="math inline">\(F_x=2x+y\)</span> and <span class="math inline">\(F_y=x+2y\)</span>, which gives the same derivative immediately.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="taylor-expansion-gives-a-local-approximation" class="slide level2 compact-taylor">
+<h2>Taylor expansion gives a local approximation</h2>
+<p>Around a point <span class="math inline">\(a\)</span>, the Taylor polynomial of order <span class="math inline">\(m\)</span> is</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_m(x)
+&amp;=\sum_{k=0}^{m}\frac{f^{(k)}(a)}{k!}(x-a)^k\\
+&amp;=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2\\
+&amp;\quad+\frac{f^{(3)}(a)}{3!}(x-a)^3
++\cdots+\frac{f^{(m)}(a)}{m!}(x-a)^m.
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(f^{(k)}(a)\)</span> means the <strong><span class="math inline">\(k\)</span>th derivative</strong> of <span class="math inline">\(f\)</span>, evaluated at <span class="math inline">\(a\)</span>; <span class="math inline">\(f^{(0)}(a)=f(a)\)</span>.</p>
 <div class="fragment">
-<ol start="2" type="1">
-<li class="fragment"><strong>Magnitude:</strong> how sensitive is the equilibrium?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li class="fragment"><strong>Mechanism:</strong> which derivative drives the result?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li class="fragment"><strong>Condition:</strong> what must be nonzero or have a particular sign?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="5" type="1">
-<li class="fragment"><strong>Scope:</strong> is the result local or global?</li>
-</ol>
+<p>Replacing <span class="math inline">\(m\)</span> by infinity gives the Taylor series</p>
+<p><span class="math display">\[\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k.\]</span></p>
+<p>The equality <span class="math inline">\(f(x)=\sum_{k=0}^\infty f^{(k)}(a)(x-a)^k/k!\)</span> holds only when this series converges to <span class="math inline">\(f\)</span>.</p>
 </div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;334-363.</p>
+<p>Do not say that every convergent function equals its Taylor series. Smoothness supports finite-order local approximation; exact infinite representation requires the Taylor series itself to converge to the function.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;827-835.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="use-the-taylor-expansion-to-approximate-e0.5" class="slide level2 compact-maclaurin">
+<h2>Use the Taylor expansion to approximate <span class="math inline">\(e^{0.5}\)</span></h2>
+<p>Because every derivative of <span class="math inline">\(e^x\)</span> equals <span class="math inline">\(e^x\)</span>, expanding around <span class="math inline">\(a=0\)</span> gives</p>
+<p><span class="math display">\[e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots.\]</span></p>
+<div class="fragment">
+<p>At <span class="math inline">\(x=0.5\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_1(0.5)&amp;=1+0.5=1.5,\\
+f_2(0.5)&amp;=1+0.5+\frac{0.5^2}{2}=1.625,\\
+f_3(0.5)&amp;=1+0.5+\frac{0.5^2}{2}+\frac{0.5^3}{6}
+\approx1.645833.
+\end{aligned}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>The true value is <span class="math inline">\(e^{0.5}\approx1.648721\)</span>; the third-order relative error is only about <span class="math inline">\(0.18\%\)</span>.</p>
+</div>
+<aside class="notes">
+<p>Ask students to calculate the three values before revealing them. The point is the approximation procedure, not memorizing the decimal value.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;827-835.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="higher-order-improves-the-approximation-near-x0.5" class="slide level2">
+<h2>Higher order improves the approximation near <span class="math inline">\(x=0.5\)</span></h2>
+
+<img data-src="calculus_files/figure-revealjs/plot-taylor-e05-1.png" style="width:88.0%" class="r-stretch"><aside class="notes">
+<p>The graph includes the expansion point <span class="math inline">\(a=0\)</span> and the target <span class="math inline">\(x=0.5\)</span>. At the target, the first three Taylor polynomials visibly approach <span class="math inline">\(e^x\)</span>, illustrating both higher-order improvement and the local nature of the approximation.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;827-835.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exercise-6-taylor-approximation-of-ln2" class="slide level2 scrollable">
+<h2>Exercise 6: Taylor approximation of <span class="math inline">\(\ln(2)\)</span></h2>
+<p>Starting from <span class="math inline">\(f(x)=\ln(1+x)\)</span>:</p>
+<ol type="1">
+<li class="fragment">Compute the derivatives needed for a third-order Taylor polynomial. <span class="math display">\[
+f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2
+\]</span></li>
+<li class="fragment">Write the third-order approximation of <span class="math inline">\(\ln(1+x)\)</span> around <span class="math inline">\(a=0\)</span>.</li>
+<li class="fragment">Set <span class="math inline">\(x=1\)</span> and use the polynomial to approximate <span class="math inline">\(\ln(2)\)</span>.</li>
+</ol>
+<aside class="notes">
+<p>The third-order polynomial is <span class="math inline">\(f_3(x)=x-x^2/2+x^3/3\)</span>, giving <span class="math inline">\(f_3(1)=5/6\)</span>. This is a useful reminder that a Taylor approximation is local and that <span class="math inline">\(x=1\)</span> lies at the boundary of the power series’ interval of convergence.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="example-the-delta-method" class="slide level2 compact-delta">
+<h2>Example: The Delta method</h2>
+<p>Suppose</p>
+<p><span class="math display">\[
+\sqrt n(\hat\theta-\theta)
+\xrightarrow{d}N(0,V).
+\]</span></p>
+<p><strong>What if we care about <span class="math inline">\(g(\hat\theta)\)</span>, not <span class="math inline">\(\hat\theta\)</span>?</strong></p>
+<div class="fragment">
+<p>First-order Taylor expansion:</p>
+<p><span class="math display">\[
+g(\hat\theta)
+\approx g(\theta)+g'(\theta)(\hat\theta-\theta).
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+g(\hat\theta)-g(\theta)
+\approx g'(\theta)(\hat\theta-\theta).
+\]</span></p>
+<p>Multiplying by <span class="math inline">\(\sqrt n\)</span>,</p>
+<p><span class="math display">\[
+\sqrt n\,[g(\hat\theta)-g(\theta)]
+\approx g'(\theta)\sqrt n(\hat\theta-\theta).
+\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[
+\boxed{
+\sqrt n\,[g(\hat\theta)-g(\theta)]
+\xrightarrow{d}
+N\!\left(0,[g'(\theta)]^2V\right)
+}.
+\]</span></p>
+</div>
+<aside class="notes">
+<p>Show the assumption and question first. Reveal the complete derivation with one click.</p>
+<p>[Sources] - Hansen (2021), pp.&nbsp;170-173.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1153,25 +1608,24 @@ Figure&nbsp;4
 </section></section>
 <section>
 <section id="optimization" class="title-slide slide level1 center">
-<h1>4. Optimization</h1>
+<h1>3. Optimization</h1>
 
 </section>
-<section id="optimization-turns-behavior-into-equations" class="slide level2">
-<h2>Optimization turns behavior into equations</h2>
-<p>An unconstrained choice problem has the form</p>
-<p><span class="math display">\[\max_x f(x).\]</span></p>
+<section id="start-with-one-choice-variable" class="slide level2">
+<h2>Start with one choice variable</h2>
+<p>Consider</p>
+<p><span class="math display">\[
+u(x)=(x-2)^2.
+\]</span></p>
 <div class="fragment">
-<p>At an interior optimum <span class="math inline">\(x^*\)</span>, a small feasible change cannot improve the objective.</p>
+<p>Where is the stationary point?</p>
 </div>
 <div class="fragment">
-<p>This intuition produces the first-order condition</p>
-<p><span class="math display">\[f'(x^*)=0.\]</span></p>
-</div>
-<div class="fragment">
-<p>But a zero derivative identifies a candidate, not automatically a maximum.</p>
+<p>Is it a maximum or a minimum? How can derivatives establish the answer?</p>
 </div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;51-57, 396-404.</p>
+<p>Show only the function first. Ask students to predict its shape and the location of the optimum before differentiating. Do not reveal the answer on this slide.</p>
+<p>[Sources] - Constructed example using the one-variable optimization method in Simon and Blume (1994), pp.&nbsp;396-401.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1184,104 +1638,49 @@ Figure&nbsp;4
           display:block!important;
       }</style></aside>
 </section>
-<section id="first-order-and-second-order-conditions-do-different-jobs" class="slide level2">
-<h2>First-order and second-order conditions do different jobs</h2>
-<p>For a one-dimensional interior optimum:</p>
+<section id="two-derivatives-locate-and-classify-the-optimum" class="slide level2 compact-one-opt">
+<h2>Two derivatives locate and classify the optimum</h2>
+<div class="columns">
+<div class="column" style="width:51%;">
+<p><strong>Step 1: first-order condition</strong></p>
+<p><span class="math display">\[
+u'(x)=2(x-2)=0
+\quad\Longrightarrow\quad x^*=2.
+\]</span></p>
 <div class="fragment">
-<ul>
-<li class="fragment"><strong>FOC:</strong> <span class="math inline">\(f'(x^*)=0\)</span> identifies stationary points.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment"><strong>SOC for a strict local maximum:</strong> <span class="math inline">\(f''(x^*)&lt;0\)</span> verifies downward curvature.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment"><strong>Global statement:</strong> concavity ensures a stationary point is a global maximum.</li>
-</ul>
-</div>
-<div class="fragment">
-<p>Boundary points must be checked separately.</p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;51-57, 396-404, 505-521.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="example-a-profit-maximizing-firm-sets-marginal-revenue-equal-to-marginal-cost" class="slide level2">
-<h2>Example: a profit-maximizing firm sets marginal revenue equal to marginal cost</h2>
-<p>Let</p>
-<p><span class="math display">\[\pi(q)=R(q)-C(q).\]</span></p>
-<div class="fragment">
-<p>The first-order condition is</p>
-<p><span class="math display">\[\pi'(q^*)=R'(q^*)-C'(q^*)=0,\]</span></p>
-<p>so</p>
-<p><span class="math display">\[MR(q^*)=MC(q^*).\]</span></p>
-</div>
-<div class="fragment">
-<p>The economic rule is the mathematical condition with labels attached.</p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;58-64, 404-410.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="a-graph-separates-the-candidate-from-the-curvature-condition" class="slide level2">
-<h2>A graph separates the candidate from the curvature condition</h2>
-
-<img data-src="calculus_files/figure-revealjs/fig-profit-max-1.png" id="fig-profit-max" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;5
-</p><aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;58-64, 396-410; calibration is instructor-developed.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="in-several-dimensions-the-gradient-must-vanish" class="slide level2">
-<h2>In several dimensions, the gradient must vanish</h2>
-<p>For</p>
-<p><span class="math display">\[\max_{x\in\mathbb R^n} f(x),\]</span></p>
-<p>an interior optimum satisfies</p>
-<p><span class="math display">\[\nabla f(x^*)=0.\]</span></p>
-<div class="fragment">
-<p>For two variables, this is a system:</p>
-<p><span class="math display">\[f_{x_1}(x_1^*,x_2^*)=0,
+<p><strong>Step 2: second-order condition</strong></p>
+<p><span class="math display">\[
+u''(x)=2,
 \qquad
-f_{x_2}(x_1^*,x_2^*)=0.\]</span></p>
+u''(2)&gt;0.
+\]</span></p>
+<p>Therefore, <span class="math inline">\(x^*=2\)</span> is a <strong>strict local minimum</strong>.</p>
 </div>
 <div class="fragment">
-<p>The Hessian then provides the local curvature test.</p>
+<p>At a stationary point <span class="math inline">\(x^*\)</span>:</p>
+<p><span class="math display">\[
+\begin{array}{c|c}
+u''(x^*)&gt;0 &amp; \text{strict local minimum}\\
+u''(x^*)&lt;0 &amp; \text{strict local maximum}\\
+u''(x^*)=0 &amp; \text{test is inconclusive}
+\end{array}
+\]</span></p>
 </div>
+</div><div class="column" style="width:49%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="calculus_files/figure-revealjs/plot-one-variable-optimization-1.png" class="quarto-figure quarto-figure-center" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;396-404.</p>
+<p>The first derivative identifies a stationary candidate; the second derivative classifies its local curvature. The red horizontal segment represents the zero-slope tangent at the minimum. Mention that this quadratic is also globally minimized at <span class="math inline">\(x=2\)</span> because it is nonnegative for every <span class="math inline">\(x\)</span>.</p>
+<p>Transition: in several variables, the gradient replaces the first derivative and the Hessian replaces the second derivative.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;396-401; figure generated in R.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1294,20 +1693,33 @@ f_{x_2}(x_1^*,x_2^*)=0.\]</span></p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="a-constraint-changes-which-directions-are-feasible" class="slide level2">
-<h2>A constraint changes which directions are feasible</h2>
-<p>Consumer choice has the form</p>
-<p><span class="math display">\[\max_{x_1,x_2} u(x_1,x_2)
-\quad\text{s.t.}\quad
-p_1x_1+p_2x_2=m.\]</span></p>
-<div class="fragment">
-<p>At an interior optimum, the highest attainable indifference curve is tangent to the budget line.</p>
-</div>
-<div class="fragment">
-<p>The constraint means we cannot perturb <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> independently.</p>
-</div>
+<section id="exercise-7-classify-the-stationary-points" class="slide level2 compact-exercise scrollable">
+<h2>Exercise 7: classify the stationary points</h2>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>Consider</p>
+<p><span class="math display">\[
+f(x)=x^3-3x.
+\]</span></p>
+<ol type="1">
+<li class="fragment">Find all stationary points.</li>
+<li class="fragment">Compute <span class="math inline">\(f''(x)\)</span>.</li>
+<li class="fragment">Use the second-order condition to classify each stationary point.</li>
+</ol>
+</div><div class="column rule-reference" style="width:43%;">
+<p><strong>Second-order condition</strong></p>
+<p>At a stationary point <span class="math inline">\(x^*\)</span>:</p>
+<p><span class="math display">\[
+\begin{array}{c|c}
+f''(x^*)&gt;0 &amp; \text{strict local minimum}\\
+f''(x^*)&lt;0 &amp; \text{strict local maximum}\\
+f''(x^*)=0 &amp; \text{test is inconclusive}
+\end{array}
+\]</span></p>
+</div></div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;5-9, 232-233, 411-423, 544-556.</p>
+<p>The first-order condition is <span class="math inline">\(f'(x)=3x^2-3=3(x-1)(x+1)=0\)</span>, so the stationary points are <span class="math inline">\(x=-1\)</span> and <span class="math inline">\(x=1\)</span>. Since <span class="math inline">\(f''(x)=6x\)</span>, <span class="math inline">\(f''(-1)=-6&lt;0\)</span> and <span class="math inline">\(f''(1)=6&gt;0\)</span>. Therefore <span class="math inline">\(x=-1\)</span> is a strict local maximum, with <span class="math inline">\(f(-1)=2\)</span>, and <span class="math inline">\(x=1\)</span> is a strict local minimum, with <span class="math inline">\(f(1)=-2\)</span>. Neither is a global extremum because the cubic is unbounded above and below.</p>
+<p>[Sources] - Constructed exercise using the one-variable second-order test in Simon and Blume (1994), pp.&nbsp;396-401.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1320,23 +1732,189 @@ p_1x_1+p_2x_2=m.\]</span></p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-lagrangian-incorporates-the-constraint" class="slide level2">
-<h2>The Lagrangian incorporates the constraint</h2>
-<p>Write</p>
-<p><span class="math display">\[\mathcal L(x_1,x_2,\lambda)
-=
+<section class="slide level2">
+
+
+<img data-src="calculus_files/figure-revealjs/plot-one-variable-exercise-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:92.0%"><aside class="notes">
+<p>Reveal this graph after students classify the two stationary points. Connect the negative second derivative at <span class="math inline">\(x=-1\)</span> to downward curvature and the positive second derivative at <span class="math inline">\(x=1\)</span> to upward curvature.</p>
+<p>[Sources] - Figure generated in R from the constructed Exercise 7 function.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="example-choosing-two-consumption-goods" class="slide level2">
+<h2>Example: choosing two consumption goods</h2>
+<p>A consumer has two goods, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, and must decide how much of each good to consume in order to maximize utility:</p>
+<p><span class="math display">\[
 u(x_1,x_2)
-+\lambda(m-p_1x_1-p_2x_2).\]</span></p>
+=8x_1+2x_2-x_1^2-x_2^2.
+\]</span></p>
+<aside class="notes">
+<p>Introduce only the consumer’s choice problem here: two goods and one objective, utility maximization. Save the calculus for the next slide.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;396-423; example is instructor-developed.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="unconstrained-optimization-two-steps" class="slide level2">
+<h2>Unconstrained optimization: two steps</h2>
+<p>Consider</p>
+<p><span class="math display">\[
+\max_{x_1,x_2}\;u(x_1,x_2).
+\]</span></p>
 <div class="fragment">
-<p>The first-order conditions are</p>
-<p><span class="math display">\[u_{x_1}-\lambda p_1=0,
+<p><strong>Step 1. Write one first-order condition for each choice direction</strong></p>
+<p><span class="math display">\[
+\frac{\partial u}{\partial x_1}=0,
 \qquad
-u_{x_2}-\lambda p_2=0,
-\qquad
-m-p_1x_1-p_2x_2=0.\]</span></p>
+\frac{\partial u}{\partial x_2}=0.
+\]</span></p>
 </div>
 <div class="fragment">
-<p>These equations jointly determine <span class="math inline">\(x_1^*\)</span>, <span class="math inline">\(x_2^*\)</span>, and <span class="math inline">\(\lambda^*\)</span>.</p>
+<p><strong>Step 2. Solve the two equations simultaneously</strong>, then use the Hessian to verify the maximum.</p>
+</div>
+<aside class="notes">
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;396-410.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="step-2-use-the-hessian-to-classify-the-solution" class="slide level2 compact-hessian">
+<h2>Step 2: use the Hessian to classify the solution</h2>
+<p>For a twice-differentiable function of two variables, let</p>
+<p><span class="math display">\[
+D=\det(H_f)=f_{x_1x_1}f_{x_2x_2}-f_{x_1x_2}^2.
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{array}{c|c}
+\text{Hessian condition at }\nabla f=0 &amp; \text{Conclusion}\\ \hline
+D&gt;0,\ f_{x_1x_1}&gt;0 &amp; \text{strict local minimum}\\
+D&gt;0,\ f_{x_1x_1}&lt;0 &amp; \text{strict local maximum}\\
+D&lt;0 &amp; \text{saddle point}\\
+D=0 &amp; \text{test is inconclusive}
+\end{array}
+\]</span></p>
+</div>
+<aside class="notes">
+<p>Place this test immediately after Step 2 so students see that solving the FOCs produces only a candidate. For a symmetric <span class="math inline">\(2\times2\)</span> Hessian, the determinant test supplies the second-order classification.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;375-410.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="apply-the-two-unconstrained-steps" class="slide level2">
+<h2>Apply the two unconstrained steps</h2>
+<div class="fragment">
+<p><strong>Step 1:</strong></p>
+<p><span class="math display">\[
+u(x_1,x_2)
+=8x_1+2x_2-x_1^2-x_2^2\\
+\frac{\partial u}{\partial x_1}=0,
+\qquad
+\frac{\partial u}{\partial x_2}=0\\
+8-2x_1=0,
+\qquad
+2-2x_2=0.
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 2:</strong></p>
+<p><span class="math display">\[
+\boxed{(x_1^*,x_2^*)=(4,1)},
+\qquad
+u(x_1^*,x_2^*)=17.
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+D=4&gt;0,
+\qquad
+u_{x_1x_1}=-2&lt;0.
+\]</span></p>
+<p>Therefore the candidate is a strict maximum.</p>
+</div>
+<aside class="notes">
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;396-410.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="at-the-peak-both-directional-slopes-are-zero" class="slide level2">
+<h2>At the peak, both directional slopes are zero</h2>
+
+<img data-src="calculus_files/figure-revealjs/plot-unconstrained-3d-1.png" style="width:86.0%" class="r-stretch"><aside class="notes">
+<p>The blue cross-section varies <span class="math inline">\(x_1\)</span> while holding <span class="math inline">\(x_2=1\)</span>. The green cross-section varies <span class="math inline">\(x_2\)</span> while holding <span class="math inline">\(x_1=4\)</span>. Both curves are flat at the red point.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;396-410; figure is instructor-developed in R.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="constrained-optimization-two-steps" class="slide level2">
+<h2>Constrained optimization: two steps</h2>
+<p>Now suppose each good has its own price, <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span>, and the consumer has wealth <span class="math inline">\(w\)</span>. If all wealth is spent, the problem becomes:</p>
+<p><span class="math display">\[
+\text{max }u(x_1,x_2)
+=8x_1+2x_2-x_1^2-x_2^2\\
+s.t \quad p_1x_1+p_2x_2=w.
+\]</span></p>
+<div class="fragment">
+<p><strong>Step 1. Build the Lagrangian</strong></p>
+<p><span class="math display">\[
+\mathcal L(x_1,x_2,\lambda)
+=u(x_1,x_2)+\lambda(w-p_1x_1-p_2x_2).
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 2. Differentiate with respect to <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, and <span class="math inline">\(\lambda\)</span>; then solve the three equations simultaneously.</strong></p>
 </div>
 <aside class="notes">
 <p>[Sources] - Simon and Blume (1994), pp.&nbsp;411-423.</p>
@@ -1352,50 +1930,38 @@ m-p_1x_1-p_2x_2=0.\]</span></p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="tangency-equates-marginal-benefit-per-dollar" class="slide level2">
-<h2>Tangency equates marginal benefit per dollar</h2>
-<p>Dividing the first two conditions gives</p>
-<p><span class="math display">\[\frac{u_{x_1}}{u_{x_2}}
-=
-\frac{p_1}{p_2}.\]</span></p>
-<p>Equivalently,</p>
-<p><span class="math display">\[\frac{u_{x_1}}{p_1}
-=
-\frac{u_{x_2}}{p_2}
-=\lambda.\]</span></p>
+<section id="apply-the-two-constrained-steps" class="slide level2">
+<h2>Apply the two constrained steps</h2>
 <div class="fragment">
-<p>At an interior optimum, the last dollar spent on either good generates the same marginal utility.</p>
+<p><strong>Step 1:</strong></p>
+<p>For the numerical example, let <span class="math inline">\(p_1=p_2=1\)</span> and <span class="math inline">\(w=4\)</span>:</p>
+<p><span class="math display">\[
+\mathcal L
+=8x_1+2x_2-x_1^2-x_2^2
++\lambda(4-x_1-x_2).
+\]</span></p>
 </div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;411-423, 544-556.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="worked-example-cobb-douglas-demand" class="slide level2">
-<h2>Worked example: Cobb-Douglas demand</h2>
-<p>Let</p>
-<p><span class="math display">\[u(x_1,x_2)=x_1^\alpha x_2^{1-\alpha},
-\qquad 0&lt;\alpha&lt;1.\]</span></p>
 <div class="fragment">
-<p>Solving the FOCs and the budget constraint gives</p>
-<p><span class="math display">\[x_1^*=\frac{\alpha m}{p_1},
+<p><strong>Step 2:</strong></p>
+<p><span class="math display">\[
+8-2x_1-\lambda=0,
 \qquad
-x_2^*=\frac{(1-\alpha)m}{p_2}.\]</span></p>
+2-2x_2-\lambda=0,
+\qquad
+x_1+x_2=4.
+\]</span></p>
 </div>
 <div class="fragment">
-<p>The consumer spends a constant share <span class="math inline">\(\alpha\)</span> on good 1 and <span class="math inline">\(1-\alpha\)</span> on good 2.</p>
+<p>Solving gives</p>
+<p><span class="math display">\[
+\boxed{(x_1^*,x_2^*)=(3.5,0.5)},
+\qquad
+\lambda^*=1.
+\]</span></p>
 </div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;411-423, 544-556.</p>
+<p>Subtract the first two FOCs to obtain <span class="math inline">\(x_1-x_2=3\)</span>, then combine this with <span class="math inline">\(x_1+x_2=4\)</span>.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;411-423.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1408,23 +1974,43 @@ x_2^*=\frac{(1-\alpha)m}{p_2}.\]</span></p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-multiplier-is-a-shadow-value" class="slide level2">
-<h2>The multiplier is a shadow value</h2>
-<p>Let the value function be</p>
-<p><span class="math display">\[V(m)=\max_x f(x)
-\quad\text{s.t.}\quad g(x)=m.\]</span></p>
+<section id="the-bordered-hessian-classifies-the-constrained-solution" class="slide level2 compact-soc">
+<h2>The bordered Hessian classifies the constrained solution</h2>
+<p>For one equality constraint <span class="math inline">\(g(x_1,x_2)=0\)</span>, form</p>
+<p><span class="math display">\[
+B=
+\begin{bmatrix}
+0 &amp; g_{x_1} &amp; g_{x_2}\\
+g_{x_1} &amp; \mathcal L_{x_1x_1} &amp; \mathcal L_{x_1x_2}\\
+g_{x_2} &amp; \mathcal L_{x_2x_1} &amp; \mathcal L_{x_2x_2}
+\end{bmatrix}.
+\]</span></p>
 <div class="fragment">
-<p>Under regularity conditions,</p>
-<p><span class="math display">\[\frac{dV(m)}{dm}=\lambda^*.\]</span></p>
+<p>With two choice variables and one equality constraint,</p>
+<p><span class="math display">\[
+\begin{array}{rcl}
+\det(B)&gt;0 &amp;\Rightarrow&amp; \text{strict constrained maximum},\\
+\det(B)&lt;0 &amp;\Rightarrow&amp; \text{strict constrained minimum}.
+\end{array}
+\]</span> If <span class="math inline">\(\det(B)=0\)</span>, the test is inconclusive.</p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(\lambda^*\)</span> measures how much the optimized objective changes when the constraint is relaxed by one unit.</p>
-</div>
-<div class="fragment">
-<p>Examples: marginal utility of income, value of capacity, or value of a policy resource.</p>
+<p>Here <span class="math inline">\(g=4-x_1-x_2\)</span> and <span class="math inline">\(H_{\mathcal L}=-2I\)</span>, so</p>
+<p><span class="math display">\[
+B=
+\begin{bmatrix}
+0&amp;-1&amp;-1\\
+-1&amp;-2&amp;\phantom{-}0\\
+-1&amp;\phantom{-}0&amp;-2
+\end{bmatrix},
+\qquad
+\det(B)=4&gt;0.
+\]</span></p>
+<p>Therefore <span class="math inline">\((3.5,0.5)\)</span> is a strict constrained maximum.</p>
 </div>
 <aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;448-456.</p>
+<p>For the convention <span class="math inline">\(g(x)=0\)</span>, the bordered Hessian uses the gradient of the constraint as its border and the Hessian of the Lagrangian as its lower-right block. In the two-variable, one-constraint case, a positive determinant gives a constrained maximum and a negative determinant gives a constrained minimum.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;411-423.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1437,267 +2023,111 @@ x_2^*=\frac{(1-\alpha)m}{p_2}.\]</span></p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-envelope-theorem-avoids-differentiating-the-optimizer" class="slide level2">
-<h2>The envelope theorem avoids differentiating the optimizer</h2>
-<p>Suppose</p>
-<p><span class="math display">\[V(\theta)=\max_x f(x,\theta).\]</span></p>
-<p>At an interior optimum,</p>
-<p><span class="math display">\[\frac{dV}{d\theta}
-=
-f_x(x^*,\theta)\frac{dx^*}{d\theta}
-+f_\theta(x^*,\theta).\]</span></p>
-<div class="fragment">
-<p>Because <span class="math inline">\(f_x(x^*,\theta)=0\)</span>,</p>
-<p><span class="math display">\[\boxed{\frac{dV}{d\theta}=f_\theta(x^*,\theta)}.\]</span></p>
-</div>
-<div class="fragment">
-<p>At the optimum, the indirect effect through the optimizing choice vanishes to first order.</p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;453-456.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="one-calculus-toolkit-appears-across-the-phd-core" class="slide level2">
-<h2>One calculus toolkit appears across the PhD core</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Tool</th>
-<th>Microeconomics</th>
-<th>Macroeconomics</th>
-<th>Econometrics</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Derivative</td>
-<td>marginal utility</td>
-<td>growth rates</td>
-<td>score function</td>
-</tr>
-<tr class="even">
-<td>Gradient</td>
-<td>FOCs</td>
-<td>equilibrium systems</td>
-<td>normal equations</td>
-</tr>
-<tr class="odd">
-<td>Hessian</td>
-<td>concavity</td>
-<td>local dynamics</td>
-<td>information matrix</td>
-</tr>
-<tr class="even">
-<td>IFT</td>
-<td>demand responses</td>
-<td>policy comparative statics</td>
-<td>estimator sensitivity</td>
-</tr>
-<tr class="odd">
-<td>Taylor expansion</td>
-<td>welfare approximation</td>
-<td>log-linearization</td>
-<td>delta method</td>
-</tr>
-<tr class="even">
-<td>Optimization</td>
-<td>consumer/firm choice</td>
-<td>planner problem</td>
-<td>MLE/GMM</td>
-</tr>
-</tbody>
-</table>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), Chapters 14-19. - Hansen (2021), pp.&nbsp;170-173, 192-217.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="common-mistakes-to-catch-early" class="slide level2">
-<h2>Common mistakes to catch early</h2>
-<div class="fragment">
-<ul>
-<li class="fragment">Treating a partial derivative as if every other variable also changes.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">Forgetting the inner derivative in the chain rule.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">Treating a first-order condition as proof of a maximum.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">Ignoring boundary or corner solutions.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">Interpreting a local comparative-static result as a global theorem.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">Reporting a derivative without units or economic interpretation.</li>
-</ul>
-</div>
-</section>
-<section id="practice-connect-the-tools" class="slide level2 scrollable">
-<h2>Practice: connect the tools</h2>
-<p>Consider a competitive firm with production <span class="math inline">\(q=\sqrt{L}\)</span>, output price <span class="math inline">\(p\)</span>, and wage <span class="math inline">\(w\)</span>.</p>
-<p><span class="math display">\[\pi(L)=p\sqrt L-wL.\]</span></p>
-<div class="fragment">
-<ol type="1">
-<li class="fragment">Derive the firm’s labor demand <span class="math inline">\(L^*(p,w)\)</span>.</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li class="fragment">Determine the sign of <span class="math inline">\(\partial L^*/\partial w\)</span>.</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li class="fragment">Find the optimized profit <span class="math inline">\(\pi^*(p,w)\)</span>.</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li class="fragment">Use the envelope theorem to find <span class="math inline">\(\partial\pi^*/\partial w\)</span>.</li>
-</ol>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;396-410, 453-456, 557-564.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="practice-solution" class="slide level2">
-<h2>Practice solution</h2>
-<p>The FOC is</p>
-<p><span class="math display">\[\frac{p}{2\sqrt L}-w=0,\]</span></p>
-<p>so</p>
-<p><span class="math display">\[L^*(p,w)=\frac{p^2}{4w^2}.\]</span></p>
-<div class="fragment">
-<p>Therefore,</p>
-<p><span class="math display">\[\frac{\partial L^*}{\partial w}
-=-\frac{p^2}{2w^3}&lt;0.\]</span></p>
-</div>
-<div class="fragment">
-<p>The optimized profit is</p>
-<p><span class="math display">\[\pi^*(p,w)=\frac{p^2}{4w}.\]</span></p>
-</div>
-</section>
-<section id="the-envelope-check" class="slide level2">
-<h2>The envelope check</h2>
-<p>Direct differentiation gives</p>
-<p><span class="math display">\[\frac{\partial\pi^*}{\partial w}
-=-\frac{p^2}{4w^2}.\]</span></p>
-<div class="fragment">
-<p>The envelope theorem gives the same answer immediately:</p>
-<p><span class="math display">\[\frac{\partial\pi^*}{\partial w}
-=
-\left.
-\frac{\partial\pi(L;p,w)}{\partial w}
-\right|_{L=L^*}
-=-L^*
-=-\frac{p^2}{4w^2}.\]</span></p>
-</div>
-<div class="fragment">
-<p>Economic interpretation: a marginal wage increase reduces optimized profit by the firm’s optimal labor demand.</p>
-</div>
-<aside class="notes">
-<p>[Sources] - Simon and Blume (1994), pp.&nbsp;453-456, 557-564.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="exit-ticket" class="slide level2 scrollable">
-<h2>Exit ticket</h2>
-<p>In one sentence or one equation, answer each question.</p>
-<div class="fragment">
-<ol type="1">
-<li class="fragment">What is the difference between a partial derivative and a total derivative?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li class="fragment">What additional condition turns an FOC candidate into a maximum?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li class="fragment">What does <span class="math inline">\(-F_\theta/F_y\)</span> measure?</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li class="fragment">What is the economic meaning of a Lagrange multiplier?</li>
-</ol>
-</div>
-</section>
-<section id="keep-this-mental-map" class="slide level2">
-<h2>Keep this mental map</h2>
-<p><span class="math display">\[\boxed{
-\begin{array}{c}
-\text{Derivative}=\text{marginal change}\\[3pt]
-\text{Gradient}=\text{all marginal changes}\\[3pt]
-\text{Hessian}=\text{curvature}\\[3pt]
-\text{IFT}=\text{equilibrium response}\\[3pt]
-\text{FOC + curvature}=\text{optimal choice}
-\end{array}}\]</span></p>
-<div class="fragment">
-<p>The goal is not to memorize isolated formulas. It is to recognize which economic question each object answers.</p>
-</div>
-</section>
-<section class="slide level2">
+<section id="the-constraint-restricts-the-search-to-a-plane" class="slide level2">
+<h2>The constraint restricts the search to a plane</h2>
 
-<p><strong>Questions?</strong></p>
-<p>Primary reference: Simon and Blume, <em>Mathematics for Economists</em>, Chapters 2-5 and 13-19.</p>
+<img data-src="calculus_files/figure-revealjs/plot-equality-3d-1.png" style="width:86.0%" class="r-stretch"><aside class="notes">
+<p>The yellow vertical plane is the equality constraint <span class="math inline">\(p_1x_1+p_2x_2=w\)</span>, shown here with <span class="math inline">\(p_1=p_2=1\)</span> and <span class="math inline">\(w=4\)</span>. The blue curve is its intersection with the utility surface. The red point is the highest point on that feasible curve.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;411-423; figure is instructor-developed in R.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="karushkuhntucker-kkt-conditions" class="slide level2 compact-kkt">
+<h2>Karush–Kuhn–Tucker (KKT) conditions</h2>
+<p>What if the consumer does <strong>not necessarily spend all available wealth</strong>?</p>
+<p><span class="math display">\[
+p_1x_1+p_2x_2\le w,
+\qquad
+x_1,x_2\ge0.
+\]</span></p>
+<div class="fragment">
+<p>With <span class="math inline">\(\mathcal L=u+\lambda(w-p_1x_1-p_2x_2)+\mu_1x_1+\mu_2x_2\)</span>, the complete KKT conditions are</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Stationarity:}\quad
+&amp;u_{x_1}-\lambda p_1+\mu_1=0,
+&amp;&amp;u_{x_2}-\lambda p_2+\mu_2=0;\\
+\text{Primal feasibility:}\quad
+&amp;w-p_1x_1-p_2x_2\ge0,
+&amp;&amp;x_1,x_2\ge0;\\
+\text{Dual feasibility:}\quad
+&amp;\lambda\ge0,
+&amp;&amp;\mu_1,\mu_2\ge0;\\
+\text{Complementary slackness:}\quad
+&amp;\lambda(w-p_1x_1-p_2x_2)=0,
+&amp;&amp;\mu_1x_1=\mu_2x_2=0.
+\end{aligned}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Complementary slackness identifies which constraints bind and permits corner solutions.</p>
+</div>
+<aside class="notes">
+<p>Do not solve the KKT system in this introductory lecture. The purpose is only to show how the method extends the Lagrangian when constraints are inequalities or nonnegativity can bind.</p>
+<p>[Sources] - Simon and Blume (1994), pp.&nbsp;424-447.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exercise-8-unconstrained-and-constrained-optimization" class="slide level2 compact-exercise scrollable">
+<h2>Exercise 8: unconstrained and constrained optimization</h2>
+<p>Consider</p>
+<p><span class="math display">\[
+f(x_1,x_2)=(x_1^2-1)^2+x_2^2.
+\]</span></p>
+<ol type="1">
+<li class="fragment"><p><strong>Unconstrained problem:</strong> find all stationary points. You should obtain <strong>three points</strong>. Use the second-order condition to classify each as a local maximum, local minimum, or saddle point.</p></li>
+<li class="fragment"><p><strong>Constrained problem:</strong> optimize the same function subject to</p>
+<p><span class="math display">\[x_2=x_1.\]</span></p>
+<p>Find all Lagrangian candidates. Do <strong>not</strong> construct a bordered Hessian. Plug the candidate points back into the objective function and compare their values to determine the maximum and minimum.</p></li>
+</ol>
+<aside class="notes">
+<p>The first-order conditions are <span class="math inline">\(4x_1(x_1^2-1)=0\)</span> and <span class="math inline">\(2x_2=0\)</span>, giving <span class="math inline">\((-1,0)\)</span>, <span class="math inline">\((0,0)\)</span>, and <span class="math inline">\((1,0)\)</span>. The Hessian is diagonal with entries <span class="math inline">\(12x_1^2-4\)</span> and <span class="math inline">\(2\)</span>. Thus <span class="math inline">\((\pm1,0)\)</span> are strict local minima, while <span class="math inline">\((0,0)\)</span> is a saddle point.</p>
+<p>Under <span class="math inline">\(x_2=x_1\)</span>, write <span class="math inline">\(x_1=x_2=t\)</span>. The restricted objective is <span class="math inline">\(\phi(t)=f(t,t)=t^4-t^2+1\)</span>, so <span class="math inline">\(\phi'(t)=2t(2t^2-1)=0\)</span>. The three constrained candidates are <span class="math inline">\((0,0)\)</span> and <span class="math inline">\((\pm1/\sqrt{2},\pm1/\sqrt{2})\)</span>, with matching signs. Because <span class="math inline">\(\phi''(t)=12t^2-2\)</span>, <span class="math inline">\((0,0)\)</span> is a constrained local maximum, where <span class="math inline">\(f=1\)</span>, while the other two points are constrained local and global minima, where <span class="math inline">\(f=3/4\)</span>. There is no constrained global maximum because <span class="math inline">\(\phi(t)\to\infty\)</span> as <span class="math inline">\(|t|\to\infty\)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="any-questions" class="slide level2 center">
+<h2>Any questions?</h2>
+<aside class="notes">
+<p>Use this final slide to revisit any exercise or mathematical tool that students want to discuss.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div class="quarto-auto-generated-content">
 <p><img src="eppslogo.png" class="slide-logo"></p>
 <div class="footer footer-default">
