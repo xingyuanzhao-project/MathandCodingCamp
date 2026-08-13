@@ -8,7 +8,7 @@
 <link href="pre-calculus_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="pre-calculus_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="pre-calculus_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Instructor: Jonathan Kaufman">
   <title>EPPS Math and Coding Camp</title>
@@ -159,7 +159,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -344,17 +345,17 @@ Instructor: Jonathan Kaufman
 <section class="slide level2">
 
 
-<img data-src="check_in_form.png" data-out-width="100%" class="r-stretch quarto-figure-center"></section>
+<img data-src="check_in_form.png" class="quarto-figure quarto-figure-center r-stretch" data-out-width="100%"></section>
 <section id="algebraic-operations" class="slide level2">
 <h2>2.1 ALgebraic operations</h2>
 <div class="fragment">
 <ul>
-<li><strong>PEMDAS</strong> is the order of operations for all mathematics, starting with whatever is inside the parentheses or brackets <span class="math inline">\((\cdot), [\cdot]\)</span>, then any exponents <span class="math inline">\((\cdot)^n\)</span>, then multiplication and division, and finally addition and subtraction.</li>
+<li class="fragment"><strong>PEMDAS</strong> is the order of operations for all mathematics, starting with whatever is inside the parentheses or brackets <span class="math inline">\((\cdot), [\cdot]\)</span>, then any exponents <span class="math inline">\((\cdot)^n\)</span>, then multiplication and division, and finally addition and subtraction.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>not following PEMDAS will yield incorrect answers fro example <span class="math inline">\(9+7\times8 +2^2+3\times0\)</span> is different then <span class="math inline">\(9+(7\times8+2)^2 +(3\times0)\)</span> which is different from <span class="math inline">\((9+7)\times(8+2^2+3)\times0\)</span></li>
+<li class="fragment">not following PEMDAS will yield incorrect answers fro example <span class="math inline">\(9+7\times8 +2^2+3\times0\)</span> is different then <span class="math inline">\(9+(7\times8+2)^2 +(3\times0)\)</span> which is different from <span class="math inline">\((9+7)\times(8+2^2+3)\times0\)</span></li>
 </ul>
 </div>
 </section>
@@ -363,27 +364,27 @@ Instructor: Jonathan Kaufman
 <h3 id="ratios-proportions-and-percentages">Ratios, Proportions, and Percentages</h3>
 <div class="fragment">
 <ul>
-<li>The <strong>ratio</strong> of two quantities is one divided by the other <span class="math inline">\(\frac{x}{y}\)</span> is the ratio of x to y. Ratios are also written as <span class="math inline">\(x:y\)</span>. <br></li>
+<li class="fragment">The <strong>ratio</strong> of two quantities is one divided by the other <span class="math inline">\(\frac{x}{y}\)</span> is the ratio of x to y. Ratios are also written as <span class="math inline">\(x:y\)</span>. <br></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Though a ratio may be negative, we typically consider ratio variables that range from <span class="math inline">\(0\)</span> to <span class="math inline">\(\infty\)</span>. <br></li>
+<li class="fragment">Though a ratio may be negative, we typically consider ratio variables that range from <span class="math inline">\(0\)</span> to <span class="math inline">\(\infty\)</span>. <br></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>The <strong>proportion</strong> of two variables, on the other hand, is the amount one variable represents of the sum of itself and a second variable: <span class="math inline">\(|\frac{x}{x+y}|\)</span>. A proportion ranges from a minimum of <span class="math inline">\(0\)</span> to a maximum of <span class="math inline">\(1\)</span>. <br></li>
+<li class="fragment">The <strong>proportion</strong> of two variables, on the other hand, is the amount one variable represents of the sum of itself and a second variable: <span class="math inline">\(|\frac{x}{x+y}|\)</span>. A proportion ranges from a minimum of <span class="math inline">\(0\)</span> to a maximum of <span class="math inline">\(1\)</span>. <br></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>in social science we sommonly focus on proportions such as the proportion of voters, or proportion of a budget and how it is used.</li>
+<li class="fragment">in social science we sommonly focus on proportions such as the proportion of voters, or proportion of a budget and how it is used.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>The <strong>percentage</strong> one variable represents of a total is the proportion represented over the range from <span class="math inline">\(0\)</span> to <span class="math inline">\(100\)</span>: <span class="math inline">\(|\frac{x}{x+y}| \times 100 \%\)</span>.</li>
+<li class="fragment">The <strong>percentage</strong> one variable represents of a total is the proportion represented over the range from <span class="math inline">\(0\)</span> to <span class="math inline">\(100\)</span>: <span class="math inline">\(|\frac{x}{x+y}| \times 100 \%\)</span>.</li>
 </ul>
 </div>
 </section>
@@ -391,12 +392,12 @@ Instructor: Jonathan Kaufman
 <h2>2.2 FUNCTIONS</h2>
 <div class="fragment">
 <ul>
-<li>A relation that assigns one element of the range to each element of the domain is a <strong>function</strong>.</li>
+<li class="fragment">A relation that assigns one element of the range to each element of the domain is a <strong>function</strong>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>One that assigns a subset of the range to each element of the domain is a <strong>correspondence</strong>.</li>
+<li class="fragment">One that assigns a subset of the range to each element of the domain is a <strong>correspondence</strong>.</li>
 </ul>
 </div>
 </section>
@@ -405,14 +406,14 @@ Instructor: Jonathan Kaufman
 <h3 id="equations">2.2.1 Equations</h3>
 <div class="fragment">
 <ul>
-<li><strong>implicit</strong> notation <span class="math display">\[
+<li class="fragment"><strong>implicit</strong> notation <span class="math display">\[
 y=f(x)
 \]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>explicit</strong> notation</li>
+<li class="fragment"><strong>explicit</strong> notation</li>
 </ul>
 <p>Example: <span class="math inline">\(y=3x\)</span></p>
 <p><span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span>;<br> <span class="math inline">\(x\)</span> is the argument of the function</p>
@@ -423,11 +424,15 @@ y=f(x)
 <h3 id="graphs">2.2.2 Graphs</h3>
 <div class="fragment">
 <ul>
-<li>graph of <span class="math inline">\(y = 3x\)</span></li>
+<li class="fragment">graph of <span class="math inline">\(y = 3x\)</span></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="pre-calculus_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -437,17 +442,17 @@ y=f(x)
 <h3 id="some-properties-of-functions">2.2.3 Some Properties of Functions</h3>
 <div class="fragment">
 <ul>
-<li>We define the function <span class="math inline">\(f\)</span> as <span class="math inline">\(f(x) : A \rightarrow B\)</span>. This is often read as “<span class="math inline">\(f\)</span> maps <span class="math inline">\(A\)</span> into <span class="math inline">\(B\)</span>.” <span class="math inline">\(A\)</span> here is the <strong>domain</strong> of the function, <span class="math inline">\(B\)</span> is known as the <strong>codomain</strong>.</li>
+<li class="fragment">We define the function <span class="math inline">\(f\)</span> as <span class="math inline">\(f(x) : A \rightarrow B\)</span>. This is often read as “<span class="math inline">\(f\)</span> maps <span class="math inline">\(A\)</span> into <span class="math inline">\(B\)</span>.” <span class="math inline">\(A\)</span> here is the <strong>domain</strong> of the function, <span class="math inline">\(B\)</span> is known as the <strong>codomain</strong>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>The set of all values actually reached by running each <span class="math inline">\(x \in A\)</span> through <span class="math inline">\(f\)</span> is known as the <strong>image</strong>, or <strong>range</strong>, and it is necessarily a subset of <strong>B</strong>.</li>
+<li class="fragment">The set of all values actually reached by running each <span class="math inline">\(x \in A\)</span> through <span class="math inline">\(f\)</span> is known as the <strong>image</strong>, or <strong>range</strong>, and it is necessarily a subset of <strong>B</strong>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>function composition</strong>: <span class="math inline">\(g \circ f(x)\)</span> or <span class="math inline">\(g(f(x))\)</span></li>
+<li class="fragment"><strong>function composition</strong>: <span class="math inline">\(g \circ f(x)\)</span> or <span class="math inline">\(g(f(x))\)</span></li>
 </ul>
 </div>
 </section>
@@ -456,18 +461,18 @@ y=f(x)
 <h3 id="function-composition">2.2.3 Function Composition</h3>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(g \circ f(x) = g(f(x))\)</span> is read as g of f of x</li>
+<li class="fragment"><span class="math inline">\(g \circ f(x) = g(f(x))\)</span> is read as g of f of x</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Example:
+<li class="fragment">Example:
 <ul>
-<li>if <span class="math inline">\(f(n) = 2n , g(n) = n^3\)</span></li>
-<li>then <span class="math inline">\(g(f(n)) = (2n)^3 = 8n^3\)</span></li>
-<li>and <span class="math inline">\(f(g(n)) = 2(n^3) = 2n^3\)</span></li>
+<li class="fragment">if <span class="math inline">\(f(n) = 2n , g(n) = n^3\)</span></li>
+<li class="fragment">then <span class="math inline">\(g(f(n)) = (2n)^3 = 8n^3\)</span></li>
+<li class="fragment">and <span class="math inline">\(f(g(n)) = 2(n^3) = 2n^3\)</span></li>
 </ul></li>
-<li>Hence <span class="math inline">\(g(f(n)) \neq f(g(n)))\)</span>.</li>
+<li class="fragment">Hence <span class="math inline">\(g(f(n)) \neq f(g(n)))\)</span>.</li>
 </ul>
 </div>
 </section>
@@ -477,21 +482,21 @@ y=f(x)
 <!-- -->
 <h3 id="surjective-onto">Surjective (Onto)</h3>
 <ul>
-<li>Every value in the codomain is produced by some value in the domain.</li>
+<li class="fragment">Every value in the codomain is produced by some value in the domain.</li>
 </ul>
 </div>
 <div class="fragment">
 <!-- -->
 <h3 id="injective-one-to-one">Injective (One-to-One)</h3>
 <ul>
-<li>Each value in the range comes from only one value in the domain.</li>
+<li class="fragment">Each value in the range comes from only one value in the domain.</li>
 </ul>
 </div>
 <div class="fragment">
 <!-- -->
 <h3 id="bijective">Bijective</h3>
 <ul>
-<li>Both injective and surjective → function is invertible.</li>
+<li class="fragment">Both injective and surjective → function is invertible.</li>
 </ul>
 </div>
 </section>
@@ -501,11 +506,11 @@ y=f(x)
 <h3 id="identity-function">Identity Function</h3>
 <div class="fragment">
 <ul>
-<li>Where both domain and co-domain are identical. It maps elements to themselves. <span class="math inline">\(f(x) = x, f(x): A \rightarrow A\)</span></li>
+<li class="fragment">Where both domain and co-domain are identical. It maps elements to themselves. <span class="math inline">\(f(x) = x, f(x): A \rightarrow A\)</span></li>
 </ul>
 </div>
 <div class="fragment">
-<table>
+<table class="caption-top">
 <colgroup>
 <col style="width: 26%">
 <col style="width: 73%">
@@ -545,28 +550,28 @@ y=f(x)
 <h2>Monotonic Functions</h2>
 <div class="fragment">
 <ul>
-<li><strong>Increasing</strong>: A function is increasing on interval I if <span class="math display">\[
+<li class="fragment"><strong>Increasing</strong>: A function is increasing on interval I if <span class="math display">\[
 f(b)\geq f(a)\ when\  b &gt; a\ where\ a,b \in I
 \]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Strictly Increasing</strong>: <span class="math display">\[
+<li class="fragment"><strong>Strictly Increasing</strong>: <span class="math display">\[
 f(b) &gt; f(a) \ when\  b &gt; a\ where\ a,b \in I
 \]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Decreasing</strong>: A function is decreasing on interval I if <span class="math display">\[
+<li class="fragment"><strong>Decreasing</strong>: A function is decreasing on interval I if <span class="math display">\[
 f(b) \geq f(a) when\  b &lt; a\ where\ a,b \in I
 \]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Strictly Decreasing</strong>: <span class="math display">\[
+<li class="fragment"><strong>Strictly Decreasing</strong>: <span class="math display">\[
 f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 \]</span></li>
 </ul>
@@ -576,7 +581,7 @@ f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 
 <h4 id="monotonic-functions-1">2.2.3.2 Monotonic Functions</h4>
 <div class="fragment">
-<table>
+<table class="caption-top">
 <colgroup>
 <col style="width: 29%">
 <col style="width: 70%">
@@ -620,7 +625,7 @@ f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 </table>
 </div>
 </section>
-<section id="exercises" class="slide level2">
+<section id="exercises" class="slide level2 scrollable">
 <h2>Exercises:</h2>
 <h3 id="exercise-1-and-break">Exercise 1 and Break:</h3>
 <p>graphing</p>
@@ -631,8 +636,8 @@ f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 <h4 id="problem-3">Problem 3</h4>
 <p>Graph the functions:</p>
 <ol type="a">
-<li><p><span class="math inline">\(y = -x^2 + 5x - 2\)</span></p></li>
-<li><p><span class="math inline">\(y = x^2 + 5x - 2\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(y = -x^2 + 5x - 2\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(y = x^2 + 5x - 2\)</span></p></li>
 </ol>
 <p>with the set of values <span class="math inline">\(-5 \leq x \leq 5\)</span> as the domain. It is well known that the sign of the coefficient of the <span class="math inline">\(x^2\)</span> term determines whether the graph of a quadratic function will have a “hill” or a “valley.” On the basis of the present problem, which sign is associated with the hill? Supply an intuitive explanation for this.</p>
 <h3 id="problem-4">Problem 4</h3>
@@ -643,12 +648,12 @@ f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 <h3 id="the-linear-equation-affine-function">2.3.1 The Linear Equation (Affine Function)</h3>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(y=a+bx\)</span></li>
+<li class="fragment"><span class="math inline">\(y=a+bx\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>A <strong>linear equation</strong> is an equation that contains only terms of order <span class="math inline">\(x^1\)</span> and <span class="math inline">\(x^0=1\)</span>. In other words, only <span class="math inline">\(x\)</span> and <span class="math inline">\(1\)</span>, multiplied by constants, may appear on the right-hand side (RHS) of a linear equation.</li>
+<li class="fragment">A <strong>linear equation</strong> is an equation that contains only terms of order <span class="math inline">\(x^1\)</span> and <span class="math inline">\(x^0=1\)</span>. In other words, only <span class="math inline">\(x\)</span> and <span class="math inline">\(1\)</span>, multiplied by constants, may appear on the right-hand side (RHS) of a linear equation.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -657,17 +662,17 @@ f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 </div>
 <div class="fragment">
 <ul>
-<li>Additivity: <span class="math inline">\(f(x_1+x_2)=f(x_1)+f(x_2)\)</span></li>
+<li class="fragment">Additivity: <span class="math inline">\(f(x_1+x_2)=f(x_1)+f(x_2)\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Scaling (aka homogeneity):<span class="math inline">\(f(ax)=af(x), \text{for all a}\)</span>.</li>
+<li class="fragment">Scaling (aka homogeneity):<span class="math inline">\(f(ax)=af(x), \text{for all a}\)</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Linear functions</strong> are not affine functions, e.g., they do not permit a translation(the <span class="math inline">\(x^0\)</span> term).</li>
+<li class="fragment"><strong>Linear functions</strong> are not affine functions, e.g., they do not permit a translation(the <span class="math inline">\(x^0\)</span> term).</li>
 </ul>
 </div>
 </section>
@@ -680,11 +685,15 @@ f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 </div>
 <div class="fragment">
 <ul>
-<li>graph of <span class="math inline">\(y = x^2\)</span></li>
+<li class="fragment">graph of <span class="math inline">\(y = x^2\)</span></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="pre-calculus_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -694,17 +703,17 @@ f(b) &lt; f(a)\ when\  b &gt; a\ where\ a,b \in I
 <h3 id="factoring">2.3.4 Factoring</h3>
 <div class="fragment">
 <ul>
-<li>Factoring is a process to represent an expression in smaller multiplicative blocks. <br></li>
+<li class="fragment">Factoring is a process to represent an expression in smaller multiplicative blocks. <br></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Example:<br> <span class="math display">\[ 9x-5x^2+11x+15x^2+x^3\]</span></li>
+<li class="fragment">Example:<br> <span class="math display">\[ 9x-5x^2+11x+15x^2+x^3\]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>In this case we combine all the terms that have the same exponent, which gives us <span class="math inline">\(x^3+9x^2+20x\)</span> then we decompose the expression into smaller pieces (factors). <br> <span class="math display">\[x(x+5)(x+4)\]</span></li>
+<li class="fragment">In this case we combine all the terms that have the same exponent, which gives us <span class="math inline">\(x^3+9x^2+20x\)</span> then we decompose the expression into smaller pieces (factors). <br> <span class="math display">\[x(x+5)(x+4)\]</span></li>
 </ul>
 </div>
 </section>
@@ -794,22 +803,22 @@ x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
 <h4 id="logarithms-properties-of-log">2.3.6 Logarithms (Properties of log)</h4>
 <div class="fragment">
 <ul>
-<li>Logarithms: <span class="math inline">\(log_a x\)</span></li>
+<li class="fragment">Logarithms: <span class="math inline">\(log_a x\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(a^{log_a x}=x\)</span></li>
+<li class="fragment"><span class="math inline">\(a^{log_a x}=x\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(log_a a^x=x\)</span></li>
+<li class="fragment"><span class="math inline">\(log_a a^x=x\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>if <span class="math inline">\(log_a x=b\)</span>, then <span class="math inline">\(a^{log_ax}=a^b\)</span>, thus <span class="math inline">\(x=a^b\)</span></li>
+<li class="fragment">if <span class="math inline">\(log_a x=b\)</span>, then <span class="math inline">\(a^{log_ax}=a^b\)</span>, thus <span class="math inline">\(x=a^b\)</span></li>
 </ul>
 </div>
 </section>
@@ -817,16 +826,20 @@ x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
 
 <div class="fragment">
 <ul>
-<li>The base for the natural log is the <span class="math inline">\(e \approx 2.7183\)</span></li>
+<li class="fragment">The base for the natural log is the <span class="math inline">\(e \approx 2.7183\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>graph of <span class="math inline">\(\ln(x)\)</span></li>
+<li class="fragment">graph of <span class="math inline">\(\ln(x)\)</span></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="pre-calculus_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -842,17 +855,17 @@ x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
 </div>
 <div class="fragment">
 <ul>
-<li>then <span class="math inline">\(p_v= \alpha + \beta ed\)</span> specifies a linear relationship where an additional year of education has the same impact on the probability of voting regardless of how many years of education one has had.</li>
+<li class="fragment">then <span class="math inline">\(p_v= \alpha + \beta ed\)</span> specifies a linear relationship where an additional year of education has the same impact on the probability of voting regardless of how many years of education one has had.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(p_v= \alpha + \beta ed^2\)</span> represents the claim that the impact of education on the probability of voting rises the more educated one becomes.</li>
+<li class="fragment"><span class="math inline">\(p_v= \alpha + \beta ed^2\)</span> represents the claim that the impact of education on the probability of voting rises the more educated one becomes.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>We transform the relationship between <span class="math inline">\(p_v\)</span> and <span class="math inline">\(ed\)</span> from a linear one to a nonlinear one where the impact of an additional year of education declines the more educated one becomes: <span class="math inline">\(p_v= \alpha + \beta (\ln(ed))\)</span></li>
+<li class="fragment">We transform the relationship between <span class="math inline">\(p_v\)</span> and <span class="math inline">\(ed\)</span> from a linear one to a nonlinear one where the impact of an additional year of education declines the more educated one becomes: <span class="math inline">\(p_v= \alpha + \beta (\ln(ed))\)</span></li>
 </ul>
 </div>
 </section>
@@ -860,7 +873,7 @@ x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
 
 <div class="fragment">
 <ul>
-<li>Algebraic rules for logs</li>
+<li class="fragment">Algebraic rules for logs</li>
 </ul>
 </div>
 <div class="fragment">
@@ -887,32 +900,32 @@ x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
 <h3 id="exponentials">2.3.7 exponentials</h3>
 <div class="fragment">
 <ul>
-<li>exponential functions take the form of <span class="math inline">\(a^x\)</span> where <span class="math inline">\(a\)</span> is a constant.</li>
+<li class="fragment">exponential functions take the form of <span class="math inline">\(a^x\)</span> where <span class="math inline">\(a\)</span> is a constant.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>unlike log exponential functions increase at an increasing rate so they are bowed downward. exponential functions are also the inverse of logarithmic functions, so <span class="math inline">\(log_a(x)\)</span> inverse is <span class="math inline">\(a^x\)</span>.</li>
+<li class="fragment">unlike log exponential functions increase at an increasing rate so they are bowed downward. exponential functions are also the inverse of logarithmic functions, so <span class="math inline">\(log_a(x)\)</span> inverse is <span class="math inline">\(a^x\)</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>the most commonly used exponential function is <span class="math inline">\(e^x\)</span> or the inverse of natural log. The reason is that the constant e is powerful comes from the 2 places where it is derived from.</li>
+<li class="fragment">the most commonly used exponential function is <span class="math inline">\(e^x\)</span> or the inverse of natural log. The reason is that the constant e is powerful comes from the 2 places where it is derived from.</li>
 </ul>
 </div>
 <div class="fragement">
 <ul>
-<li>in the equation <span class="math inline">\(a_n = (1+\frac{1}{n})^n\)</span> if you put <span class="math inline">\(n \rightarrow \infty\)</span> then <span class="math inline">\(a_n \rightarrow e\)</span>.</li>
+<li class="fragment">in the equation <span class="math inline">\(a_n = (1+\frac{1}{n})^n\)</span> if you put <span class="math inline">\(n \rightarrow \infty\)</span> then <span class="math inline">\(a_n \rightarrow e\)</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>similarly if you sum up the sequence of <span class="math inline">\(\frac{1}{n!}\)</span> as <span class="math inline">\(n\rightarrow \infty\)</span> we get e.</li>
+<li class="fragment">similarly if you sum up the sequence of <span class="math inline">\(\frac{1}{n!}\)</span> as <span class="math inline">\(n\rightarrow \infty\)</span> we get e.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>the first result represents compound interest and the second is a power series representing individual contributions over time and is extremely useful in statistics.</li>
+<li class="fragment">the first result represents compound interest and the second is a power series representing individual contributions over time and is extremely useful in statistics.</li>
 </ul>
 </div>
 </section>
@@ -921,23 +934,23 @@ x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
 <h3 id="inequalities">2.3.8 Inequalities</h3>
 <div class="fragment">
 <ul>
-<li>All pairs of real numbers have exactly one of the following relations: <span class="math inline">\(x=y\)</span>, <span class="math inline">\(x&gt;y\)</span>, or <span class="math inline">\(x&lt;y\)</span>.</li>
+<li class="fragment">All pairs of real numbers have exactly one of the following relations: <span class="math inline">\(x=y\)</span>, <span class="math inline">\(x&gt;y\)</span>, or <span class="math inline">\(x&lt;y\)</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Adding any number to each side of these relations will not change them; this includes the inequalities.<br> That is, inequalities have the same addition and subtraction properties as equalities such that: if <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(x+a&gt;y+a\)</span> and <span class="math inline">\(x-a&gt;y-a\)</span></li>
+<li class="fragment">Adding any number to each side of these relations will not change them; this includes the inequalities.<br> That is, inequalities have the same addition and subtraction properties as equalities such that: if <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(x+a&gt;y+a\)</span> and <span class="math inline">\(x-a&gt;y-a\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>You flip the <span class="math inline">\(&lt;\)</span> or <span class="math inline">\(&gt;\)</span> sign when multiplying or dividing by a negative. Multiplying or dividing an inequality by zero is not allowed.</li>
+<li class="fragment">You flip the <span class="math inline">\(&lt;\)</span> or <span class="math inline">\(&gt;\)</span> sign when multiplying or dividing by a negative. Multiplying or dividing an inequality by zero is not allowed.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>For multiplication, if <span class="math inline">\(a\)</span> is positive and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(ax&gt;ay\)</span>. <br> If <span class="math inline">\(a\)</span> is negative and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(ax&lt;ay\)</span>. <br></li>
-<li>For division, if <span class="math inline">\(a\)</span> is positive and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(\frac{x}{a}&gt;\frac{y}{a}\)</span>. <br> If <span class="math inline">\(a\)</span> is negative and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(\frac{x}{a}&lt;\frac{y}{a}\)</span>. <br></li>
+<li class="fragment">For multiplication, if <span class="math inline">\(a\)</span> is positive and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(ax&gt;ay\)</span>. <br> If <span class="math inline">\(a\)</span> is negative and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(ax&lt;ay\)</span>. <br></li>
+<li class="fragment">For division, if <span class="math inline">\(a\)</span> is positive and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(\frac{x}{a}&gt;\frac{y}{a}\)</span>. <br> If <span class="math inline">\(a\)</span> is negative and <span class="math inline">\(x&gt;y\)</span>, then <span class="math inline">\(\frac{x}{a}&lt;\frac{y}{a}\)</span>. <br></li>
 </ul>
 </div>
 </section>
@@ -956,14 +969,14 @@ y&lt;-\frac{x}{2}-3
 <h2>Inverse Functions Example</h2>
 <div class="fragment">
 <ul>
-<li><p><strong>Inverse function</strong> If $f(x) = 2x + 3 $</p></li>
-<li><p>Put y in place of f(x) $ y = 2x + 3 $</p></li>
-<li><p>Switch x and y $ x = 2y + 3 $</p></li>
-<li><p>solve for y</p>
+<li class="fragment"><p><strong>Inverse function</strong> If $f(x) = 2x + 3 $</p></li>
+<li class="fragment"><p>Put y in place of f(x) $ y = 2x + 3 $</p></li>
+<li class="fragment"><p>Switch x and y $ x = 2y + 3 $</p></li>
+<li class="fragment"><p>solve for y</p>
 <p><span class="math display">\[
   y = \frac{x - 3}{2}
   \]</span></p></li>
-<li><p>replace y with <span class="math inline">\(f^{-1}(y)\)</span>, such that</p></li>
+<li class="fragment"><p>replace y with <span class="math inline">\(f^{-1}(y)\)</span>, such that</p></li>
 </ul>
 <pre><code>$$
     f^{-1}(y) = \frac{x - 3}{2}
@@ -971,10 +984,10 @@ y&lt;-\frac{x}{2}-3
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math display">\[
+<li class="fragment"><span class="math display">\[
 f(f^{-1}(x)) = f(\frac{x - 3}{2}) = x
 \]</span></li>
-<li><span class="math display">\[
+<li class="fragment"><span class="math display">\[
 f^{-1}(f(x)) = f^{-1}(f(2x + 3)) = x
 \]</span></li>
 </ul>
@@ -985,18 +998,18 @@ f^{-1}(f(x)) = f^{-1}(f(2x + 3)) = x
 <h3 id="systems-of-equations">2.4 Systems of equations</h3>
 <div class="fragment">
 <ul>
-<li>many times we are given multiple variables to identify and equations relating them. These are called systems of equations. we assume the numbers a,b,c are know and we want answers for x and y <span class="math display">\[ c_1 =  a_1x+b_1y\\
+<li class="fragment">many times we are given multiple variables to identify and equations relating them. These are called systems of equations. we assume the numbers a,b,c are know and we want answers for x and y <span class="math display">\[ c_1 =  a_1x+b_1y\\
 c_2 = a_2x+b_2y\]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>in order to get a single answer for our variables one thing must hold true: there must be as many equations as there are variables. this is called just identification, if there are less equations then variables we are under identified and have an infinite amount of possibilities. if we have too many equations, then we are over identified and one is either repetitive or we might have no solution.</li>
+<li class="fragment">in order to get a single answer for our variables one thing must hold true: there must be as many equations as there are variables. this is called just identification, if there are less equations then variables we are under identified and have an infinite amount of possibilities. if we have too many equations, then we are over identified and one is either repetitive or we might have no solution.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>there are two main ways to solve systmes of equations: substitution and elimination</li>
+<li class="fragment">there are two main ways to solve systmes of equations: substitution and elimination</li>
 </ul>
 </div>
 </section>
@@ -1005,29 +1018,29 @@ c_2 = a_2x+b_2y\]</span></li>
 <h4 id="substiution">2.4.1 substiution</h4>
 <div class="fragment">
 <ul>
-<li>when given our system of equations <span class="math display">\[ c_1 =  a_1x+b_1y\\
+<li class="fragment">when given our system of equations <span class="math display">\[ c_1 =  a_1x+b_1y\\
 c_2 = a_2x+b_2y\]</span></li>
-<li>we can solve this by solving one equation for one variable and plugging it into the other equation.</li>
+<li class="fragment">we can solve this by solving one equation for one variable and plugging it into the other equation.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>first we solve equation 1 for x so <span class="math display">\[x = \frac{c_1 - b_1y}{a_1} \]</span></li>
+<li class="fragment">first we solve equation 1 for x so <span class="math display">\[x = \frac{c_1 - b_1y}{a_1} \]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>then we <strong>substitute</strong> our solution for x into equation 2 <span class="math display">\[ c_2 = a_2(\frac{c_1 - b_1y}{a_1})+b_2y\]</span></li>
+<li class="fragment">then we <strong>substitute</strong> our solution for x into equation 2 <span class="math display">\[ c_2 = a_2(\frac{c_1 - b_1y}{a_1})+b_2y\]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>we then simplify and combine like terms <span class="math display">\[ c_2 -\frac{a_2c_1}{a_1} = (\frac{a_2b_1}{a_1}+b_2)y \]</span></li>
+<li class="fragment">we then simplify and combine like terms <span class="math display">\[ c_2 -\frac{a_2c_1}{a_1} = (\frac{a_2b_1}{a_1}+b_2)y \]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>from here we can then get an expression for y and <strong>substitute</strong> it back into our expression for x. <span class="math display">\[ y = \frac{c_2 -\frac{a_2c_1}{a_1}}{\frac{a_2b_1}{a_1}+b_2},  x = \frac{c_1 - b_1y}{a_1}\]</span></li>
+<li class="fragment">from here we can then get an expression for y and <strong>substitute</strong> it back into our expression for x. <span class="math display">\[ y = \frac{c_2 -\frac{a_2c_1}{a_1}}{\frac{a_2b_1}{a_1}+b_2},  x = \frac{c_1 - b_1y}{a_1}\]</span></li>
 </ul>
 </div>
 </section>
@@ -1036,7 +1049,7 @@ c_2 = a_2x+b_2y\]</span></li>
 <h4 id="elimination">2.4.2 elimination</h4>
 <div class="fragment">
 <ul>
-<li>given our system of equations we can so something where we subtract/add one from the other after making the two coefficients on one of our variables the same to <strong>eliminate</strong> them and get an equation with one variable and a constant.</li>
+<li class="fragment">given our system of equations we can so something where we subtract/add one from the other after making the two coefficients on one of our variables the same to <strong>eliminate</strong> them and get an equation with one variable and a constant.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -1045,25 +1058,25 @@ c_2 = a_2x+b_2y\]</span></p>
 </div>
 <div class="fragment">
 <ul>
-<li>we make the coefficient on x equal in both cases by multiplying both equations by the others coefficient <span class="math display">\[ a_2(c_1 =  a_1x+b_1y)\\
+<li class="fragment">we make the coefficient on x equal in both cases by multiplying both equations by the others coefficient <span class="math display">\[ a_2(c_1 =  a_1x+b_1y)\\
 a_1(c_2 = a_2x+b_2y)\]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>this gives <span class="math display">\[  a_2c_1 =  a_2a_1x+a_2b_1y\\
+<li class="fragment">this gives <span class="math display">\[  a_2c_1 =  a_2a_1x+a_2b_1y\\
 a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>we can then subtract equation 2 from equation 1 <span class="math display">\[ a_2c_1 =  a_2a_1x+a_2b_1y\\
+<li class="fragment">we can then subtract equation 2 from equation 1 <span class="math display">\[ a_2c_1 =  a_2a_1x+a_2b_1y\\
 -(a_1c_2 = a_1a_2x+a_1b_2y) \]</span> <span class="math display">\[ a_2c_1-a_1c_2 = (a_2b_1-a_1b_2)y\]</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>we can then simplify plug back into the equation and get the same answer as we got from substitution.</li>
+<li class="fragment">we can then simplify plug back into the equation and get the same answer as we got from substitution.</li>
 </ul>
 </div>
 </section>
@@ -1097,17 +1110,17 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 <h2>3.1 Trigonometry</h2>
 <div class="fragment">
 <ul>
-<li>there are two main uses in social science modeling for trigonometry: modeling waves or cyclic behavior, and change of base.</li>
+<li class="fragment">there are two main uses in social science modeling for trigonometry: modeling waves or cyclic behavior, and change of base.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>trigonometry is based on the Pythagorean Theorem that for any right triangle with sides A,B,C and C is the longest <span class="math inline">\(A^2+B^2 = C^2\)</span></li>
+<li class="fragment">trigonometry is based on the Pythagorean Theorem that for any right triangle with sides A,B,C and C is the longest <span class="math inline">\(A^2+B^2 = C^2\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>if we have angles a,b,c which stand opposed to A,B,C in a right triangle,</li>
+<li class="fragment">if we have angles a,b,c which stand opposed to A,B,C in a right triangle,</li>
 </ul>
 <p>taking <span class="math inline">\(\sin(a)\)</span> translates to <span class="math inline">\(\frac{A}{C}\)</span></p>
 <p>taking <span class="math inline">\(\cos(a)\)</span> translates to <span class="math inline">\(\frac{B}{C}\)</span></p>
@@ -1115,7 +1128,7 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 </div>
 <div class="fragment">
 <ul>
-<li>an important result is that <span class="math inline">\(cos^2(x)+sin^2(x)=1\)</span>, this is just the Pythagorean Theorem rewritten relative to an angle.</li>
+<li class="fragment">an important result is that <span class="math inline">\(cos^2(x)+sin^2(x)=1\)</span>, this is just the Pythagorean Theorem rewritten relative to an angle.</li>
 </ul>
 </div>
 </section>
@@ -1124,17 +1137,17 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 <h3 id="waves">3.1.1 waves</h3>
 <div class="fragment">
 <ul>
-<li>if we look at the graphs of theses functions we notice that the <span class="math inline">\(\sin(x), \cos(x)\)</span> functions are waves. This is especially useful because if we want to model a cyclic behavior we have a function ready to go as a base of our analysis.</li>
+<li class="fragment">if we look at the graphs of theses functions we notice that the <span class="math inline">\(\sin(x), \cos(x)\)</span> functions are waves. This is especially useful because if we want to model a cyclic behavior we have a function ready to go as a base of our analysis.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>the main difference in which function we use comes from our desired y intercept, if we want the y intercept to start at the center of our wave (0 in a standard wave) then we use <span class="math inline">\(\sin(x)\)</span> whereas if we want it away from the center we use <span class="math inline">\(\cos(x)\)</span>.</li>
+<li class="fragment">the main difference in which function we use comes from our desired y intercept, if we want the y intercept to start at the center of our wave (0 in a standard wave) then we use <span class="math inline">\(\sin(x)\)</span> whereas if we want it away from the center we use <span class="math inline">\(\cos(x)\)</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>to change the strength of the oscillation we just add a coefficient <span class="math inline">\(\lambda\)</span> to the front of our function and to change the frequency we can multiply x by <span class="math inline">\(\delta\)</span> so <span class="math inline">\(\lambda\sin(\delta x)\)</span>. naturally we can make this <span class="math inline">\(\lambda\)</span> a function of x itself so as x progresses the coefficient can vary over time in some meaningful way, for example <span class="math inline">\(\sqrt(x)\sin(x)\)</span> has increasing magnitude while <span class="math inline">\(e^{-{x}}\sin(x)\)</span> has decreasing magnitude.</li>
+<li class="fragment">to change the strength of the oscillation we just add a coefficient <span class="math inline">\(\lambda\)</span> to the front of our function and to change the frequency we can multiply x by <span class="math inline">\(\delta\)</span> so <span class="math inline">\(\lambda\sin(\delta x)\)</span>. naturally we can make this <span class="math inline">\(\lambda\)</span> a function of x itself so as x progresses the coefficient can vary over time in some meaningful way, for example <span class="math inline">\(\sqrt(x)\sin(x)\)</span> has increasing magnitude while <span class="math inline">\(e^{-{x}}\sin(x)\)</span> has decreasing magnitude.</li>
 </ul>
 </div>
 </section>
@@ -1143,22 +1156,22 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 <h3 id="change-of-base">3.1.2 change of base</h3>
 <div class="fragment">
 <ul>
-<li>one very useful tool of trigonometry is being able to go from Cartesian (rectangular) coordinates to polar (circular) coordinates.</li>
+<li class="fragment">one very useful tool of trigonometry is being able to go from Cartesian (rectangular) coordinates to polar (circular) coordinates.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>polar coordinates are a different type of coordinate system to represent the same point in 2 dimensional space. A polar coordinate contains an angle and a distance to the origin or central point (pole). We then take go from the Pole representing a 0 distance and assign a certain line the quality of being 0 degrees (typically the x axis).</li>
+<li class="fragment">polar coordinates are a different type of coordinate system to represent the same point in 2 dimensional space. A polar coordinate contains an angle and a distance to the origin or central point (pole). We then take go from the Pole representing a 0 distance and assign a certain line the quality of being 0 degrees (typically the x axis).</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>angles can be represented 2 ways: degrees and radians. in a circle there are 360 degrees or <span class="math inline">\(2\pi\)</span> radians. When the angel gets larger we are moving in a counterclockwise rotation, if we started with angle 0 being the positive x axis then 90 degrees is the positive y axis and so on.</li>
+<li class="fragment">angles can be represented 2 ways: degrees and radians. in a circle there are 360 degrees or <span class="math inline">\(2\pi\)</span> radians. When the angel gets larger we are moving in a counterclockwise rotation, if we started with angle 0 being the positive x axis then 90 degrees is the positive y axis and so on.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>similarly to how we have a line in rectangular space we have a circle around the origin in polar space.</li>
+<li class="fragment">similarly to how we have a line in rectangular space we have a circle around the origin in polar space.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -1169,22 +1182,22 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 
 <div class="fragment">
 <ul>
-<li>the ability to transition between these two is based on the Pythagorean theorem. In rectangular coordinates this looks like <span class="math inline">\(x^2+y^2 = r^2\)</span> where x and y correspond to the respective point and r is the distance (radius) from the origin. We can then use <span class="math inline">\(\arctan(\frac{y}{x})\)</span> (inverse of tangent) to get the angle.</li>
+<li class="fragment">the ability to transition between these two is based on the Pythagorean theorem. In rectangular coordinates this looks like <span class="math inline">\(x^2+y^2 = r^2\)</span> where x and y correspond to the respective point and r is the distance (radius) from the origin. We can then use <span class="math inline">\(\arctan(\frac{y}{x})\)</span> (inverse of tangent) to get the angle.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>going from polar to rectangular where we are given an angle <span class="math inline">\(\theta\)</span> and a radius or magnitude r what we do is use the relationships between <span class="math inline">\(\sin(\theta)= \frac{x}{r}, \cos(\theta)= \frac{y}{r}\)</span> to solve for x and y, giving us <span class="math inline">\(x = r\sin(\theta), y = r\cos(\theta)\)</span></li>
+<li class="fragment">going from polar to rectangular where we are given an angle <span class="math inline">\(\theta\)</span> and a radius or magnitude r what we do is use the relationships between <span class="math inline">\(\sin(\theta)= \frac{x}{r}, \cos(\theta)= \frac{y}{r}\)</span> to solve for x and y, giving us <span class="math inline">\(x = r\sin(\theta), y = r\cos(\theta)\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>why do we care?</li>
+<li class="fragment">why do we care?</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>sometimes it is simpler for us to describe behaviors through a change in direction and the magnitude, in other words a shift in position and intensity. for example in a voter model we might model our political spectrum as a continuum where the angle represents the position on the political spectrum and the radius the strength of those beliefs.</li>
+<li class="fragment">sometimes it is simpler for us to describe behaviors through a change in direction and the magnitude, in other words a shift in position and intensity. for example in a voter model we might model our political spectrum as a continuum where the angle represents the position on the political spectrum and the radius the strength of those beliefs.</li>
 </ul>
 </div>
 </section>
@@ -1193,18 +1206,18 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 <h3 id="sequences">3.2.1 Sequences</h3>
 <div class="fragment">
 <ul>
-<li><p>Sequences are patterned sets of numbers for example {1,2,3…}, {2,4,6…}, {1,4,9,16…}, {1,3,5,7,11…} these are what is called discrete or non continuous.</p></li>
-<li><p>most data we collect is in a discrete form with a certain frequency (weekly, monthly, quarterly annually) which means it has an observation date that is evenly spaced out.</p></li>
+<li class="fragment"><p>Sequences are patterned sets of numbers for example {1,2,3…}, {2,4,6…}, {1,4,9,16…}, {1,3,5,7,11…} these are what is called discrete or non continuous.</p></li>
+<li class="fragment"><p>most data we collect is in a discrete form with a certain frequency (weekly, monthly, quarterly annually) which means it has an observation date that is evenly spaced out.</p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>since these are patterned we can sometimes find formulas to represent them with the first one we know that is just <span class="math inline">\(n+1\)</span> the second one <span class="math inline">\(n+1\)</span>, the third <span class="math inline">\(n^2\)</span>, what about the last one?</li>
+<li class="fragment">since these are patterned we can sometimes find formulas to represent them with the first one we know that is just <span class="math inline">\(n+1\)</span> the second one <span class="math inline">\(n+1\)</span>, the third <span class="math inline">\(n^2\)</span>, what about the last one?</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>for us the important things here are convergence and oscillation.</li>
+<li class="fragment">for us the important things here are convergence and oscillation.</li>
 </ul>
 </div>
 </section>
@@ -1213,7 +1226,7 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 <h4 id="convergence">3.2.1.1 convergence</h4>
 <div class="fragment">
 <ul>
-<li>a sequence <span class="math inline">\(a_n\)</span> converges if for all N <span class="math inline">\(\lim_{n\rightarrow N} a_n \rightarrow L\)</span> where L is a finite number. It is especially prudent for our cases when <span class="math inline">\(N = \infty\)</span>. if it goes to infinity then it is divergent.</li>
+<li class="fragment">a sequence <span class="math inline">\(a_n\)</span> converges if for all N <span class="math inline">\(\lim_{n\rightarrow N} a_n \rightarrow L\)</span> where L is a finite number. It is especially prudent for our cases when <span class="math inline">\(N = \infty\)</span>. if it goes to infinity then it is divergent.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -1225,22 +1238,22 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 <h4 id="oscillation">3.2.1.2 oscillation</h4>
 <div class="fragment">
 <ul>
-<li>similar to the trigonometric equations we can use sequences to model oscillation the main way this is done is by adding a <span class="math inline">\((-1)^n\)</span> in front of a function.</li>
+<li class="fragment">similar to the trigonometric equations we can use sequences to model oscillation the main way this is done is by adding a <span class="math inline">\((-1)^n\)</span> in front of a function.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>for example: <span class="math inline">\((-1)^n n^2\)</span> or <span class="math inline">\((-1)^n \ln(n)\)</span></li>
+<li class="fragment">for example: <span class="math inline">\((-1)^n n^2\)</span> or <span class="math inline">\((-1)^n \ln(n)\)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>looking at the first term <span class="math inline">\((-1)^n\)</span>, we know that for any even n this will be 1 and any odd n <span class="math inline">\(-1\)</span> we can change this by making it n+1, importantly this allows us to model discrete time varying data.</li>
+<li class="fragment">looking at the first term <span class="math inline">\((-1)^n\)</span>, we know that for any even n this will be 1 and any odd n <span class="math inline">\(-1\)</span> we can change this by making it n+1, importantly this allows us to model discrete time varying data.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>lets talk about auto regressive.</li>
+<li class="fragment">lets talk about auto regressive.</li>
 </ul>
 </div>
 </section>
@@ -1249,17 +1262,17 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 <h3 id="series">3.2.2 series</h3>
 <div class="fragment">
 <ul>
-<li>a series is a summation of a sequence represented by <span class="math inline">\(\sum_{n}(a_n)\)</span> this is also called an accumulation. Summation similarly to sequences has convergence or divergence.</li>
+<li class="fragment">a series is a summation of a sequence represented by <span class="math inline">\(\sum_{n}(a_n)\)</span> this is also called an accumulation. Summation similarly to sequences has convergence or divergence.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>in social sciences series are important for understanding phenomena such as accumulated wealth, or assets, or price levels, or total amount of people who have been incarcerated/arrested.</li>
+<li class="fragment">in social sciences series are important for understanding phenomena such as accumulated wealth, or assets, or price levels, or total amount of people who have been incarcerated/arrested.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>the most important thing to remember when dealing with series is that in order for a series to converge the sequence it is taken over converges to 0 however that does not guarantee that a series will converge.</li>
+<li class="fragment">the most important thing to remember when dealing with series is that in order for a series to converge the sequence it is taken over converges to 0 however that does not guarantee that a series will converge.</li>
 </ul>
 </div>
 </section>
@@ -1267,22 +1280,22 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 
 <div class="fragment">
 <ul>
-<li>does the series <span class="math inline">\(\sum_{n=1}^\infty {\frac{1}{n}}\)</span> converge?</li>
+<li class="fragment">does the series <span class="math inline">\(\sum_{n=1}^\infty {\frac{1}{n}}\)</span> converge?</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>series in this form are called p where p refers to the exponent on n.&nbsp;if p is greater than 1 then it converges if it is <strong>less than or equal to 1</strong> then the series <strong>diverges</strong>, even though the sequence has converges to 0.</li>
+<li class="fragment">series in this form are called p where p refers to the exponent on n.&nbsp;if p is greater than 1 then it converges if it is <strong>less than or equal to 1</strong> then the series <strong>diverges</strong>, even though the sequence has converges to 0.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>how about <span class="math inline">\(\sum_{n=0}^\infty {.9^n}\)</span> and <span class="math inline">\(\sum_{n=0}^\infty {(-1)^n}\)</span>?</li>
+<li class="fragment">how about <span class="math inline">\(\sum_{n=0}^\infty {.9^n}\)</span> and <span class="math inline">\(\sum_{n=0}^\infty {(-1)^n}\)</span>?</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>the first converges however the second does not these are geometric series if a geometric series converges it converges to <span class="math inline">\(\frac{a}{1-r}\)</span> where a is the first term so 1 in our case and r is the decimal so .9</li>
+<li class="fragment">the first converges however the second does not these are geometric series if a geometric series converges it converges to <span class="math inline">\(\frac{a}{1-r}\)</span> where a is the first term so 1 in our case and r is the decimal so .9</li>
 </ul>
 </div>
 </section>
@@ -1290,9 +1303,11 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
 
 <p><strong>Any Questions?</strong></p>
 <p><a href="index.html">Home</a></p>
+<div class="quarto-auto-generated-content">
+<p><img src="eppslogo.png" class="slide-logo"></p>
+<div class="footer footer-default">
 
-<img src="eppslogo.png" class="slide-logo r-stretch"><div class="footer footer-default">
-
+</div>
 </div>
 </section>
     </div>
@@ -1322,7 +1337,6 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1509,42 +1523,80 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1578,18 +1630,7 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1621,11 +1662,50 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1635,8 +1715,17 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -1650,7 +1739,11 @@ a_1c_2 = a_1a_2x+a_1b_2y\]</span></li>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

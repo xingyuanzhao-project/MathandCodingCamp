@@ -4,7 +4,7 @@ subtitle: "algebra,arithmetic and trig "
 author: "Instructor: Jonathan Kaufman"
 format: 
   revealjs:
-    theme: [serif]
+    theme: [serif, custom.scss]
     center: false
     slide-number: true
     logo: eppslogo.png
