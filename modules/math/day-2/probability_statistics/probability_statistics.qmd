@@ -1,6 +1,6 @@
 ---
 title: "EPPS Math and Coding Camp"
-subtitle: "Probability and Statistics"
+subtitle: "Probability and Regression"
 author: "Instructor: Haien Peng"
 format:
   revealjs:
@@ -30,55 +30,27 @@ set.seed(2026)
 par(family = "serif")
 ```
 
-## Statistics connects an unseen population to observed data
-
-$$
-\text{Population}
-\longrightarrow
-\text{Random sample}
-\longrightarrow
-\text{Estimator}
-\longrightarrow
-\text{Uncertainty}
-\longrightarrow
-\text{Inference}
-$$
-
-::: fragment
-Probability describes what data could be generated.
-:::
-
-::: fragment
-Statistics uses generated data to learn about the process.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 1-17, 128-140.
-:::
-
-------------------------------------------------------------------------
-
 ## Our path today
 
-::: fragment
-1. Probability: how uncertainty is represented.
-:::
+<div style="font-size: 1em; line-height: 2; text-align: center;">
+Random variables, distributions, and moments<br>
+&darr;<br>
+Regression: scalar and matrix OLS<br>
+&darr;<br>
+Hypothesis testing: from a fair coin to an OLS slope
+</div>
 
 ::: fragment
-2. Random variables: how outcomes become numerical objects.
+By the end, you should be able to **read a probability distribution,
+summarize uncertainty, and understand how OLS estimates a regression**.
 :::
 
-::: fragment
-3. Sampling: why estimates vary across samples.
-:::
+::: notes
+Introduce the two-part path. Emphasize that distributions prepare the
+language needed for regression.
 
-::: fragment
-4. LLN and CLT: why large samples help.
-:::
-
-::: fragment
-5. Estimation and inference: what we can conclude from data.
+\[Sources\] - Hansen (2021), Chapters 1-4; the regression section is an
+instructor-developed introduction to least squares.
 :::
 
 ------------------------------------------------------------------------
@@ -87,407 +59,590 @@ Statistics uses generated data to learn about the process.
 
 By the end of this session, you should be able to:
 
-::: fragment
-- distinguish a population parameter from a sample statistic;
+1.  distinguish discrete and continuous random variables;
+2.  read a PMF and a PDF and draw a histogram;
+3.  calculate Uniform and Normal interval probabilities;
+4.  transform and standardize a Normal variable;
+5.  compute expectation, variance, covariance, and correlation;
+6.  derive and calculate simple OLS estimates with and without an intercept;
+7.  write multiple regression in matrix form and calculate the OLS estimate;
+8.  explain how a low-probability observation can challenge a null hypothesis;
+9.  state the hypotheses in an OLS slope $t$-test and interpret its two tails.
+
+::: notes
+The regression goal is estimation: first with scalar algebra, then with
+matrix algebra.
+
+\[Sources\] - Hansen (2021), Chapters 1-4.
 :::
 
-::: fragment
-- compute and interpret probability, expectation, variance, and covariance;
-:::
+# 1. Random variables, distributions, and moments
 
-::: fragment
-- explain conditional expectation, the LLN, and the CLT;
-:::
+## A random variable turns outcomes into numbers
 
-::: fragment
-- distinguish standard deviation from standard error;
-:::
+A random variable is a rule
 
-::: fragment
-- interpret a confidence interval, test statistic, and p-value correctly.
+$$
+X:\Omega\longrightarrow\mathbb R.
+$$
+
+Example: toss a coin twice and let $X$ be the number of heads.
+
+$$
+\begin{array}{c|cccc}
+\text{Outcome} & TT & HT & TH & HH\\ \hline
+X & 0 & 1 & 1 & 2
+\end{array}
+$$
+
+::: notes
+Explain that the outcome can be a word or a sequence, while the random
+variable assigns it a numerical value that we can analyze.
+
+\[Sources\] - Hansen (2021), pp. 22-24.
 :::
 
 ------------------------------------------------------------------------
 
-## Warm-up: which statements are correct?
+## Discrete example 1: the number of heads has a PMF
 
-::: fragment
-1. A parameter changes every time we draw a new sample.
-:::
-
-::: fragment
-2. A 5% p-value means the null hypothesis has a 5% probability of being true.
-:::
-
-::: fragment
-3. A larger sample always eliminates bias.
-:::
-
-::: fragment
-4. If $X$ and $Y$ are uncorrelated, they must be independent.
-:::
-
-::: fragment
-**Preview:** all four statements are generally false.
-:::
-
-# 1. Probability
-
-## Outcomes, events, and sample spaces
-
-::: fragment
-- An **outcome** is one possible realization.
-:::
-
-::: fragment
-- The **sample space** $\Omega$ contains all possible outcomes.
-:::
-
-::: fragment
-- An **event** $A$ is a subset of $\Omega$.
-:::
-
-::: fragment
-For a binary employment outcome,
+For the number of heads in two fair tosses:
 
 $$
-\Omega=\{0,1\},
+\begin{array}{c|ccc}
+x & 0 & 1 & 2\\ \hline
+P(X=x) & 1/4 & 1/2 & 1/4
+\end{array}
+$$
+
+The probabilities must satisfy
+
+$$
+p_X(x)\ge0,
 \qquad
-A=\{\text{employed}\}=\{1\}.
+\sum_xp_X(x)=1.
 $$
-:::
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 1-4.
-:::
+::: notes
+This table is the **probability mass function (PMF)**. Link each
+probability back to the four equally likely coin outcomes.
 
-------------------------------------------------------------------------
-
-## Probability obeys three basic rules
-
-For events in $\Omega$:
-
-::: fragment
-1. $P(A)\geq0$.
-:::
-
-::: fragment
-2. $P(\Omega)=1$.
-:::
-
-::: fragment
-3. If $A_1,A_2,\ldots$ are mutually exclusive,
-
-$$
-P\left(\bigcup_j A_j\right)=\sum_jP(A_j).
-$$
-:::
-
-::: fragment
-These axioms generate the other probability rules we use.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 3-5.
+\[Sources\] - Hansen (2021), pp. 22-25.
 :::
 
 ------------------------------------------------------------------------
 
-## “Or” requires subtracting the overlap
+## Discrete example 2: Bernoulli
 
-For any two events,
-
-$$
-P(A\cup B)
-=P(A)+P(B)-P(A\cap B).
-$$
-
-::: fragment
-Why subtract?
-:::
-
-::: fragment
-The intersection $A\cap B$ was counted once inside $P(A)$ and once inside $P(B)$.
-:::
-
-::: fragment
-If $A$ and $B$ are mutually exclusive, then $P(A\cap B)=0$.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 4-6.
-:::
-
-------------------------------------------------------------------------
-
-## Conditional probability changes the reference population
-
-For $P(B)>0$,
+A Bernoulli random variable records success as 1 and failure as 0:
 
 $$
-P(A\mid B)=\frac{P(A\cap B)}{P(B)}.
+X=\begin{cases}
+1, & \text{success},\\
+0, & \text{failure}.
+\end{cases}
 $$
 
-::: fragment
-The denominator says: restrict attention to cases where $B$ occurred.
-:::
-
-::: fragment
-The numerator says: among those cases, count where $A$ also occurred.
-:::
-
-::: fragment
-In general,
+If $X\sim\operatorname{Bernoulli}(p)$, then
 
 $$
-P(A\mid B)\neq P(B\mid A).
+p_X(1)=p,
+\qquad
+p_X(0)=1-p.
 $$
-:::
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 6-7.
+Example: $X=1$ if a student passes and $X=0$ otherwise.
+
+::: notes
+This is the simplest discrete distribution. Emphasize that the PMF gives
+a probability to each possible value.
+
+\[Sources\] - Hansen (2021), p. 56.
 :::
 
 ------------------------------------------------------------------------
 
-## Independence and mutual exclusivity are different ideas
+## Exercise 1: read a PMF {.compact-exercise}
 
-Events $A$ and $B$ are independent if
-
-$$
-P(A\cap B)=P(A)P(B).
-$$
-
-Equivalently, when probabilities are positive,
+Let $X$ be the number of heads in two fair tosses:
 
 $$
-P(A\mid B)=P(A).
+\begin{array}{c|ccc}
+x & 0 & 1 & 2\\ \hline
+p_X(x) & 1/4 & 1/2 & 1/4
+\end{array}
 $$
 
-::: fragment
-- **Independent:** learning $B$ does not change the probability of $A$.
-:::
+Find:
 
-::: fragment
-- **Mutually exclusive:** $A$ and $B$ cannot occur together.
-:::
+1.  $P(X=1)$;
+2.  $P(X\ge1)$;
+3.  $P(X\le1)$.
 
-::: fragment
-Nontrivial mutually exclusive events are therefore not independent.
-:::
+::: notes
+$P(X=1)=1/2$.
+$P(X\ge1)=P(X=1)+P(X=2)=3/4$.
+$P(X\le1)=P(X=0)+P(X=1)=3/4$.
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 5-9.
+\[Sources\] - Exercise constructed from Hansen (2021), pp. 22-31.
 :::
 
 ------------------------------------------------------------------------
 
-## The law of total probability decomposes an event
+## Example: draw a histogram from frequencies {.compact-example}
 
-If $B_1,\ldots,B_K$ form a partition of $\Omega$, then
+::: columns
+::: {.column width="52%"}
+The sample is
 
-$$
-P(A)=\sum_{k=1}^K P(A\mid B_k)P(B_k).
-$$
+<div style="text-align: center; line-height: 1.7;">
+$4,\ 12,\ 15,\ 18,\ 22,$<br>
+$24,\ 25,\ 27,\ 31,\ 36.$
+</div>
 
-::: fragment
-For a treatment indicator $D\in\{0,1\}$,
+Group the observations into intervals of width 10:
 
-$$
-P(Y=1)
-=P(Y=1\mid D=1)P(D=1)
-+P(Y=1\mid D=0)P(D=0).
-$$
+| Interval | Frequency |
+|:---------|----------:|
+| $[0,10)$ | 1 |
+| $[10,20)$ | 3 |
+| $[20,30)$ | 4 |
+| $[30,40)$ | 2 |
 :::
 
-::: fragment
-Overall probability is a weighted average of group-specific probabilities.
+::: {.column width="48%"}
+Draw it by hand:
+
+1. put the intervals on the horizontal axis;
+2. use frequency as the height;
+3. draw touching rectangles.
+:::
 :::
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 9-10.
-:::
+::: notes
+Read the sample one value at a time and place each value in an interval.
+Then draw the axes, mark the four interval boundaries, and draw one
+rectangle at a time. The rectangles touch because the intervals represent
+adjacent ranges of a numerical variable.
 
-------------------------------------------------------------------------
-
-## Bayes' rule reverses the conditioning direction
-
-$$
-P(B\mid A)
-=
-\frac{P(A\mid B)P(B)}{P(A)}.
-$$
-
-Using the total probability rule,
-
-$$
-P(B\mid A)
-=
-\frac{P(A\mid B)P(B)}
-{P(A\mid B)P(B)+P(A\mid B^c)P(B^c)}.
-$$
-
-::: fragment
-Bayes' rule updates a prior probability after observing evidence.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 9-11.
+\[Sources\] - Instructor-developed data.
 :::
 
 ------------------------------------------------------------------------
 
-## Example: selection into a training program
+## Example solution: the rectangles touch
 
-Suppose:
+```{r}
+#| label: plot-histogram-example
+#| echo: false
+#| fig-align: center
+#| fig-width: 8.5
+#| fig-height: 4.8
+#| out-width: "88%"
+hist_values <- c(4, 12, 15, 18, 22, 24, 25, 27, 31, 36)
+hist(hist_values, breaks = seq(0, 40, 10), right = FALSE,
+     col = adjustcolor("#2E86C1", 0.55), border = "white",
+     main = "Histogram from a frequency table",
+     xlab = "Interval", ylab = "Frequency", xaxt = "n")
+axis(1, at = seq(0, 40, 10))
+```
 
-$$
-P(D=1)=0.20,
-$$
+::: notes
+Check that the four heights are 1, 3, 4, and 2. The total frequency is 10.
 
-$$
-P(\text{high motivation}\mid D=1)=0.70,
-$$
-
-$$
-P(\text{high motivation}\mid D=0)=0.25.
-$$
-
-::: fragment
-What is
-
-$$
-P(D=1\mid \text{high motivation})?
-$$
-:::
-
-::: fragment
-First compute the probability of high motivation using the total probability rule.
+\[Sources\] - Instructor-developed data and R figure.
 :::
 
 ------------------------------------------------------------------------
 
-## Bayes' rule gives the updated probability
+## Exercise 2: draw a histogram {.compact-exercise}
+
+Use the **same sample** from the example:
 
 $$
-P(H)=0.70(0.20)+0.25(0.80)=0.34.
+4,\ 12,\ 15,\ 18,\ 22,\ 24,\ 25,\ 27,\ 31,\ 36.
+$$
+
+Now use the narrower intervals below:
+
+::: columns
+::: {.column width="50%"}
+$$
+[0,5),\ [5,10),\ [10,15),\ [15,20)
+$$
+:::
+
+::: {.column width="50%"}
+$$
+[20,25),\ [25,30),\ [30,35),\ [35,40)
+$$
+:::
+:::
+
+1. Count the frequency in each interval.
+2. Draw the histogram using frequency as the height.
+3. Compare it with the histogram from the example.
+
+::: notes
+The frequencies are $1,0,1,2,2,2,1,1$. The bars should touch. The two
+histograms use exactly the same observations; only the interval width has
+changed. Narrower intervals show more detail, but each bar is based on
+fewer observations.
+
+\[Sources\] - Instructor-developed exercise.
+:::
+
+------------------------------------------------------------------------
+
+## Discrete variables use a PMF; continuous variables use a PDF
+
+::: {.columns}
+::: {.column width="50%"}
+**Discrete random variable**
+
+Takes separated values.
+
+Examples: number of heads, number of children.
+
+Use a **probability mass function (PMF)**:
+
+$$
+p_X(x)=P(X=x).
+$$
+
+$$
+p_X(x)\ge0,
+\quad
+\sum_xp_X(x)=1.
+$$
+:::
+
+::: {.column width="50%"}
+**Continuous random variable**
+
+Can take any value in an interval.
+
+Examples: height, time, income.
+
+Use a **probability density function (PDF)**:
+
+$$
+f_X(x)\ge0.
+$$
+
+$$
+\int_{-\infty}^{\infty}f_X(x)\,dx=1.
+$$
+:::
+:::
+
+::: notes
+Do not develop integrals on this slide. The main distinction is separated
+values versus a continuum of values.
+
+\[Sources\] - Hansen (2021), pp. 22-39.
+:::
+
+------------------------------------------------------------------------
+
+## For a PDF, area represents probability
+
+For a continuous random variable,
+
+$$
+\boxed{P(a\le X\le b)=\int_a^b f_X(x)\,dx}.
+$$
+
+The probability is the **area under the PDF** between $a$ and $b$.
+
+At one exact value, there is no width and therefore no area:
+
+$$P(X=x)=0.$$
+
+::: notes
+Say: the vertical height is density, but the area is probability. A tall
+curve at one point does not itself give a probability. Probability needs
+an interval with positive width.
+
+\[Sources\] - Hansen (2021), pp. 29-39.
+:::
+
+------------------------------------------------------------------------
+
+## The shaded area is an interval probability
+
+```{r}
+#| label: plot-density-area
+#| echo: false
+#| fig-align: center
+#| fig-width: 8.5
+#| fig-height: 4.8
+#| out-width: "88%"
+x <- seq(-3.5, 3.5, length.out = 600)
+y <- dnorm(x)
+plot(x, y, type = "l", lwd = 3, col = "#154360",
+     xlab = "x", ylab = "Density", ylim = c(0, 0.43),
+     main = "Probability is the area under the density")
+xs <- x[x >= -1 & x <= 1]
+polygon(c(-1, xs, 1), c(0, dnorm(xs), 0),
+        col = adjustcolor("#2E86C1", alpha.f = 0.35), border = NA)
+lines(x, y, lwd = 3, col = "#154360")
+abline(v = c(-1, 1), lty = 3, col = "#777777")
+text(0, 0.12, expression(P(-1 <= X~and~X <= 1)), col = "#154360")
+```
+
+::: notes
+Explain that the height of the curve is density, not probability at one
+exact point. Probability over an interval is the shaded area.
+
+\[Sources\] - Hansen (2021), pp. 29-39; figure generated in R.
+:::
+
+------------------------------------------------------------------------
+
+## The Uniform PDF has constant height
+
+If $X\sim\operatorname{Uniform}(a,b)$, then
+
+$$
+f_X(x)=\begin{cases}
+\dfrac{1}{b-a},&a\le x\le b,\\
+0,&\text{otherwise}.
+\end{cases}
+$$
+
+The height is $1/(b-a)$ so that the total rectangular area is
+
+$$
+(b-a)\frac{1}{b-a}=1.
+$$
+
+::: notes
+Draw the rectangular PDF. Its width is $b-a$, so its height must be
+$1/(b-a)$ for the total area to equal one.
+
+\[Sources\] - Hansen (2021), pp. 36-39.
+:::
+
+------------------------------------------------------------------------
+
+## Example: calculate a Uniform probability {.compact-example}
+
+Suppose
+
+$$X\sim\operatorname{Uniform}(0,10).$$
+
+Find $P(2\le X\le5)$.
+
+The PDF height is
+
+$$\frac{1}{10-0}=0.1.$$
+
+Therefore,
+
+$$
+P(2\le X\le5)
+=(5-2)(0.1)
+=0.3.
+$$
+
+::: notes
+Probability is the rectangular area: interval width 3 times PDF height
+0.1. Also point out that $P(X=2)=0$ even though $f_X(2)=0.1$.
+
+\[Sources\] - Instructor-developed example based on Hansen (2021),
+pp. 36-39.
+:::
+
+## Continuous example 2: Normal
+
+Write $X\sim N(\mu,\sigma^2)$, where $\mu$ sets the center and $\sigma$
+sets the spread.
+
+```{r}
+#| label: plot-normal-distributions
+#| echo: false
+#| fig-align: center
+#| fig-width: 8.8
+#| fig-height: 3.5
+#| out-width: "78%"
+x <- seq(-6, 8, length.out = 700)
+plot(x, dnorm(x, 0, 1), type = "l", lwd = 3, col = "#154360",
+     ylim = c(0, 0.43), xlab = "x", ylab = "Density",
+     main = "Normal distributions: mean sets location, variance sets spread")
+lines(x, dnorm(x, 2, 1), lwd = 3, col = "#C0392B", lty = 2)
+lines(x, dnorm(x, 0, 2), lwd = 3, col = "#1E8449", lty = 3)
+legend("topright",
+       c("N(0, 1)", "N(2, 1)", "N(0, 4)"),
+       col = c("#154360", "#C0392B", "#1E8449"),
+       lwd = 3, lty = c(1, 2, 3), bty = "n")
+```
+
+::: notes
+The red curve moves the mean from zero to two without changing the
+variance. The green curve keeps mean zero but increases the variance
+from one to four, making the distribution more spread out.
+
+\[Sources\] - Hansen (2021), pp. 61, 113-116; figure generated in R.
+:::
+
+------------------------------------------------------------------------
+
+## Linear transformations of a Normal variable stay Normal
+
+Suppose
+
+$$X\sim N(\mu,\sigma^2).$$
+
+For constants $a$ and $b$,
+
+$$
+\boxed{a+bX\sim N\!\left(a+b\mu,\;b^2\sigma^2\right)}.
+$$
+
+Important special cases:
+
+$$
+X+a\sim N(\mu+a,\sigma^2),
+\qquad
+bX\sim N(b\mu,b^2\sigma^2).
+$$
+
+::: notes
+Adding a constant moves the center but does not change the variance.
+Multiplying by $b$ multiplies the mean by $b$ and the variance by $b^2$.
+
+\[Sources\] - Hansen (2021), pp. 61, 113-116.
+:::
+
+------------------------------------------------------------------------
+
+## Standardization is a Normal transformation
+
+If
+
+
+$$X\sim N(\mu,\sigma^2),$$
+
+subtract the mean and divide by the standard deviation:
+
+$$
+\boxed{Z=\frac{X-\mu}{\sigma}\sim N(0,1)}.
+$$
+
+The standardized value tells us how many standard deviations $X$ is above
+or below its mean.
+
+::: notes
+Connect this directly to the preceding transformation formula by taking
+$a=-\mu/\sigma$ and $b=1/\sigma$.
+
+\[Sources\] - Hansen (2021), pp. 113-116.
+:::
+
+------------------------------------------------------------------------
+
+## Example: a Normal interval after standardizing {.compact-example}
+
+Exam scores satisfy
+
+$$X\sim N(70,10^2).$$
+
+Let $Z\sim N(0,1)$ and suppose you are given
+
+$$P(-1\le Z\le1)=0.6827.$$
+
+Find $P(60\le X\le80)$.
+
+::: notes
+Pause here and ask students what transformation would turn $X$ into a
+standard Normal variable.
+
+\[Sources\] - Instructor-developed example.
+:::
+
+------------------------------------------------------------------------
+
+## Example solution: standardize both endpoints {.compact-example}
+
+Standardize both endpoints:
+
+$$
+\frac{60-70}{10}=-1,
+\qquad
+\frac{80-70}{10}=1.
 $$
 
 Therefore,
 
 $$
-P(D=1\mid H)
-=
-\frac{0.70(0.20)}{0.34}
-\approx0.412.
+\begin{aligned}
+P(60\le X\le80)
+&=P(-1\le Z\le1)\\
+&=0.6827.
+\end{aligned}
 $$
 
-::: fragment
-Observing high motivation raises the probability of training participation from 20% to about 41%.
-:::
+::: notes
+First identify the mean and standard deviation. Standardize each endpoint,
+then use the standard-Normal probability supplied in the question.
 
-::: fragment
-This is also a warning: program participation may be statistically related to unobserved motivation.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 9-11; numerical example is instructor-developed.
+\[Sources\] - Instructor-developed example.
 :::
 
 ------------------------------------------------------------------------
 
-## Quick check: conditional probability
+## Exercise 3A: Uniform probability {.compact-exercise}
 
-In a population, 10% receive a policy treatment. Among treated units, 60% have outcome $Y=1$; among untreated units, 20% have $Y=1$.
+Suppose
 
-::: fragment
-1. Find $P(Y=1)$.
-:::
+$$X\sim\operatorname{Uniform}(2,8).$$
 
-::: fragment
-2. Find $P(D=1\mid Y=1)$.
-:::
+1. Plot the PDF.
+2. Calculate $P(3\le X\le6)$.
 
-::: fragment
-**Answer:**
+::: notes
+The PDF height is $1/(8-2)=1/6$.
+The interval has width $6-3=3$, so
 
 $$
-P(Y=1)=0.6(0.1)+0.2(0.9)=0.24,
+P(3\le X\le6)=3\left(\frac16\right)=\frac12.
 $$
 
-$$
-P(D=1\mid Y=1)=0.06/0.24=0.25.
-$$
-:::
-
-# 2. Random variables and distributions
-
-## A random variable maps outcomes into numbers
-
-A random variable is a function
-
-$$
-X:\Omega\rightarrow\mathbb R.
-$$
-
-::: fragment
-- Discrete example: number of job offers.
-:::
-
-::: fragment
-- Continuous example: wage or income.
-:::
-
-::: fragment
-- Binary example: employment status.
-:::
-
-::: fragment
-The randomness comes from the outcome; the mapping itself is fixed.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 22-24, 28-34.
+\[Sources\] - Instructor-developed exercise.
 :::
 
 ------------------------------------------------------------------------
 
-## PMF, PDF, and CDF answer different questions
+## Exercise 3B: transform a Normal variable {.compact-exercise}
 
-::: fragment
-- Discrete probability mass function:
+Suppose
 
-$$p(x)=P(X=x).$$
-:::
+$$X\sim N(50,5^2),
+\qquad
+Y=2X+10.
+$$
 
-::: fragment
-- Continuous probability density function:
+Let $Z\sim N(0,1)$ and suppose
 
-$$P(a<X\le b)=\int_a^b f(x)\,dx.$$
-:::
+$$P(-1\le Z\le1)=0.6827.$$
 
-::: fragment
-- Cumulative distribution function:
+1. Find the distributions of $X+10$, $2X$, and $Y$.
+2. Calculate $P(100\le Y\le120)$.
 
-$$F(x)=P(X\le x).$$
-:::
+::: notes
+$X+10\sim N(60,5^2)$, $2X\sim N(100,10^2)$, and
+$Y\sim N(110,10^2)$. For the interval,
 
-::: fragment
-A density value is not itself a probability; probability is area under the density.
-:::
+$$
+\frac{100-110}{10}=-1,
+\qquad
+\frac{120-110}{10}=1.
+$$
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 22-39.
+Therefore $P(100\le Y\le120)=P(-1\le Z\le1)=0.6827$.
+
+\[Sources\] - Instructor-developed exercise.
 :::
 
 ------------------------------------------------------------------------
@@ -497,43 +652,131 @@ A density value is not itself a probability; probability is area under the densi
 For a discrete random variable,
 
 $$
-E[X]=\sum_x xP(X=x).
-$$
-
-For a continuous random variable,
-
-$$
-E[X]=\int x f(x)\,dx.
+E(X)=\sum_x xP(X=x).
 $$
 
 ::: fragment
-Expectation is a feature of the distribution, not necessarily a value that will ever be observed.
+Expectation is the long-run average value across many repetitions.
 :::
 
 ::: fragment
-Linearity:
-
-$$
-E[a+bX+cY]=a+bE[X]+cE[Y].
-$$
+It does not need to be one of the values that $X$ can actually take.
 :::
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 25-27, 37-42.
+::: notes
+Distinguish the expected value from the most likely value. It is a center
+of the distribution, formed by weighting each value by its probability.
+
+\[Sources\] - Hansen (2021), pp. 25-28, 37-42.
 :::
 
 ------------------------------------------------------------------------
 
-## Variance measures dispersion around the mean
+## Example: expected number of heads
 
-Let $\mu=E[X]$. Then
+For two fair tosses,
 
 $$
-\operatorname{Var}(X)
-=E[(X-\mu)^2]
-=E[X^2]-\mu^2.
+\begin{array}{c|ccc}
+x & 0 & 1 & 2\\ \hline
+P(X=x) & 1/4 & 1/2 & 1/4
+\end{array}
 $$
+
+::: fragment
+$$
+\begin{aligned}
+E(X)
+&=0\left(\frac14\right)
++1\left(\frac12\right)
++2\left(\frac14\right)\\
+&=1.
+\end{aligned}
+$$
+:::
+
+::: notes
+Read the calculation aloud as “value times probability, then add.”
+
+\[Sources\] - Example constructed from Hansen (2021), pp. 25-28.
+:::
+
+------------------------------------------------------------------------
+
+## Exercise 4: calculate an expectation {.compact-exercise}
+
+A simple investment has payoff $X$:
+
+$$
+\begin{array}{c|ccc}
+x & -2 & 0 & 4\\ \hline
+P(X=x) & 0.25 & 0.50 & 0.25
+\end{array}
+$$
+
+1.  Verify that the probabilities sum to one.
+2.  Find $E(X)$.
+3.  Is the expected payoff equal to the most likely payoff?
+
+::: notes
+The probabilities sum to $0.25+0.50+0.25=1$.
+$E(X)=(-2)(0.25)+(0)(0.50)+(4)(0.25)=0.5$.
+The most likely payoff is 0, while the expected payoff is 0.5. The
+expected value does not need to be a value that $X$ can take.
+
+\[Sources\] - Instructor-developed exercise based on Hansen (2021),
+pp. 25-28.
+:::
+
+------------------------------------------------------------------------
+
+## Expectation is linear
+
+For constants $a$ and $b$,
+
+$$
+E(a+bX)=a+bE(X).
+$$
+
+::: fragment
+For two random variables,
+
+$$
+E(X+Y)=E(X)+E(Y),
+$$
+
+whether or not $X$ and $Y$ are independent.
+:::
+
+::: fragment
+In general, $E[g(X)]\ne g(E[X])$.
+:::
+
+::: notes
+Use a wage conversion example: if annual earnings equal 12 times monthly
+earnings, expected annual earnings equal 12 times expected monthly
+earnings.
+
+\[Sources\] - Hansen (2021), pp. 25-28, 40-42.
+:::
+
+------------------------------------------------------------------------
+
+## Variance measures spread around the mean
+
+Let $\mu=E(X)$. Then
+
+$$
+\operatorname{Var}(X)=E[(X-\mu)^2].
+$$
+
+::: fragment
+An equivalent formula is
+
+$$
+\operatorname{Var}(X)=E(X^2)-[E(X)]^2.
+$$
+:::
 
 ::: fragment
 The standard deviation is
@@ -543,1021 +786,937 @@ $$
 $$
 :::
 
-::: fragment
-Standard deviation uses the same units as $X$; variance uses squared units.
-:::
+::: notes
+Variance is an average squared distance from the mean. Squaring prevents
+positive and negative deviations from cancelling. Standard deviation is
+in the original units.
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 40-42.
-:::
-
-------------------------------------------------------------------------
-
-## Three distributions appear repeatedly
-
-::: fragment
-**Bernoulli:** $X\in\{0,1\}$ and $P(X=1)=p$.
-
-$$E[X]=p,\qquad \operatorname{Var}(X)=p(1-p).$$
-:::
-
-::: fragment
-**Binomial:** number of successes in $n$ independent Bernoulli trials.
-:::
-
-::: fragment
-**Normal:** continuous, symmetric, and described by mean $\mu$ and variance $\sigma^2$.
-:::
-
-::: fragment
-Student $t$, $\chi^2$, and $F$ distributions enter classical inference.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 56-64, 113-126.
+\[Sources\] - Hansen (2021), pp. 40-42.
 :::
 
 ------------------------------------------------------------------------
 
-## R connects the formulas to distributional shapes
+## Example: variance of the number of heads
 
-```{r}
-#| label: fig-distributions
-#| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "90%"
-old <- par(mfrow = c(1, 2), mar = c(4, 4, 3, 1))
-k <- 0:12
-plot(k, dbinom(k, size = 12, prob = 0.35), type = "h", lwd = 5,
-     col = "#154360", xlab = "Number of successes",
-     ylab = "Probability", main = "Binomial(12, 0.35)")
-points(k, dbinom(k, 12, 0.35), pch = 19, col = "#154360")
-x <- seq(-4, 4, length.out = 400)
-plot(x, dnorm(x), type = "l", lwd = 3, col = "#C0392B",
-     xlab = "x", ylab = "Density", main = "Standard normal")
-polygon(c(x, rev(x)), c(dnorm(x), rep(0, length(x))),
-        col = adjustcolor("#C0392B", 0.18), border = NA)
-lines(x, dnorm(x), lwd = 3, col = "#C0392B")
-par(old)
-```
+We already found $E(X)=1$.
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 56-64, 113-126.
+::: fragment
+$$
+E(X^2)
+=0^2\left(\frac14\right)
++1^2\left(\frac12\right)
++2^2\left(\frac14\right)
+=\frac32.
+$$
+:::
+
+::: fragment
+$$
+\operatorname{Var}(X)
+=E(X^2)-[E(X)]^2
+=\frac32-1^2
+=\frac12.
+$$
+:::
+
+::: notes
+Keep the distinction between $E(X^2)$ and $[E(X)]^2$ visible.
+
+\[Sources\] - Example constructed from Hansen (2021), pp. 40-42.
 :::
 
 ------------------------------------------------------------------------
 
-## Joint distributions describe variables together
+## Exercise 5: expectation and variance {.compact-exercise}
 
-For two random variables $X$ and $Y$, the joint distribution describes
+Use the investment payoff:
 
 $$
-P(X\in A,\ Y\in B).
+\begin{array}{c|ccc}
+x & -2 & 0 & 4\\ \hline
+P(X=x) & 0.25 & 0.50 & 0.25
+\end{array}
 $$
 
-::: fragment
-- A **marginal distribution** focuses on one variable.
-:::
+Given $E(X)=0.5$:
 
-::: fragment
-- A **conditional distribution** focuses on one variable given the other.
-:::
+1.  calculate $E(X^2)$;
+2.  calculate $\operatorname{Var}(X)$;
+3.  calculate $\operatorname{SD}(X)$.
 
-::: fragment
-- Independence means the joint distribution factors into the product of marginals.
-:::
+::: notes
+$E(X^2)=4(0.25)+0(0.50)+16(0.25)=5$.
+$\operatorname{Var}(X)=5-(0.5)^2=4.75$.
+$\operatorname{SD}(X)=\sqrt{4.75}\approx2.179$.
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 74-90.
+\[Sources\] - Instructor-developed exercise based on Hansen (2021),
+pp. 40-42.
 :::
 
 ------------------------------------------------------------------------
 
-## Covariance and correlation summarize co-movement
+## A shift changes the mean but not the variance
+
+For constants $a$ and $b$,
+
+$$
+E(a+bX)=a+bE(X),
+$$
+
+$$
+\operatorname{Var}(a+bX)=b^2\operatorname{Var}(X).
+$$
+
+::: fragment
+Adding $a$ shifts every value equally, so spread does not change.
+:::
+
+::: fragment
+Multiplying by $b$ changes every distance from the mean by $|b|$.
+:::
+
+::: notes
+Contrast the two effects. A location shift changes the center; a scale
+change affects both center and spread.
+
+\[Sources\] - Hansen (2021), pp. 40-42.
+:::
+
+------------------------------------------------------------------------
+
+## Covariance describes how two variables move together
 
 $$
 \operatorname{Cov}(X,Y)
-=E[(X-E[X])(Y-E[Y])].
+=E[(X-E(X))(Y-E(Y))].
 $$
+
+::: fragment
+Equivalently,
+
+$$
+\operatorname{Cov}(X,Y)=E(XY)-E(X)E(Y).
+$$
+:::
+
+::: fragment
+Positive: they tend to move in the same direction.  
+Negative: they tend to move in opposite directions.
+:::
+
+::: notes
+Say that covariance combines two deviations. When both deviations have
+the same sign, their product is positive.
+
+\[Sources\] - Hansen (2021), pp. 91-93.
+:::
+
+------------------------------------------------------------------------
+
+## Correlation puts covariance on a common scale
 
 $$
 \operatorname{Corr}(X,Y)
-=
-\frac{\operatorname{Cov}(X,Y)}
+=\frac{\operatorname{Cov}(X,Y)}
 {\operatorname{SD}(X)\operatorname{SD}(Y)}.
 $$
 
 ::: fragment
-- Correlation lies between $-1$ and $1$.
+$$-1\le\operatorname{Corr}(X,Y)\le1.$$
 :::
 
 ::: fragment
-- Independence implies zero covariance when moments exist.
+Correlation measures the direction and strength of a **linear**
+relationship.
 :::
 
-::: fragment
-- Zero covariance does not generally imply independence.
-:::
+::: notes
+Covariance depends on units; correlation does not. Zero correlation does
+not rule out a nonlinear relationship.
 
-::: fragment
-- Neither covariance nor correlation establishes causality.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 91-94.
+\[Sources\] - Hansen (2021), pp. 91-94.
 :::
 
 ------------------------------------------------------------------------
 
-## Conditional expectation is the language of econometrics
-
-$$
-m(x)=E[Y\mid X=x].
-$$
-
-::: fragment
-$m(x)$ is the mean of the conditional distribution of $Y$ given $X=x$.
-:::
-
-::: fragment
-The decomposition
-
-$$
-Y=E[Y\mid X]+\varepsilon
-$$
-
-implies
-
-$$
-E[\varepsilon\mid X]=0.
-$$
-:::
-
-::: fragment
-Regression methods approximate or estimate conditional expectations.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 94-99.
-:::
-
-------------------------------------------------------------------------
-
-## The law of iterated expectations aggregates conditional means
-
-$$
-E[Y]=E\left[E[Y\mid X]\right].
-$$
-
-::: fragment
-Interpretation:
-
-1. compute the mean of $Y$ within each value or group of $X$;
-2. average those conditional means over the distribution of $X$.
-:::
-
-::: fragment
-This is the expectation analogue of the law of total probability.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 94-97.
-:::
-
-------------------------------------------------------------------------
-
-## Jensen's inequality links curvature and risk
-
-If $u$ is concave, then
-
-$$
-E[u(X)]\le u(E[X]).
-$$
-
-::: fragment
-A risk-averse decision maker prefers the utility of a certain mean payoff to the expected utility of a risky payoff with that mean.
-:::
-
-::: fragment
-Curvature, not merely variance, determines how uncertainty affects welfare.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 42-45.
-:::
-
-# 3. Sampling and estimators
-
-## A population parameter is fixed; a statistic is random
-
-Suppose $X_1,\ldots,X_n$ are a random sample from a population.
-
-::: fragment
-- **Parameter:** an unknown feature such as $\mu=E[X]$.
-:::
-
-::: fragment
-- **Statistic:** a function of the sample, such as
-
-$$
-\bar X=\frac{1}{n}\sum_{i=1}^nX_i.
-$$
-:::
-
-::: fragment
-- **Estimator:** the rule $\bar X$ used to estimate $\mu$.
-:::
-
-::: fragment
-- **Estimate:** the numerical value obtained in one sample.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 128-135.
-:::
-
-------------------------------------------------------------------------
-
-## The sampling distribution describes repeated-sample variation
-
-Imagine repeatedly drawing samples of size $n$ and computing $\bar X$.
-
-::: fragment
-The distribution of those values is the **sampling distribution** of $\bar X$.
-:::
-
-::: fragment
-Under IID sampling with finite variance,
-
-$$
-E[\bar X]=\mu,
-\qquad
-\operatorname{Var}(\bar X)=\frac{\sigma^2}{n}.
-$$
-:::
-
-::: fragment
-More data reduces variance, but the estimate remains random.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 128-140.
-:::
-
-------------------------------------------------------------------------
-
-## Standard deviation and standard error answer different questions
-
-::: fragment
-**Standard deviation:** how dispersed are individual observations?
-
-$$
-\operatorname{SD}(X)=\sigma.
-$$
-:::
-
-::: fragment
-**Standard error:** how dispersed is an estimator across repeated samples?
-
-$$
-\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}.
-$$
-:::
-
-::: fragment
-If sample size quadruples, the standard error is approximately halved.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 135-141.
-:::
-
-------------------------------------------------------------------------
-
-## R simulates a sampling distribution
+## Correlation changes the shape of a scatter plot
 
 ```{r}
-#| label: fig-sampling-distribution
-#| fig-width: 9
-#| fig-height: 4.8
+#| label: plot-correlation-patterns
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 4.4
+#| out-width: "96%"
+oldpar <- par(mfrow = c(1, 3), mar = c(3.5, 3.5, 2.5, 1))
+n <- 80
+x <- rnorm(n)
+y_pos <- 0.8*x + rnorm(n, sd = 0.45)
+y_zero <- rnorm(n)
+y_neg <- -0.8*x + rnorm(n, sd = 0.45)
+plot(x, y_pos, pch = 19, col = adjustcolor("#2E86C1", 0.65),
+     xlab = "X", ylab = "Y", main = "Positive")
+plot(x, y_zero, pch = 19, col = adjustcolor("#7F8C8D", 0.65),
+     xlab = "X", ylab = "Y", main = "Near zero")
+plot(x, y_neg, pch = 19, col = adjustcolor("#C0392B", 0.65),
+     xlab = "X", ylab = "Y", main = "Negative")
+par(oldpar)
+```
+
+::: notes
+Ask students to describe direction before naming correlation. The middle
+panel has no clear linear direction.
+
+\[Sources\] - Hansen (2021), pp. 91-94; simulated figures generated in R.
+:::
+
+------------------------------------------------------------------------
+
+## Exercise 6: covariance and correlation {.compact-exercise}
+
+Three equally likely observations are
+
+$$
+\begin{array}{c|ccc}
+&1&2&3\\ \hline
+X&1&2&3\\
+Y&1&3&2
+\end{array}
+$$
+
+Treat each column as having probability $1/3$.
+
+1.  Find $E(X)$ and $E(Y)$.
+2.  Find $\operatorname{Cov}(X,Y)$.
+3.  Find $\operatorname{Corr}(X,Y)$.
+
+::: notes
+$E(X)=E(Y)=2$.
+$\operatorname{Cov}(X,Y)=[(-1)(-1)+0(1)+(1)(0)]/3=1/3$.
+$\operatorname{Var}(X)=\operatorname{Var}(Y)=2/3$.
+Therefore $\operatorname{Corr}(X,Y)=(1/3)/(2/3)=1/2$.
+
+\[Sources\] - Instructor-developed exercise based on Hansen (2021),
+pp. 91-94.
+:::
+
+------------------------------------------------------------------------
+
+# 2. Regression: estimating a line
+
+## What is regression?
+
+Regression uses a line to summarize how an outcome $Y$ changes with an
+explanatory variable $X$:
+
+$$
+Y_i=\beta_0+\beta_1X_i+u_i.
+$$
+
+::: fragment
+- $\beta_0$: intercept;
+- $\beta_1$: slope;
+- $u_i$: the part of $Y_i$ not described by the line.
+:::
+
+::: fragment
+From data, we estimate the line
+
+$$
+\widehat Y_i=\widehat\beta_0+\widehat\beta_1X_i.
+$$
+:::
+
+::: notes
+Say: “Regression draws one line through a cloud of points. The line cannot
+usually pass through every point, so we need a rule for choosing the best
+line. That rule will be ordinary least squares.”
+
+\[Sources\] - Instructor-developed introduction to linear regression.
+:::
+
+------------------------------------------------------------------------
+
+## Which line is best? What rule should decide?
+
+```{r}
+#| label: plot-three-candidate-lines
+#| echo: false
+#| fig-align: center
+#| fig-width: 8.6
+#| fig-height: 4.7
 #| out-width: "88%"
-B <- 5000
-n <- 40
-means <- replicate(B, mean(rexp(n, rate = 1)))
-hist(means, breaks = 35, probability = TRUE,
-     col = adjustcolor("#154360", 0.35), border = "white",
-     xlab = "Sample mean", main = "Sampling distribution of the mean")
-curve(dnorm(x, mean = 1, sd = 1 / sqrt(n)), add = TRUE,
-      lwd = 3, col = "#C0392B")
-abline(v = 1, lty = 2, lwd = 2, col = "#1E8449")
-legend("topright", c("simulated means", "normal approximation", "population mean"),
-       col = c("#154360", "#C0392B", "#1E8449"),
-       lwd = c(6, 3, 2), lty = c(1, 1, 2), bty = "n")
+hours <- c(1, 1.5, 2, 2.5, 3, 4, 4.5, 5, 6, 6.5, 7.5, 8)
+score <- c(53, 55, 54, 58, 59, 61, 63, 64, 68, 69, 73, 75)
+candidate_a <- lm(score ~ hours)
+plot(hours, score, pch = 19, cex = 1.35, col = "#2E86C1",
+     xlab = "Study hours (X)", ylab = "Exam score (Y)",
+     xlim = c(0.5, 8.5), ylim = c(48, 79),
+     main = "Three candidate lines")
+abline(candidate_a, lwd = 3, col = "#C0392B")
+abline(a = 55, b = 1.8, lwd = 3, col = "#1E8449", lty = 2)
+abline(a = 44, b = 4.2, lwd = 3, col = "#8E44AD", lty = 3)
+legend("topleft", c("Observed scores", "Line A", "Line B", "Line C"),
+       col = c("#2E86C1", "#C0392B", "#1E8449", "#8E44AD"),
+       pch = c(19, NA, NA, NA), lty = c(NA, 1, 2, 3),
+       lwd = c(NA, 3, 3, 3), bty = "n")
 ```
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 128-140, 165-173.
+::: notes
+Ask students to vote for Line A, B, or C. Do not reveal the answer yet.
+Then ask what “best” should mean. Visual judgment is not enough when many
+lines look plausible. The next slide introduces a numerical rule that can
+compare every possible line.
+
+\[Sources\] - Instructor-developed data and R figure.
 :::
 
 ------------------------------------------------------------------------
 
-## Bias, variance, and MSE evaluate an estimator
+## Ordinary Least Squares minimizes squared residuals
 
-Bias:
-
-$$
-\operatorname{Bias}(\hat\theta)
-=E[\hat\theta]-\theta.
-$$
-
-Mean squared error:
+For a candidate line $b_0+b_1X_i$, the residual is
 
 $$
-\operatorname{MSE}(\hat\theta)
-=E[(\hat\theta-\theta)^2]
-=\operatorname{Var}(\hat\theta)
-+\operatorname{Bias}(\hat\theta)^2.
+e_i=Y_i-(b_0+b_1X_i).
 $$
 
 ::: fragment
-An estimator can trade a small amount of bias for a large reduction in variance.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 135-140.
-:::
-
-# 4. Why large samples help
-
-## The law of large numbers gives consistency
-
-Under suitable conditions,
+Ordinary Least Squares (OLS) chooses $b_0$ and $b_1$ to minimize
 
 $$
-\bar X_n\xrightarrow{p}\mu.
-$$
-
-::: fragment
-For every $\varepsilon>0$,
-
-$$
-P(|\bar X_n-\mu|>\varepsilon)\rightarrow0.
+S(b_0,b_1)
+=\sum_{i=1}^n e_i^2
+=\sum_{i=1}^n\left[Y_i-b_0-b_1X_i\right]^2.
 $$
 :::
 
 ::: fragment
-The LLN says the sample mean becomes close to the population mean in probability.
+Why square the residuals? Positive and negative errors cannot cancel, and
+large errors receive more weight.
 :::
 
-::: fragment
-It does not describe the shape of the remaining error.
-:::
+::: notes
+Say: “Every possible line produces residuals. We square them, add them,
+and choose the line with the smallest total.” Connect this directly to
+unconstrained minimization from calculus.
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 149-160.
+\[Sources\] - Instructor-developed OLS explanation.
 :::
 
 ------------------------------------------------------------------------
 
-## R shows convergence as sample size grows
+## Step 1: differentiate the OLS objective
 
-```{r}
-#| label: fig-lln
-#| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "88%"
-nmax <- 1200
-x <- rexp(nmax, rate = 1)
-running_mean <- cumsum(x) / seq_along(x)
-plot(seq_along(x), running_mean, type = "l", lwd = 2,
-     col = "#154360", xlab = "Sample size, n",
-     ylab = "Running sample mean",
-     main = "The running mean settles near the population mean")
-abline(h = 1, lwd = 2, lty = 2, col = "#C0392B")
-legend("topright", c("running mean", "E[X] = 1"),
-       col = c("#154360", "#C0392B"), lwd = 2,
-       lty = c(1, 2), bty = "n")
-```
+The two first-order conditions are
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 149-160.
+$$
+\frac{\partial S}{\partial b_0}
+=-2\sum_{i=1}^n(Y_i-b_0-b_1X_i)=0,
+$$
+
+$$
+\frac{\partial S}{\partial b_1}
+=-2\sum_{i=1}^nX_i(Y_i-b_0-b_1X_i)=0.
+$$
+
+::: fragment
+The first condition gives
+
+$$
+\widehat\beta_0=\overline Y-\widehat\beta_1\overline X.
+$$
+:::
+
+::: notes
+Differentiate one squared residual on the board first. For the intercept,
+the inner derivative is $-1$; for the slope, it is $-X_i$. Divide the
+first condition by $n$ to obtain the intercept formula.
+
+\[Sources\] - Instructor-developed scalar OLS derivation.
 :::
 
 ------------------------------------------------------------------------
 
-## The central limit theorem gives the shape of estimation error
+## Step 2: solve for the slope and intercept
 
-Under suitable conditions,
-
-$$
-\sqrt n(\bar X_n-\mu)
-\xrightarrow{d}
-N(0,\sigma^2).
-$$
-
-Equivalently, for large $n$,
-
-$$
-\bar X_n
-\approx
-N\left(\mu,\frac{\sigma^2}{n}\right).
-$$
-
-::: fragment
-This approximation is the bridge from estimation to standard errors, confidence intervals, and tests.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 165-173.
-:::
-
-------------------------------------------------------------------------
-
-## The original population need not be normal
-
-```{r}
-#| label: fig-clt
-#| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "90%"
-old <- par(mfrow = c(1, 3), mar = c(4, 3.5, 3, 1))
-for (n in c(1, 5, 40)) {
-  vals <- replicate(4000, mean(rexp(n, rate = 1)))
-  hist(vals, breaks = 30, probability = TRUE,
-       col = adjustcolor("#154360", 0.35), border = "white",
-       xlab = "Sample mean", ylab = "Density",
-       main = paste0("n = ", n), xlim = c(0, 3))
-  curve(dnorm(x, mean = 1, sd = 1 / sqrt(n)), add = TRUE,
-        lwd = 2, col = "#C0392B")
-}
-par(old)
-```
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 165-173.
-:::
-
-------------------------------------------------------------------------
-
-## LLN and CLT answer different questions
-
-| Result | Main question | Main conclusion |
-|---|---|---|
-| LLN | Does the estimator approach the target? | $\bar X_n\to_p\mu$ |
-| CLT | What is the approximate distribution of its error? | $\sqrt n(\bar X_n-\mu)\to_d N(0,\sigma^2)$ |
-
-::: fragment
-- LLN supports consistency.
-:::
-
-::: fragment
-- CLT supports approximate inference.
-:::
-
-::: fragment
-Both rely on assumptions; neither is a license to ignore dependence, heavy tails, or poor sampling design.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 149-176.
-:::
-
-# 5. Estimation and inference
-
-## Method of moments matches sample moments to population moments
-
-Suppose a model implies
-
-$$
-E[g(X,\theta_0)]=0.
-$$
-
-The method of moments chooses $\hat\theta$ so that
-
-$$
-\frac{1}{n}\sum_{i=1}^n g(X_i,\hat\theta)=0.
-$$
-
-::: fragment
-For $E[X]=\mu$, the sample analogue gives
-
-$$
-\hat\mu=\bar X.
-$$
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 225-241.
-:::
-
-------------------------------------------------------------------------
-
-## Maximum likelihood asks which parameter best explains the sample
-
-For IID observations with density or mass function $f(x;\theta)$,
-
-$$
-L(\theta)=\prod_{i=1}^n f(X_i;\theta).
-$$
-
-The maximum likelihood estimator is
-
-$$
-\hat\theta_{MLE}=\arg\max_\theta L(\theta).
-$$
-
-::: fragment
-We usually maximize the log-likelihood:
-
-$$
-\ell(\theta)=\sum_{i=1}^n\log f(X_i;\theta).
-$$
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 192-206.
-:::
-
-------------------------------------------------------------------------
-
-## Bernoulli MLE: the sample mean estimates a probability
-
-If $X_i\sim\text{Bernoulli}(p)$, then
-
-$$
-\ell(p)
-=
-\sum_{i=1}^n
-\left[X_i\log p+(1-X_i)\log(1-p)\right].
-$$
-
-::: fragment
-The first-order condition yields
-
-$$
-\hat p=\frac{1}{n}\sum_{i=1}^nX_i=\bar X.
-$$
-:::
-
-::: fragment
-The MLE is simply the observed fraction of successes.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 192-206.
-:::
-
-------------------------------------------------------------------------
-
-## A confidence interval combines estimate and uncertainty
-
-If
-
-$$
-\frac{\hat\theta-\theta}{\operatorname{SE}(\hat\theta)}
-\approx N(0,1),
-$$
-
-an approximate 95% confidence interval is
+Substitute $\widehat\beta_0=\overline Y-\widehat\beta_1\overline X$ into
+the second first-order condition:
 
 $$
 \boxed{
-\hat\theta
-\pm
-1.96\operatorname{SE}(\hat\theta)
-}.
+\widehat\beta_1
+=\frac{\sum_{i=1}^n(X_i-\overline X)(Y_i-\overline Y)}
+{\sum_{i=1}^n(X_i-\overline X)^2}}
 $$
 
 ::: fragment
-Across repeated samples, approximately 95% of intervals constructed by this procedure contain the true parameter.
+Then calculate
+
+$$
+\boxed{\widehat\beta_0
+=\overline Y-\widehat\beta_1\overline X}.
+$$
 :::
 
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 296-301.
+::: fragment
+The fitted regression line is
+$\widehat Y_i=\widehat\beta_0+\widehat\beta_1X_i$.
+:::
+
+::: notes
+Say: “The slope compares how X and Y move together with how much X moves
+by itself. Once we know the slope, the intercept makes the fitted line pass
+through $(\overline X,\overline Y)$.”
+
+\[Sources\] - Instructor-developed scalar OLS derivation.
 :::
 
 ------------------------------------------------------------------------
 
-## Confidence intervals vary from sample to sample
+## Example: study hours and exam scores {.compact-example}
 
-```{r}
-#| label: fig-confidence-intervals
-#| fig-width: 9
-#| fig-height: 5.2
-#| out-width: "88%"
-B <- 30
-n <- 50
-mu <- 1
-est <- se <- numeric(B)
-for (b in seq_len(B)) {
-  xb <- rexp(n, rate = 1)
-  est[b] <- mean(xb)
-  se[b] <- sd(xb) / sqrt(n)
-}
-lo <- est - 1.96 * se
-hi <- est + 1.96 * se
-cover <- lo <= mu & hi >= mu
-plot(est, seq_len(B), pch = 19,
-     col = ifelse(cover, "#154360", "#C0392B"),
-     xlim = range(c(lo, hi, mu)), xlab = "Confidence interval",
-     ylab = "Repeated sample", main = "Most, but not all, 95% intervals cover the truth")
-segments(lo, seq_len(B), hi, seq_len(B),
-         col = ifelse(cover, "#154360", "#C0392B"), lwd = 2)
-abline(v = mu, lty = 2, lwd = 2, col = "#1E8449")
-```
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 296-301.
-:::
-
-------------------------------------------------------------------------
-
-## Hypothesis testing begins with a null claim
-
-Example:
+Suppose we observe four students:
 
 $$
-H_0:\theta=\theta_0
-\qquad\text{versus}\qquad
-H_1:\theta\neq\theta_0.
+\begin{array}{c|rrrr}
+i&1&2&3&4\\ \hline
+X_i\text{ (hours)}&1&2&3&4\\
+Y_i\text{ (score)}&52&53&55&56
+\end{array}
 $$
 
-The standardized test statistic is
+Calculate the OLS slope and intercept.
+
+::: fragment
+First,
 
 $$
-t=\frac{\hat\theta-\theta_0}{\operatorname{SE}(\hat\theta)}.
-$$
-
-::: fragment
-Under $H_0$, a large absolute value of $t$ is evidence against the null.
-:::
-
-::: fragment
-At the 5% level in a two-sided large-sample test, reject when $|t|>1.96$.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 271-290.
-:::
-
-------------------------------------------------------------------------
-
-## Type I and Type II errors are asymmetric
-
-| Decision | $H_0$ true | $H_0$ false |
-|---|---|---|
-| Reject $H_0$ | Type I error | Correct rejection |
-| Do not reject $H_0$ | Correct non-rejection | Type II error |
-
-::: fragment
-- Significance level $\alpha$: probability of a Type I error under the null.
-:::
-
-::: fragment
-- Power: probability of rejecting a false null.
-:::
-
-::: fragment
-Reducing one error probability can increase the other unless information increases.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 271-281.
-:::
-
-------------------------------------------------------------------------
-
-## A p-value measures incompatibility with the null
-
-The p-value is the probability, **assuming the null is true**, of observing a test statistic at least as extreme as the one observed.
-
-::: fragment
-For a two-sided asymptotic normal test,
-
-$$
-p\text{-value}
-=2\left[1-\Phi(|t_{obs}|)\right].
-$$
-:::
-
-::: fragment
-It is not $P(H_0\text{ is true}\mid\text{data})$.
-:::
-
-::: fragment
-A small p-value is evidence against $H_0$ relative to the assumed model.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 282-290.
-:::
-
-------------------------------------------------------------------------
-
-## R displays the two-sided p-value
-
-```{r}
-#| label: fig-pvalue
-#| fig-width: 9
-#| fig-height: 4.8
-#| out-width: "88%"
-x <- seq(-4, 4, length.out = 800)
-y <- dnorm(x)
-tobs <- 2.1
-plot(x, y, type = "l", lwd = 3, col = "#154360",
-     xlab = "Test statistic under H0", ylab = "Density",
-     main = "Two-sided p-value: probability beyond +/- |t observed|")
-xl <- x[x <= -tobs]
-xr <- x[x >= tobs]
-polygon(c(xl, rev(xl)), c(dnorm(xl), rep(0, length(xl))),
-        col = adjustcolor("#C0392B", 0.45), border = NA)
-polygon(c(xr, rev(xr)), c(dnorm(xr), rep(0, length(xr))),
-        col = adjustcolor("#C0392B", 0.45), border = NA)
-lines(x, y, lwd = 3, col = "#154360")
-abline(v = c(-tobs, tobs), lty = 2, col = "#C0392B")
-```
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 280-290.
-:::
-
-------------------------------------------------------------------------
-
-## Statistical significance is not economic significance
-
-Suppose an estimated policy effect is
-
-$$
-\hat\theta=0.002,
+\overline X=2.5,
 \qquad
-\operatorname{SE}(\hat\theta)=0.0005.
+\overline Y=54.
 $$
-
-::: fragment
-Then $t=4$, so the estimate is statistically distinguishable from zero.
 :::
 
-::: fragment
-But whether an effect of $0.002$ matters depends on units, costs, baseline risk, and the decision context.
-:::
+::: notes
+Reveal only the means after students have calculated them. Then build the
+deviation table on the next slide.
 
-::: fragment
-Always report and interpret the estimate, its uncertainty, and its substantive magnitude.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 289-301; numerical example is instructor-developed.
+\[Sources\] - Instructor-developed example and data.
 :::
 
 ------------------------------------------------------------------------
 
-## A larger sample does not solve every problem
-
-Larger $n$ often reduces sampling variance, but it does not automatically fix:
-
-::: fragment
-- selection bias;
-:::
-
-::: fragment
-- omitted variables or endogeneity;
-:::
-
-::: fragment
-- measurement error;
-:::
-
-::: fragment
-- dependence ignored by the standard error;
-:::
-
-::: fragment
-- model misspecification;
-:::
-
-::: fragment
-- a sample that does not represent the target population.
-:::
-
-::: {.notes}
-[Sources]
-- Hansen (2021), pp. 128-176, 213-217.
-:::
-
-------------------------------------------------------------------------
-
-## These ideas become the first regression toolkit
-
-In a regression model,
+## Example solution: plug the data into the formulas {.compact-example}
 
 $$
-Y_i=X_i'\beta+u_i,
+\begin{array}{c|rr|rr|rr}
+i&X_i&Y_i&X_i-\bar X&Y_i-\bar Y&
+(X_i-\bar X)(Y_i-\bar Y)&(X_i-\bar X)^2\\ \hline
+1&1&52&-1.5&-2&3&2.25\\
+2&2&53&-0.5&-1&0.5&0.25\\
+3&3&55&0.5&1&0.5&0.25\\
+4&4&56&1.5&2&3&2.25\\ \hline
+&&&&&7&5
+\end{array}
 $$
 
-we use the same sequence:
-
 ::: fragment
-1. define a population target $\beta$;
-:::
-
-::: fragment
-2. construct an estimator $\hat\beta$;
-:::
-
-::: fragment
-3. study bias, variance, and consistency;
-:::
-
-::: fragment
-4. derive an approximate sampling distribution;
-:::
-
-::: fragment
-5. compute standard errors, intervals, and tests.
-:::
-
-::: fragment
-Probability is not separate from econometrics; it is its foundation.
-:::
-
-------------------------------------------------------------------------
-
-## Practice: one empirical estimate
-
-A sample of $n=400$ workers gives
-
 $$
-\bar X=52.0,
+\widehat\beta_1=\frac75=1.4,
 \qquad
-s=12.0,
+\widehat\beta_0=54-(1.4)(2.5)=50.5.
 $$
 
-where $X$ is weekly hours worked.
-
-::: fragment
-1. Estimate the population mean.
+$$
+\boxed{\widehat Y=50.5+1.4X}
+$$
 :::
 
-::: fragment
-2. Compute the standard error.
-:::
+::: notes
+Interpret the slope: one additional study hour is associated with a 1.4
+point increase in the fitted exam score. At two hours, the fitted score is
+$50.5+1.4(2)=53.3$.
 
-::: fragment
-3. Construct an approximate 95% confidence interval.
-:::
-
-::: fragment
-4. Test $H_0:\mu=50$ using a two-sided large-sample test.
+\[Sources\] - Instructor-developed example.
 :::
 
 ------------------------------------------------------------------------
 
-## Practice solution
+## Exercise 7: OLS without an intercept {.compact-exercise}
 
-Point estimate:
-
-$$
-\hat\mu=52.0.
-$$
-
-Standard error:
+Suppose the fitted line is forced through the origin:
 
 $$
-SE(\bar X)=\frac{12}{\sqrt{400}}=0.6.
+Y_i=\beta X_i+u_i.
 $$
 
-::: fragment
-Approximate 95% confidence interval:
+1. Starting from
+   $S(b)=\sum_{i=1}^n(Y_i-bX_i)^2$, differentiate with respect to $b$ and
+   show that
 
-$$
-52\pm1.96(0.6)
-=52\pm1.176
-=[50.824,53.176].
-$$
+   $$\widehat\beta=\frac{\sum_iX_iY_i}{\sum_iX_i^2}.$$
+
+2. Use $X=(1,2,3)$ and $Y=(2,3,5)$ to calculate $\widehat\beta$ and write
+   the fitted line.
+
+::: notes
+Differentiate:
+$dS/db=-2\sum_iX_i(Y_i-bX_i)=0$.
+Therefore $\widehat\beta=\sum_iX_iY_i/\sum_iX_i^2$.
+For the data, $\sum_iX_iY_i=2+6+15=23$ and
+$\sum_iX_i^2=1+4+9=14$. Hence
+$\widehat\beta=23/14\approx1.643$ and
+$\widehat Y=(23/14)X$.
+
+\[Sources\] - Instructor-developed exercise.
 :::
 
 ------------------------------------------------------------------------
 
-## Test and interpretation
+## Multiple regression uses matrices
+
+With several explanatory variables,
 
 $$
-t=\frac{52-50}{0.6}=3.33.
+\mathbf y=\mathbf X\boldsymbol\beta+\mathbf u.
 $$
 
-::: fragment
-The two-sided p-value is approximately
+::: columns
+::: {.column width="48%"}
+$$
+\mathbf y=
+\begin{bmatrix}
+y_1\\y_2\\\vdots\\y_n
+\end{bmatrix}_{n\times1},
+\qquad
+\mathbf u=
+\begin{bmatrix}
+u_1\\u_2\\\vdots\\u_n
+\end{bmatrix}_{n\times1}.
+$$
 
-$$
-2[1-\Phi(3.33)]\approx0.0009.
-$$
+Each row is one observation.
 :::
 
-::: fragment
-We reject $H_0:\mu=50$ at conventional significance levels.
+::: {.column width="52%"}
+$$
+\boldsymbol\beta=
+\begin{bmatrix}
+\beta_0\\\beta_1\\\vdots\\\beta_{k-1}
+\end{bmatrix}_{k\times1}.
+$$
+
+Each entry is one coefficient.
+:::
 :::
 
-::: fragment
-The sample provides evidence that the population mean differs from 50 hours; the estimate is about 2 hours higher.
+::: notes
+Start with dimensions. The outcome vector and error vector contain one
+number for each observation. The coefficient vector contains one number
+for each column of the design matrix.
+
+\[Sources\] - Instructor-developed matrix notation for multiple regression.
 :::
 
 ------------------------------------------------------------------------
 
-## Common interpretation errors
-
-::: fragment
-- “The parameter has a 95% probability of being inside this realized frequentist interval.”
-:::
-
-::: fragment
-- “A p-value of 0.03 means the null has a 3% probability of being true.”
-:::
-
-::: fragment
-- “Failure to reject proves the null.”
-:::
-
-::: fragment
-- “A significant association is causal.”
-:::
-
-::: fragment
-- “A narrow confidence interval guarantees the study is unbiased.”
-:::
-
-::: fragment
-Each statement confuses sampling uncertainty with a different inferential question.
-:::
-
-------------------------------------------------------------------------
-
-## Exit ticket
-
-::: fragment
-1. What is the difference between a parameter and an estimator?
-:::
-
-::: fragment
-2. What is the difference between a standard deviation and a standard error?
-:::
-
-::: fragment
-3. What does the LLN tell us? What does the CLT add?
-:::
-
-::: fragment
-4. Give a correct one-sentence interpretation of a p-value.
-:::
-
-::: fragment
-5. Name one problem that a larger sample does not automatically solve.
-:::
-
-------------------------------------------------------------------------
-
-## Keep this mental map
+## The design matrix contains the explanatory variables
 
 $$
-\boxed{
-\begin{array}{c}
-\text{Probability}=\text{model of uncertainty}\\[3pt]
-\text{Estimator}=\text{random rule based on a sample}\\[3pt]
-\text{LLN}=\text{closeness to the target}\\[3pt]
-\text{CLT}=\text{shape of estimation error}\\[3pt]
-\text{SE}=\text{sampling uncertainty}\\[3pt]
-\text{Inference}=\text{estimate + uncertainty + assumptions}
-\end{array}}
+\mathbf X=
+\begin{bmatrix}
+1&X_{11}&X_{12}&\cdots&X_{1,k-1}\\
+1&X_{21}&X_{22}&\cdots&X_{2,k-1}\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+1&X_{n1}&X_{n2}&\cdots&X_{n,k-1}
+\end{bmatrix}_{n\times k}.
 $$
+
+::: fragment
+- one **row** for each observation;
+- one **column** for each coefficient;
+- the first column of ones produces the intercept $\beta_0$.
+:::
+
+::: fragment
+For observation $i$, the matrix equation reproduces
+
+$$
+Y_i=\beta_0+\beta_1X_{i1}+\cdots+\beta_{k-1}X_{i,k-1}+u_i.
+$$
+:::
+
+::: notes
+Point across one row of X and then down the coefficient vector. Their dot
+product gives the fitted value for that observation.
+
+\[Sources\] - Instructor-developed matrix notation for multiple regression.
+:::
 
 ------------------------------------------------------------------------
 
-**Questions?**
+## Matrix OLS: write and expand the objective {.compact-example}
 
-Primary reference: Hansen, *Probability and Statistics for Economists*, Chapters 1-8, 10-11, and 13-14.
+::: columns
+::: {.column width="67%"}
+OLS minimizes
+
+$$
+S(\mathbf b)
+=(\mathbf y-\mathbf X\mathbf b)'
+(\mathbf y-\mathbf X\mathbf b).
+$$
+
+Expand the product:
+
+$$
+S(\mathbf b)
+=\mathbf y'\mathbf y
+-2\mathbf b'\mathbf X'\mathbf y
++\mathbf b'\mathbf X'\mathbf X\mathbf b.
+$$
+:::
+
+::: {.column width="33%"}
+<div style="border: 2px solid #777; border-radius: 8px; padding: 0.55em; font-size: 0.78em;">
+<strong>Matrix derivative rules</strong>
+
+$$
+\frac{\partial(\mathbf b'\mathbf c)}{\partial\mathbf b}
+=\mathbf c
+$$
+
+$$
+\frac{\partial(\mathbf b'\mathbf A\mathbf b)}
+{\partial\mathbf b}
+=(\mathbf A+\mathbf A')\mathbf b
+$$
+
+If $\mathbf A$ is symmetric, this is $2\mathbf A\mathbf b$.
+</div>
+:::
+:::
+
+::: notes
+The objective is still the sum of squared residuals. Matrix notation only
+allows all residuals and all coefficients to be handled at once. In the
+quadratic term, $X'X$ is symmetric.
+
+\[Sources\] - Instructor-developed matrix OLS derivation.
+:::
+
+------------------------------------------------------------------------
+
+## Matrix OLS: differentiate and solve {.compact-example}
+
+::: columns
+::: {.column width="67%"}
+Differentiate:
+
+$$
+\frac{\partial S(\mathbf b)}{\partial\mathbf b}
+=-2\mathbf X'\mathbf y
++2\mathbf X'\mathbf X\mathbf b.
+$$
+
+Set the derivative equal to zero:
+
+$$
+\mathbf X'\mathbf X\widehat{\boldsymbol\beta}
+=\mathbf X'\mathbf y.
+$$
+
+If $\mathbf X'\mathbf X$ is invertible,
+
+$$
+\boxed{\widehat{\boldsymbol\beta}
+=(\mathbf X'\mathbf X)^{-1}\mathbf X'\mathbf y}.
+$$
+:::
+
+::: {.column width="33%"}
+<div style="border: 2px solid #777; border-radius: 8px; padding: 0.55em; font-size: 0.78em;">
+<strong>Rules used</strong>
+
+$$
+\frac{\partial(\mathbf y'\mathbf y)}{\partial\mathbf b}=\mathbf0
+$$
+
+$$
+\frac{\partial(-2\mathbf b'\mathbf X'\mathbf y)}
+{\partial\mathbf b}=-2\mathbf X'\mathbf y
+$$
+
+$$
+\frac{\partial(\mathbf b'\mathbf X'\mathbf X\mathbf b)}
+{\partial\mathbf b}=2\mathbf X'\mathbf X\mathbf b
+$$
+</div>
+:::
+:::
+
+::: notes
+Say: “This is the same three-step process as before: write the squared
+error, differentiate, and solve. The matrix inverse solves all first-order
+conditions simultaneously.”
+
+\[Sources\] - Instructor-developed matrix OLS derivation.
+:::
+
+------------------------------------------------------------------------
+
+## Exercise 8: calculate matrix OLS {.compact-exercise}
+
+Let
+
+$$
+\mathbf X=
+\begin{bmatrix}
+1&1\\
+1&2\\
+1&3
+\end{bmatrix}_{3\times2},
+\qquad
+\mathbf y=
+\begin{bmatrix}
+2\\3\\5
+\end{bmatrix},
+\qquad
+\mathbf X'=
+\begin{bmatrix}
+1&1&1\\
+1&2&3
+\end{bmatrix}_{2\times3}.
+$$
+
+1. Calculate $\mathbf X'\mathbf X$ and $\mathbf X'\mathbf y$.
+
+::: fragment
+For Step 2, use
+
+$$
+\begin{bmatrix}
+3&6\\
+6&14
+\end{bmatrix}^{-1}
+=\frac16
+\begin{bmatrix}
+14&-6\\
+-6&3
+\end{bmatrix}.
+$$
+
+2. Use this inverse to calculate
+   $\widehat{\boldsymbol\beta}=(\mathbf X'\mathbf X)^{-1}\mathbf X'\mathbf y$.
+3. Write the fitted regression line.
+:::
+
+::: notes
+$X'X=\begin{bmatrix}3&6\\6&14\end{bmatrix}$ and
+$X'y=\begin{bmatrix}10\\23\end{bmatrix}$.
+The inverse is
+$(X'X)^{-1}=\frac16\begin{bmatrix}14&-6\\-6&3\end{bmatrix}$.
+Therefore
+$\widehat{\boldsymbol\beta}
+=\begin{bmatrix}1/3\\3/2\end{bmatrix}$ and
+$\widehat Y=1/3+(3/2)X$.
+
+\[Sources\] - Instructor-developed exercise.
+:::
+
+------------------------------------------------------------------------
+
+# 3. Hypothesis testing
+
+## Is this coin-tossing game fair?
+
+We play the following game:
+
+- if heads appears more often, **I win**;
+- if tails appears more often, **you win**.
+
+::: fragment
+If the coin is fair, both of us should have the same chance of winning.
+:::
+
+::: fragment
+We toss the coin 50 times and observe
+
+$$
+\boxed{48\text{ heads and }2\text{ tails}.}
+$$
+
+Does the coin still look fair?
+:::
+
+::: notes
+Ask for an immediate reaction before showing any formula. Most students
+will say that 48 heads feels too unusual for a fair coin. The next slide
+turns that reaction into mathematical language.
+
+\[Sources\] - Instructor-developed hypothesis-testing example.
+:::
+
+------------------------------------------------------------------------
+
+## The null hypothesis gives us a reference distribution
+
+Start by temporarily assuming that the coin is fair:
+
+$$
+H_0:p=0.5.
+$$
+
+::: fragment
+Under $H_0$, $X$ counts successes in 50 independent
+$\operatorname{Bernoulli}(0.5)$ trials, so
+
+$$
+X\sim\operatorname{Binomial}(50,0.5).
+$$
+:::
+
+::: fragment
+If $H_0$ is true, values near 25 heads are common. Values near 0 or 50
+heads are rare.
+:::
+
+::: notes
+Say: “We did not begin by proving that the coin is fair. We temporarily
+assumed fairness. This assumption gives us a reference distribution. We
+can now ask whether the observed result is normal or surprising under that
+distribution.”
+
+\[Sources\] - Instructor-developed example using the Binomial distribution.
+:::
+
+------------------------------------------------------------------------
+
+## A very small tail probability makes us doubt $H_0$
+
+We observed $X=48$. Under the fair-coin hypothesis,
+
+$$
+P(X\ge48\mid H_0)
+=\sum_{x=48}^{50}\binom{50}{x}(0.5)^{50}
+\approx1.13\times10^{-12}.
+$$
+
+::: fragment
+The observed result is extremely unlikely under $H_0$.
+:::
+
+::: fragment
+Therefore, we **reject the null hypothesis** that the coin is fair.
+:::
+
+::: fragment
+This is the basic logic of a hypothesis test:
+
+$$
+\begin{aligned}
+\text{assumption}
+&\longrightarrow \text{reference distribution}\\
+&\longrightarrow \text{tail probability}
+\longrightarrow \text{decision}.
+\end{aligned}
+$$
+:::
+
+::: notes
+Say: “The observed result lies in an extremely unlikely tail of the
+reference distribution, so the data give strong evidence against our
+original assumption.”
+
+Emphasize that a low-probability event is not impossible. A hypothesis test
+uses the size of that probability to decide whether the original
+assumption is still credible. The displayed probability is a one-sided
+tail probability; a two-sided test would also count outcomes with at most
+two heads.
+
+\[Sources\] - Instructor-developed example using the Binomial distribution.
+:::
+
+------------------------------------------------------------------------
+
+## An OLS $t$-test asks whether the slope is zero
+
+::: columns
+::: {.column width="44%"}
+Test whether the population slope is zero:
+
+$$
+H_0:\beta_1=0,
+\qquad
+H_1:\beta_1\ne0.
+$$
+
+Statistic:
+
+$$
+t=\frac{\widehat\beta_1-0}
+{SE(\widehat\beta_1)}.
+$$
+
+$SE(\widehat\beta_1)$ measures the uncertainty of $\widehat\beta_1$.
+
+::: fragment
+Large $|t|$ gives evidence against $H_0$.
+:::
+:::
+
+::: {.column width="56%"}
+```{r}
+#| label: plot-ols-t-test
+#| echo: false
+#| fig-align: center
+#| fig-width: 5.6
+#| fig-height: 4.0
+#| out-width: "100%"
+df_t <- 20
+critical_t <- qt(0.975, df = df_t)
+t_grid <- seq(-4.2, 4.2, length.out = 600)
+t_density <- dt(t_grid, df = df_t)
+plot(t_grid, t_density, type = "l", lwd = 3, col = "#2E86C1",
+     xlab = "t statistic", ylab = "Density", yaxt = "n",
+     main = "Two-sided 5% test", bty = "n")
+left <- t_grid <= -critical_t
+right <- t_grid >= critical_t
+polygon(c(t_grid[left], rev(t_grid[left])),
+        c(t_density[left], rep(0, sum(left))),
+        col = adjustcolor("#C0392B", 0.55), border = NA)
+polygon(c(t_grid[right], rev(t_grid[right])),
+        c(t_density[right], rep(0, sum(right))),
+        col = adjustcolor("#C0392B", 0.55), border = NA)
+abline(v = c(-critical_t, critical_t), lty = 2, col = "#555555")
+text(c(-3.0, 3.0), c(0.035, 0.035), c("2.5%", "2.5%"),
+     col = "#9B2C2C", font = 2)
+text(0, 0.08, "Do not reject", col = "#444444")
+```
+:::
+:::
+
+::: notes
+Say: “The null hypothesis says that the population slope is zero. The
+$t$-statistic measures how many standard errors the estimated slope is
+from zero. Under the null hypothesis, values near zero are common. Values
+far into either tail are unusual.”
+
+The graph shows the rejection regions for an illustrative two-sided 5%
+test with 20 degrees of freedom. The $p$-value is the probability, under
+$H_0$, of obtaining a $t$-statistic at least as far from zero as the one we
+observed.
+
+\[Sources\] - Instructor-developed explanation and R figure based on the
+Student $t$ distribution.
+:::
+
+------------------------------------------------------------------------
+
+## Any questions? {.center}
+
+::: notes
+Ask students whether they would like to revisit a probability distribution,
+the OLS derivation, the coin example, or the OLS $t$-test.
+:::
