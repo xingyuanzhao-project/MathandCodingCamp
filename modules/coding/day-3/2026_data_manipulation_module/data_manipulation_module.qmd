@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 4 — Tidyverse Data Manipulation</title>
+---
+title: "Data Manipulation with the Tidyverse"
+subtitle: "EPPS Math & Coding Camp — Module 4"
+format:
+  html:
+    page-layout: full
+    toc: false
+    number-sections: false
+---
+
+```{=html}
 <style>
   :root{
     --navy:#1E2A4A;
@@ -137,8 +142,6 @@
   .navbtn:disabled{opacity:.35; cursor:default;}
   .progress{font-size:13px; color:#8b93ad;}
 </style>
-</head>
-<body>
 
 <div class="deck" id="deck">
 
@@ -824,6 +827,4 @@ write.csv(all_models, "model_comparison.csv", row.names = FALSE)' onclick="copyC
 
   render();
 </script>
-
-</body>
-</html>
+```

@@ -42,7 +42,6 @@ STATIC_ROOT = ROOT / "static"
 MODULES_ROOT = ROOT / "modules"
 MAP_PATH = ROOT / "settings" / "site-map.yml"
 PAGE_SUFFIXES = {".html"}
-DOWNLOAD_SUFFIXES = {".csv", ".xlsx", ".xls", ".pptx"}
 RESOURCE_ATTRIBUTES = {
     "audio": ("src",),
     "embed": ("src",),
@@ -109,6 +108,7 @@ class ResolvedItem:
     label: str
     href: str | None
     css_class: str | None
+    download: bool
 
 
 @dataclass
@@ -387,20 +387,30 @@ def page_href(page: Page) -> str:
 
 def resolve_item(item: Item, pages: dict[str, Page]) -> ResolvedItem:
     if item.target is None:
-        return ResolvedItem(label=item.label, href=None, css_class=None)
+        return ResolvedItem(label=item.label, href=None, css_class=None, download=False)
 
     target = item.target
     if target.startswith("mailto:"):
-        return ResolvedItem(label=item.label, href=target, css_class="upload-link")
+        return ResolvedItem(
+            label=item.label, href=target, css_class="upload-link", download=False
+        )
     if target.startswith(("https://", "http://")):
-        return ResolvedItem(label=item.label, href=target, css_class=None)
+        return ResolvedItem(label=item.label, href=target, css_class=None, download=False)
 
-    suffix = Path(target).suffix.lower()
-    if suffix in PAGE_SUFFIXES:
-        return ResolvedItem(label=item.label, href=page_href(pages[target]), css_class=None)
+    if Path(target).suffix.lower() in PAGE_SUFFIXES:
+        return ResolvedItem(
+            label=item.label,
+            href=page_href(pages[target]),
+            css_class=None,
+            download=False,
+        )
 
-    css_class = "download-link" if suffix in DOWNLOAD_SUFFIXES else None
-    return ResolvedItem(label=item.label, href=static_href(target), css_class=css_class)
+    return ResolvedItem(
+        label=item.label,
+        href=static_href(target),
+        css_class="download-link",
+        download=True,
+    )
 
 
 def resolve_headings(
@@ -660,8 +670,9 @@ def render_leaf(item: ResolvedItem) -> str:
         if item.css_class
         else ""
     )
+    download = " download" if item.download else ""
     return (
-        f'            <li><a href="{html.escape(item.href, quote=True)}"{css}>'
+        f'            <li><a href="{html.escape(item.href, quote=True)}"{css}{download}>'
         f"{html.escape(item.label)}</a></li>"
     )
 

@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 2 — R, RStudio &amp; Data Structures</title>
+---
+title: "R, RStudio & Data Structures"
+subtitle: "EPPS Math & Coding Camp — Module 2"
+format:
+  html:
+    page-layout: full
+    toc: false
+    number-sections: false
+---
+
+```{=html}
 <style>
   :root{
     --navy:#1E2A4A;
@@ -134,8 +139,6 @@
   .navbtn:disabled{opacity:.35; cursor:default;}
   .progress{font-size:13px; color:#8b93ad;}
 </style>
-</head>
-<body>
 
 <div class="deck" id="deck">
 
@@ -628,6 +631,4 @@
 
   render();
 </script>
-
-</body>
-</html>
+```

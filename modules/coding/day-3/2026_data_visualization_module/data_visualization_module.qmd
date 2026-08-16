@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 5 — Data Visualization</title>
+---
+title: "Data Visualization"
+subtitle: "EPPS Math & Coding Camp — Module 5"
+format:
+  html:
+    page-layout: full
+    toc: false
+    number-sections: false
+---
+
+```{=html}
 <style>
   :root{
     --navy:#1E2A4A;
@@ -140,8 +145,6 @@
   .navbtn:disabled{opacity:.35; cursor:default;}
   .progress{font-size:11.5px; color:#8b93ad;}
 </style>
-</head>
-<body>
 
 <div class="deck" id="deck">
 
@@ -693,6 +696,4 @@ ggplot(data = ev, aes(x = Model_Year, y = Electric_Range, color = `Electric Vehi
 
   render();
 </script>
-
-</body>
-</html>
+```
