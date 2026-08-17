@@ -129,3 +129,7 @@ What can AI do for you, as in research?
 ::: fragment
 - AI as *a part of* research methodology
 :::
+
+------------------------------------------------------------------------
+
+## [Return Home](../../../index.html) {.center}

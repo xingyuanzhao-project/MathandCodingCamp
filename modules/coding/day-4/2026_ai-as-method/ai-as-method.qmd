@@ -464,3 +464,7 @@ digraph triangle {
 ::: fragment
 AI outputs are not considered as the ground truth. It is human's responsibility to validate them.
 :::
+
+------------------------------------------------------------------------
+
+## [Return Home](../../../index.html) {.center}

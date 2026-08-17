@@ -508,3 +508,7 @@ Which response is better given the prompt?
 ::: fragment
 - Letting AI certify its own claims
 :::
+
+------------------------------------------------------------------------
+
+## [Return Home](../../../index.html) {.center}
